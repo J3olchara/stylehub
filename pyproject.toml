@@ -1,0 +1,30 @@
+[tool.black]
+line-length = 79
+skip-string-normalization = true
+exclude = "migrations|venv"
+
+[tool.isort]
+profile = "black"
+known_local_folder=['auth', 'chat', 'clothes', 'core', 'custom', 'home', 'stats']
+skip = [".gitignore", "README.md", "requirements", "example.env", "information", ".github"]
+skip_glob = ["*/migrations", "*/venv", "*/requirements", "*/templates"]
+
+[tool.mypy]
+mypy_path = "./stylehub"
+ignore_missing_imports = true
+python_version = 3.9
+disallow_untyped_defs = true
+disable_error_code = ['misc',]
+exclude = "env.*|venv.*|migrations.*|tests.py"
+plugins = "mypy_django_plugin.main"
+strict = true
+explicit_package_bases = true
+disallow_any_decorated = false
+
+[tool.django-stubs]
+django_settings_module = "stylehub.settings"
+
+[tool.pylint]
+disable = ["C0415"]
+recursive = true
+ignore = ['venv']
