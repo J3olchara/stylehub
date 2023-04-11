@@ -28,6 +28,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'not_secret_key')
 DEBUG = get_env_bool('DJANGO_DEBUG')
 ALLOWED_HOSTS = os.getenv('DJANGO_HOSTS', '').split()
 
+AUTH_USER_MODEL = 'user_auth.User'
+
 
 # Application definition
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'custom.apps.CustomConfig',
     'home.apps.HomeConfig',
+    'market.apps.MarketConfig',
     'stats.apps.StatsConfig',
     'django_cleanup.apps.CleanupConfig',
     'sorl.thumbnail',
