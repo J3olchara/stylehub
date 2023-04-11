@@ -1,9 +1,10 @@
 """models for auth"""
 from typing import Any, Union
 
-import market.models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+import market.models
 
 
 class User(AbstractUser):
