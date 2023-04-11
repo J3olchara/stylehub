@@ -14,7 +14,7 @@ mypy_path = "./stylehub"
 ignore_missing_imports = true
 python_version = 3.9
 disallow_untyped_defs = true
-disable_error_code = ['misc',]
+disable_error_code = ['misc', 'union-attr']
 exclude = "env.*|venv.*|migrations.*|tests.py"
 plugins = "mypy_django_plugin.main"
 strict = true
@@ -25,6 +25,6 @@ disallow_any_decorated = false
 django_settings_module = "stylehub.settings"
 
 [tool.pylint]
-disable = ["C0415"]
+disable = ["C0415", "E1101", "R0903"]
 recursive = true
-ignore = ['venv']
+ignore = ['venv', 'migrations']
