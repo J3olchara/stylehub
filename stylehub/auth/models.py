@@ -19,7 +19,7 @@ class User(AbstractUser):
         models.query.QuerySet[market.models.CategoryExtended],
         'models.ForeignKey[Any, Any]',
     ] = models.ForeignKey(
-        verbose_name='Последняя посещённая категория',
+        verbose_name='последняя посещённая категория',
         to=market.models.CategoryExtended,
         on_delete=models.SET_NULL,
         null=True,
@@ -29,10 +29,61 @@ class User(AbstractUser):
         models.query.QuerySet[market.models.Style],
         'models.ManyToManyField[Any, Any]',
     ] = models.ManyToManyField(
-        verbose_name='Последние пять посещённых стилей', to=market.models.Style
+        verbose_name='последние пять посещённых стилей', to=market.models.Style
     )
 
     def clean(self) -> None:
         if self.last_styles.count() > 5:
             self.last_styles = self.last_styles[-5:]
         return super().clean()
+
+
+class Designer(models.Model):
+    """
+    This model correspond Designers
+
+    user: User key, shows with what user related designer
+    avatar: models.ImageField - Image, which shows on designers avatar
+    background: models.ImageField - Image, which users see on background
+                designer profile
+    text: models.TextField - Textfield where is designer write information
+          about himself
+    balance: models.IntegerField - Int value, which shows how many money our
+             site owe to designer
+    """
+
+    user: Union[
+        User,
+        'models.OneToOneField[Any, Any]'
+    ] = models.OneToOneField(
+        to=User,
+        on_delete=models.CASCADE
+    )
+
+    avatar: models.ImageField = models.ImageField(
+        verbose_name='аватарка дизайнера',
+        upload_to='designers/avatars',
+        null=True,
+        blank=True,
+    )
+
+    backgroound: models.ImageField = models.ImageField(
+        verbose_name='картинка на заднем фоне в профиле дизайнера',
+        upload_to='designers/backgrounds',
+        null=True,
+        blank=True,
+    )
+
+    text: models.TextField = models.TextField(
+        verbose_name='информация о дизайнере',
+        help_text='введите информацию о себе',
+        blank=True,
+        null=True,
+    )
+    balance: models.IntegerField = models.IntegerField(
+        verbose_name='знаечение баланса дизайнера', default=0
+    )
+
+    class Meta:
+        verbose_name = 'дизайнер'
+        verbose_name_plural = 'дизайнеры'
