@@ -33,7 +33,6 @@ class User(AbstractUser):
     ] = models.ManyToManyField(
         verbose_name='последние пять посещённых стилей',
         to=market.models.Style,
-        null=True,
         blank=True,
     )
 
@@ -52,7 +51,7 @@ class User(AbstractUser):
         return super().clean()
 
 
-class Designer(models.Model):
+class DesignerProfile(models.Model):
     """
     This model correspond Designers
 
@@ -70,14 +69,14 @@ class Designer(models.Model):
         to=User, on_delete=models.CASCADE
     )
 
-    avatar = models.ImageField(
+    avatar: 'models.ImageField' = models.ImageField(
         verbose_name='аватарка дизайнера',
         upload_to='designers/avatars',
         null=True,
         blank=True,
     )
 
-    backgroound = models.ImageField(
+    backgroound: 'models.ImageField' = models.ImageField(
         verbose_name='картинка на заднем фоне в профиле дизайнера',
         upload_to='designers/backgrounds',
         null=True,

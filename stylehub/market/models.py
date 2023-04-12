@@ -1,7 +1,10 @@
 """Market models"""
+from typing import Any, Union
+
 from django.db import models
 
 import core.models
+import market.utils
 
 
 class Style(core.models.BaseCreature):
@@ -16,7 +19,7 @@ class Style(core.models.BaseCreature):
     text: string. style describing.
     """
 
-    text = models.TextField(
+    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='описание стиля',
         help_text='Опишите стиль, добавьте интересные факты',
         blank=True,
@@ -94,11 +97,21 @@ class Collection(core.models.BaseCreature):
     edited: datetime. Editing datetime.
     style: ManyToManyField market.models.Style
     text: TextField - collection description
+    designer: ForeignKey - to user_auth.User
     """
 
     style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
 
-    text = models.TextField(verbose_name='описание коллекции')
+    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+        verbose_name='описание коллекции'
+    )
+
+    designer = models.ForeignKey(
+        to='user_auth.User',
+        on_delete=models.CASCADE,
+        verbose_name='дизайнер коллекции',
+        help_text='Укажите кто создал эту коллекцию',
+    )
 
 
 class Item(core.models.BaseCreature):
@@ -115,17 +128,15 @@ class Item(core.models.BaseCreature):
     text: TextField - item description
     category: ForeignKey to market.models.Category
     styles: ManyToManyField market.models.Style
-    collection: ManyToManyField market.models.Collection
+    collection: ManyToOneField(ForeignKey) market.models.Collection
 
     """
 
-    designer = models.ForeignKey(
-        to='user_auth.Designer', on_delete=models.CASCADE
-    )
+    designer = models.ForeignKey(to='user_auth.User', on_delete=models.CASCADE)
 
     main_image = models.ImageField(
         verbose_name='основная картинка товара',
-        upload_to='items/main_images',
+        upload_to=market.utils.get_upload_location,
         null=True,
         blank=True,
     )
@@ -155,8 +166,9 @@ class Item(core.models.BaseCreature):
         help_text='указывает к какому стилю принадлежит товар',
     )
 
-    collection = models.ManyToManyField(
+    collection = models.ForeignKey(
         to=Collection,
+        on_delete=models.CASCADE,
         verbose_name='коллекции, в которых есть этот товар',
         help_text='показывает участвует ли товар в каких-либо коллекциях',
     )
@@ -171,8 +183,9 @@ class ItemPicture(models.Model):
 
     picture = models.ImageField(verbose_name='изображение', help_text='')
 
-    item = models.ManyToManyField(
+    item = models.ForeignKey(
         to=Item,
+        on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
     )

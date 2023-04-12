@@ -4,19 +4,19 @@ from typing import TYPE_CHECKING
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from auth.models import Designer, User
+from auth.models import DesignerProfile, User
 
 admin.site.register(User, UserAdmin)
 
 
 if TYPE_CHECKING:
-    DesignerBaseAdmin = admin.ModelAdmin[Designer]
+    DesignerBaseAdmin = admin.ModelAdmin[DesignerProfile]
 else:
     DesignerBaseAdmin = admin.ModelAdmin
 
 
-@admin.register(Designer)
-class DesignerAdmin(DesignerBaseAdmin):
+@admin.register(DesignerProfile)
+class DesignerProfileAdmin(DesignerBaseAdmin):
     """class for see Designer model in Admin"""
 
     pass
