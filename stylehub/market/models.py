@@ -81,3 +81,100 @@ class CategoryBase(core.models.BaseCreature):
             core.models.BaseCreature.created.field.name,
             core.models.BaseCreature.name.field.name,
         )
+
+
+class Collection(core.models.BaseCreature):
+    """
+    category model for items category
+    describes item base category: hoodie -> top wear,
+    pants -> bottom wear and other.
+
+    name: char[50]. Creature name.
+    slug: char[50]. creature normalized name.
+    created: datetime. Creation datetime.
+    edited: datetime. Editing datetime.
+    style: ManyToManyField market.models.Style
+    text: TextField - collection description
+    """
+
+    style = models.ManyToManyField(Style, verbose_name=('стиль коллекции'))
+
+    text = models.TextField(
+        verbose_name='описание коллекции'
+    )
+
+
+class Item(models.Model):
+
+    designer = models.ForeignKey(
+        to='user_auth.Designer',
+        on_delete=models.CASCADE
+    )
+
+    main_image = models.ImageField(
+        verbose_name='основная картинка товара',
+        upload_to='items/main_images',
+        null=True,
+        blank=True
+    )
+
+    cost = models.PositiveBigIntegerField(
+        verbose_name='стоимость товара',
+        help_text='добавьте стоимость вашего товара'
+    )
+
+    text = models.TextField(
+        verbose_name='описание товара',
+        help_text='опишите ваш товар',
+        null=True,
+        blank=True
+    )
+
+    category = models.ForeignKey(
+        to=CategoryExtended,
+        on_delete=models.CASCADE,
+        verbose_name='категория товара',
+        help_text='указывает на категорию, к которой относится товар'
+    )
+
+    styles = models.ManyToManyField(
+        to=Style,
+        verbose_name='стиль товара',
+        help_text='указывает к какому стилю принадлежит товар'
+    )
+
+    collection = models.ManyToManyField(
+        to=Collection,
+        verbose_name='коллекции, в которых есть этот товар',
+        help_text='показывает участвует ли товар в каких-либо коллекциях'
+    )
+
+    created = models.DateTimeField(
+        verbose_name='время добавления на сайт',
+        help_text='Автоматически выставляется при создании',
+        auto_now_add=True,
+        blank=False,
+        null=False,
+
+    )
+
+    edited = models.DateTimeField(
+        verbose_name='время и дата последнего изменения товара',
+        help_text='Автоматически выставляется при изменении объекта',
+        auto_now=True,
+        blank=False,
+        null=False,
+    )
+
+
+class ItemPicture(models.Model):
+    picture = models.ImageField(
+        verbose_name='изображение',
+        help_text=''
+        )
+
+    item = models.ManyToManyField(
+        to=Item,
+        verbose_name='галерея изображений товара',
+        help_text='добавьте как можно болеее информативные фотографии'
+    )
