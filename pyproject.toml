@@ -25,7 +25,7 @@ disallow_any_decorated = false
 django_settings_module = "stylehub.settings"
 
 [tool.pylint]
-max-line-lengt = 79
+max-line-length = 79
 recursive = true
 fail-under = 10.0
 exit-zero = true
