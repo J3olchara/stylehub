@@ -96,7 +96,7 @@ class Collection(core.models.BaseCreature):
     text: TextField - collection description
     """
 
-    style = models.ManyToManyField(Style, verbose_name=('стиль коллекции'))
+    style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
 
     text = models.TextField(verbose_name='описание коллекции')
 
@@ -168,10 +168,8 @@ class ItemPicture(models.Model):
     picture: ImageField one of many item picture
     item: ManyToManyField shows for what item this picture
     """
-    picture = models.ImageField(
-        verbose_name='изображение',
-        help_text=''
-    )
+
+    picture = models.ImageField(verbose_name='изображение', help_text='')
 
     item = models.ManyToManyField(
         to=Item,
