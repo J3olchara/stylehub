@@ -3,8 +3,8 @@ from typing import Any, Union
 
 from django.db import models
 
-import utils.functions
 import core.models
+import utils.functions
 
 
 class Style(core.models.BaseCreature):

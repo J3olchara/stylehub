@@ -3,10 +3,10 @@
 from datetime import datetime
 from typing import Any, Union
 
-import utils.functions
 from django.db import models
 
 import auth.models
+import utils.functions
 
 
 class Messages(models.Model):
