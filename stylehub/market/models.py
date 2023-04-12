@@ -85,9 +85,8 @@ class CategoryBase(core.models.BaseCreature):
 
 class Collection(core.models.BaseCreature):
     """
-    category model for items category
-    describes item base category: hoodie -> top wear,
-    pants -> bottom wear and other.
+    category model for items collection
+    describes item base collection: Haute Couture for example
 
     name: char[50]. Creature name.
     slug: char[50]. creature normalized name.
@@ -102,7 +101,23 @@ class Collection(core.models.BaseCreature):
     text = models.TextField(verbose_name='описание коллекции')
 
 
-class Item(models.Model):
+class Item(core.models.BaseCreature):
+    """
+    Item models
+
+    name: char[50]. Creature name.
+    slug: char[50]. creature normalized name.
+    created: datetime. Creation datetime.
+    edited: datetime. Editing datetime.
+    designer: ForeignKey to auth.models.designer
+    main_image: ImageField - image to describe main idea of item
+    cost: PositiveBigIntegerField - describe how many this item cost
+    text: TextField - item description
+    category: ForeignKey to market.models.Category
+    styles: ManyToManyField market.models.Style
+    collection: ManyToManyField market.models.Collection
+
+    """
 
     designer = models.ForeignKey(
         to='user_auth.Designer', on_delete=models.CASCADE
@@ -146,25 +161,17 @@ class Item(models.Model):
         help_text='показывает участвует ли товар в каких-либо коллекциях',
     )
 
-    created = models.DateTimeField(
-        verbose_name='время добавления на сайт',
-        help_text='Автоматически выставляется при создании',
-        auto_now_add=True,
-        blank=False,
-        null=False,
-    )
-
-    edited = models.DateTimeField(
-        verbose_name='время и дата последнего изменения товара',
-        help_text='Автоматически выставляется при изменении объекта',
-        auto_now=True,
-        blank=False,
-        null=False,
-    )
-
 
 class ItemPicture(models.Model):
-    picture = models.ImageField(verbose_name='изображение', help_text='')
+    """
+    models realise pictures gallery for item
+    picture: ImageField one of many item picture
+    item: ManyToManyField shows for what item this picture
+    """
+    picture = models.ImageField(
+        verbose_name='изображение',
+        help_text=''
+    )
 
     item = models.ManyToManyField(
         to=Item,
