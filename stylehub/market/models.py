@@ -99,54 +99,51 @@ class Collection(core.models.BaseCreature):
 
     style = models.ManyToManyField(Style, verbose_name=('стиль коллекции'))
 
-    text = models.TextField(
-        verbose_name='описание коллекции'
-    )
+    text = models.TextField(verbose_name='описание коллекции')
 
 
 class Item(models.Model):
 
     designer = models.ForeignKey(
-        to='user_auth.Designer',
-        on_delete=models.CASCADE
+        to='user_auth.Designer', on_delete=models.CASCADE
     )
 
     main_image = models.ImageField(
         verbose_name='основная картинка товара',
         upload_to='items/main_images',
         null=True,
-        blank=True
+        blank=True,
     )
 
     cost = models.PositiveBigIntegerField(
         verbose_name='стоимость товара',
-        help_text='добавьте стоимость вашего товара'
+        help_text='добавьте стоимость вашего товара',
     )
 
     text = models.TextField(
         verbose_name='описание товара',
         help_text='опишите ваш товар',
         null=True,
-        blank=True
+        blank=True,
     )
 
     category = models.ForeignKey(
         to=CategoryExtended,
         on_delete=models.CASCADE,
         verbose_name='категория товара',
-        help_text='указывает на категорию, к которой относится товар'
+        help_text='указывает на категорию, к которой относится товар',
     )
 
     styles = models.ManyToManyField(
         to=Style,
         verbose_name='стиль товара',
-        help_text='указывает к какому стилю принадлежит товар'
+        help_text='указывает к какому стилю принадлежит товар',
     )
 
     collection = models.ManyToManyField(
         to=Collection,
         verbose_name='коллекции, в которых есть этот товар',
-        help_text='показывает участвует ли товар в каких-либо коллекциях'
+        help_text='показывает участвует ли товар в каких-либо коллекциях',
     )
 
     created = models.DateTimeField(
@@ -155,7 +152,6 @@ class Item(models.Model):
         auto_now_add=True,
         blank=False,
         null=False,
-
     )
 
     edited = models.DateTimeField(
@@ -168,13 +164,10 @@ class Item(models.Model):
 
 
 class ItemPicture(models.Model):
-    picture = models.ImageField(
-        verbose_name='изображение',
-        help_text=''
-        )
+    picture = models.ImageField(verbose_name='изображение', help_text='')
 
     item = models.ManyToManyField(
         to=Item,
         verbose_name='галерея изображений товара',
-        help_text='добавьте как можно болеее информативные фотографии'
+        help_text='добавьте как можно болеее информативные фотографии',
     )
