@@ -13,6 +13,7 @@ class User(AbstractUser):
 
     last_category: market.models.Category. Last seen user category.
     last_styles: market.models.category[:5]. Five last seen styles.
+    is_designer: bool. user is designer?
     """
 
     last_category: Union[
@@ -25,11 +26,24 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
+
     last_styles: Union[
         models.query.QuerySet[market.models.Style],
         'models.ManyToManyField[Any, Any]',
     ] = models.ManyToManyField(
-        verbose_name='Последние пять посещённых стилей', to=market.models.Style
+        verbose_name='Последние пять посещённых стилей',
+        to=market.models.Style,
+        null=True,
+        blank=True,
+    )
+
+    is_designer: 'models.BooleanField[Union[bool, Any], bool]' = (
+        models.BooleanField(
+            verbose_name='пользователь дизайнер?',
+            help_text='Отвечает на вопрос, пользователь является '
+            'дизайнером или нет?',
+            default=False,
+        )
     )
 
     def clean(self) -> None:
