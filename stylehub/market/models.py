@@ -149,8 +149,7 @@ class OrderCustom(models.Model):
         null=False,
     )
     designer: Union[
-        'auth.models.User',
-        'models.ForeignKey[Any, Any]'
+        'auth.models.User', 'models.ForeignKey[Any, Any]'
     ] = models.ForeignKey(
         auth.models.User,
         verbose_name='дизайнер',
@@ -189,16 +188,13 @@ class OrderPicture(models.Model):
     order: id FK -> OrderCustom
     """
 
-    picture: Union[
-        'models.ImageField[Any, Any]',
-    ] = models.ImageField(
+    picture: Union['models.ImageField[Any, Any]',] = models.ImageField(
         verbose_name='изображение',
         help_text='Изображение желаемого дизайна',
         upload_to='/media/uploads/order_pictures',
     )
     order: Union[
-        'OrderCustom',
-        'models.ForeignKey[Any, Any]'
+        'OrderCustom', 'models.ForeignKey[Any, Any]'
     ] = models.ForeignKey(
         OrderCustom,
         verbose_name='заказ',
