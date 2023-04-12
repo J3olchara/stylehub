@@ -191,3 +191,18 @@ class ItemPicture(models.Model):
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
     )
+
+
+class Cart(core.models.CreatedEdited):
+    """
+    User cart to stash chosen items
+
+    created: datetime. creation datetime
+    edited: datetime. editing datetime
+    items: QuerySet[market.models.Item]. chosen items
+    """
+    items = models.ManyToManyField(
+        verbose_name='предметы в корзине',
+        help_text='Предметы, которые пользователь добавил в корзину',
+        to='Item',
+    )
