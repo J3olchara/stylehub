@@ -52,12 +52,8 @@ class Designer(models.Model):
              site owe to designer
     """
 
-    user: Union[
-        User,
-        'models.OneToOneField[Any, Any]'
-    ] = models.OneToOneField(
-        to=User,
-        on_delete=models.CASCADE
+    user: Union[User, 'models.OneToOneField[Any, Any]'] = models.OneToOneField(
+        to=User, on_delete=models.CASCADE
     )
 
     avatar: models.ImageField = models.ImageField(
