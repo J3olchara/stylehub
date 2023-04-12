@@ -56,27 +56,27 @@ class Designer(models.Model):
         to=User, on_delete=models.CASCADE
     )
 
-    avatar: models.ImageField = models.ImageField(
+    avatar = models.ImageField(
         verbose_name='аватарка дизайнера',
         upload_to='designers/avatars',
         null=True,
         blank=True,
     )
 
-    backgroound: models.ImageField = models.ImageField(
+    backgroound = models.ImageField(
         verbose_name='картинка на заднем фоне в профиле дизайнера',
         upload_to='designers/backgrounds',
         null=True,
         blank=True,
     )
 
-    text: models.TextField = models.TextField(
+    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='информация о дизайнере',
         help_text='введите информацию о себе',
         blank=True,
         null=True,
     )
-    balance: models.IntegerField = models.IntegerField(
+    balance: Union[int, 'models.IntegerField[Any, Any]'] = models.IntegerField(
         verbose_name='знаечение баланса дизайнера', default=0
     )
 
