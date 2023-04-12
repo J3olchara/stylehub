@@ -26,9 +26,10 @@ class Messages(models.Model):
         'models.ForeignKey[Any, Any]',
     ] = models.ForeignKey(
         to=auth.models.User,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name='пользователь отправивший сообщение',
         help_text='какому пользователю принадлежит сообщение',
+        related_name='users_messages'
     )
 
     designer: Union[
@@ -36,9 +37,10 @@ class Messages(models.Model):
         'models.ForeignKey[Any, Any]',
     ] = models.ForeignKey(
         to=auth.models.User,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name='дизайнер отправивший сообщение',
         help_text='какому дизайнеру принадлежит сообщение',
+        related_name='designers_messgaes'
     )
 
     image: Union[Any, 'models.ImageField'] = models.ImageField(
