@@ -1,9 +1,9 @@
 """Market models"""
 from typing import Any, Union
 
-import utils.functions
 from django.db import models
 
+import utils.functions
 import core.models
 
 
