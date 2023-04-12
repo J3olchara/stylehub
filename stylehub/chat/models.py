@@ -29,7 +29,7 @@ class Messages(models.Model):
         on_delete=models.CASCADE,
         verbose_name='пользователь отправивший сообщение',
         help_text='какому пользователю принадлежит сообщение',
-        related_name='users_messages'
+        related_name='users_messages',
     )
 
     designer: Union[
@@ -40,7 +40,7 @@ class Messages(models.Model):
         on_delete=models.CASCADE,
         verbose_name='дизайнер отправивший сообщение',
         help_text='какому дизайнеру принадлежит сообщение',
-        related_name='designers_messgaes'
+        related_name='designers_messgaes',
     )
 
     image: Union[Any, 'models.ImageField'] = models.ImageField(
