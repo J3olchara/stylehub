@@ -1,4 +1,6 @@
 """Market models"""
+from typing import Union, Any
+
 from django.db import models
 
 import core.models
@@ -16,7 +18,7 @@ class Style(core.models.BaseCreature):
     text: string. style describing.
     """
 
-    text = models.TextField(
+    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='описание стиля',
         help_text='Опишите стиль, добавьте интересные факты',
         blank=True,
@@ -43,7 +45,7 @@ class CategoryExtended(core.models.BaseCreature):
     edited: datetime. Editing datetime.
     """
 
-    category_base = models.ForeignKey(
+    category_base: Union['CategoryBase', 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         verbose_name='базовая категория вещи',
         help_text=(
             'Объясните способ носки вещи: '
