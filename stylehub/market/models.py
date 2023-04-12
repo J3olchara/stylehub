@@ -111,7 +111,7 @@ class Collection(core.models.BaseCreature):
         verbose_name='описание коллекции'
     )
 
-    designer: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ForeignKey(
+    designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         to='user_auth.User',
         on_delete=models.CASCADE,
         verbose_name='дизайнер коллекции',
