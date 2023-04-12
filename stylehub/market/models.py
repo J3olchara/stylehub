@@ -1,10 +1,10 @@
 """Market models"""
 from typing import Any, Union
 
+import utils.functions
 from django.db import models
 
 import core.models
-import market.utils
 
 
 class Style(core.models.BaseCreature):
@@ -102,13 +102,16 @@ class Collection(core.models.BaseCreature):
     designer: ForeignKey - to user_auth.User
     """
 
-    style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
+    style: Union[
+        models.query.QuerySet[Style],
+        'models.ManyToManyField[Any, Any]',
+    ] = models.ManyToManyField(Style, verbose_name='стиль коллекции')
 
     text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='описание коллекции'
     )
 
-    designer = models.ForeignKey(
+    designer: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ForeignKey(
         to='user_auth.User',
         on_delete=models.CASCADE,
         verbose_name='дизайнер коллекции',
@@ -134,41 +137,55 @@ class Item(core.models.BaseCreature):
 
     """
 
-    designer = models.ForeignKey(to='user_auth.User', on_delete=models.CASCADE)
+    designer: Union[
+        Any,
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(to='user_auth.User', on_delete=models.CASCADE)
 
-    main_image = models.ImageField(
+    main_image: Union[Any, 'models.ImageField'] = models.ImageField(
         verbose_name='основная картинка товара',
-        upload_to=market.utils.get_upload_location,
+        upload_to=utils.functions.get_upload_location,
         null=True,
         blank=True,
     )
 
-    cost = models.PositiveBigIntegerField(
+    cost: Union[
+        int, 'models.PositiveBigIntegerField[Any, Any]'
+    ] = models.PositiveBigIntegerField(
         verbose_name='стоимость товара',
         help_text='добавьте стоимость вашего товара',
     )
 
-    text = models.TextField(
+    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='описание товара',
         help_text='опишите ваш товар',
         null=True,
         blank=True,
     )
 
-    category = models.ForeignKey(
+    category: Union[
+        models.query.QuerySet[CategoryExtended],
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(
         to=CategoryExtended,
         on_delete=models.CASCADE,
         verbose_name='категория товара',
         help_text='указывает на категорию, к которой относится товар',
     )
 
-    styles = models.ManyToManyField(
+    styles: Union[
+        models.query.QuerySet[Style],
+        'models.ManyToManyField[Any, Any]',
+    ] = models.ManyToManyField(
         to=Style,
         verbose_name='стиль товара',
         help_text='указывает к какому стилю принадлежит товар',
     )
 
-    collection = models.ForeignKey(
+    collection: Union[
+        models.query.QuerySet[Collection],
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(
         to=Collection,
         on_delete=models.CASCADE,
         verbose_name='коллекции, в которых есть этот товар',
@@ -183,9 +200,16 @@ class ItemPicture(models.Model):
     item: ManyToManyField shows for what item this picture
     """
 
-    picture = models.ImageField(verbose_name='изображение', help_text='')
+    picture: Union[Any, 'models.ImageField'] = models.ImageField(
+        verbose_name='изображение',
+        help_text='изображение для галерии товара',
+        upload_to=utils.functions.get_upload_location,
+    )
 
-    item = models.ForeignKey(
+    item: Union[
+        models.query.QuerySet[Item],
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',

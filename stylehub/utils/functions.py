@@ -1,4 +1,4 @@
-"""utils for market app"""
+"""functions which are using in all project"""
 from typing import Any
 from uuid import uuid4
 
@@ -7,6 +7,7 @@ from django.conf import settings
 path_mapping = {
     'Item': 'uploads/items/main_images',
     'ItemPicture': 'uploads/items/items_gallery',
+    'Messages': 'uploads/chat/messages',
 }
 
 
