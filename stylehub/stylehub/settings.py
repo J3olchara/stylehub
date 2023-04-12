@@ -137,7 +137,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static_dev/'
+
+# Media files path
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 
