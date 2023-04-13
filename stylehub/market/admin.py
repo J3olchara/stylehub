@@ -3,9 +3,17 @@
 from django.contrib import admin
 
 import market.models
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    BaseInline = admin.StackedInline[market.models.OrderPicture, Any]
+    BaseModel = admin.ModelAdmin[market.models.OrderCustom]
+else:
+    BaseInline = admin.StackedInline
+    BaseModel = admin.ModelAdmin
 
 
-class OrderPictureInline(admin.StackedInline):  # type: ignore[type-arg]
+class OrderPictureInline(BaseInline):
     """
     Allows picture to be added to order`s admin panel
     """
@@ -14,7 +22,7 @@ class OrderPictureInline(admin.StackedInline):  # type: ignore[type-arg]
 
 
 @admin.register(market.models.OrderCustom)
-class OrderCustomAdmin(admin.ModelAdmin):  # type: ignore[type-arg]
+class OrderCustomAdmin(BaseModel):
     """
     Admin model order table
     """
