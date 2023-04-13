@@ -25,7 +25,7 @@ def get_item_main_image_location(instance: Any, filename: str) -> str:
     return str(settings.MEDIA_ROOT / path / designer / name)
 
 
-def get_message_image_upload_location(instance: Any, filename: str) -> str:
+def get_message_image_upload_location(filename: str, **kwargs) -> str:
     """
     Returns directory to upload file from ItemPicture(image)
     """
