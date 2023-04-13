@@ -365,15 +365,15 @@ class OrderClothes(core.models.CreatedEdited):
         on_delete=models.SET_NULL,
         null=True,
     )
-    sum: Any = models.IntegerField(
+    sum = models.IntegerField(
         verbose_name='общая стоимость заказа',
         null=False,
         blank=False,
     )
-    item: Any = models.ForeignKey(
+    item = models.ForeignKey(
         to='Item', on_delete=models.PROTECT, verbose_name='Заказанная вещь'
     )
-    status: Any = models.CharField(
+    status = models.CharField(
         max_length=127,
         choices=statuses,
         default='0',
@@ -391,21 +391,8 @@ class Cart(core.models.CreatedEdited):
     items: QuerySet[market.models.Item]. chosen items
     """
 
-    user = models.OneToOneField(
-        related_name='cart_user',
-        verbose_name='пользователь',
-        to='user_auth.User',
-        on_delete=models.CASCADE,
-    )
-
     items = models.ManyToManyField(
         verbose_name='предметы в корзине',
         help_text='Предметы, которые пользователь добавил в корзину',
         to='Item',
     )
-
-    class Meta:
-        """Cart model settings"""
-
-        verbose_name = 'Корзина пользователя'
-        verbose_name_plural = 'Корзины пользователей'
