@@ -23,6 +23,7 @@ class CreatedEdited(models.Model):
     edited: Union[datetime, Any] = models.DateTimeField(
         verbose_name='дата и время редактирования',
         help_text='Когда объект в последний раз редактировали',
+        auto_now=True,
     )
 
     class Meta:
