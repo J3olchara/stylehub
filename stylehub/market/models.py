@@ -190,7 +190,7 @@ class OrderPicture(models.Model):
     order: id FK -> OrderCustom
     """
 
-    picture: Union['models.ImageField[Any, Any]',] = models.ImageField(
+    picture: Union['models.ImageField',] = models.ImageField(
         verbose_name='изображение',
         help_text='Изображение желаемого дизайна',
         upload_to='media/uploads/order_pictures',

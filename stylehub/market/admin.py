@@ -5,7 +5,7 @@ from django.contrib import admin
 import market.models
 
 
-class OrderPictureInline(admin.StackedInline):
+class OrderPictureInline(admin.StackedInline):  # type: ignore[type-arg]
     """
     Allows picture to be added to order`s admin panel
     """
@@ -27,6 +27,4 @@ class OrderCustomAdmin(admin.ModelAdmin):  # type: ignore[type-arg]
     inlines = [
         OrderPictureInline,
     ]
-    list_editable = (
-        market.models.OrderCustom.header.field.name,
-    )
+    list_editable = (market.models.OrderCustom.header.field.name,)
