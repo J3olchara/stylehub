@@ -5,6 +5,7 @@ write your model tests here
 """
 from django.test import TestCase
 
+import market.models
 from auth.models import User
 
 
@@ -24,13 +25,15 @@ class TestUser(TestCase):
         test_username = 'ILOVEDANILAEREMIN'
         e_mail = 'google_danila@gmail.com'
         user = User.objects.create_user(username=test_username, email=e_mail)
-        self.assertTrue(user.cart)
+        cart = market.models.Cart.objects.get(user=user)
+        self.assertTrue(cart)
         test_username = 'ILOVEDANILAEREMIN1'
         e_mail = 'google_danila1@gmail.com'
         superuser = User.objects.create_superuser(
             username=test_username, email=e_mail
         )
-        self.assertTrue(superuser.cart)
+        cart = market.models.Cart.objects.get(user=superuser)
+        self.assertTrue(cart)
 
     def test_make_designer(self):
         """testing that user can to be designer"""
