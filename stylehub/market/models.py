@@ -6,7 +6,7 @@ from django.db import models
 
 import auth.models
 import core.models
-import market.utils
+import utils.functions
 
 
 class Style(core.models.BaseCreature):
@@ -222,13 +222,16 @@ class Collection(core.models.BaseCreature):
     designer: ForeignKey - to user_auth.User
     """
 
-    style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
+    style: Union[
+        models.query.QuerySet[Style],
+        'models.ManyToManyField[Any, Any]',
+    ] = models.ManyToManyField(Style, verbose_name='стиль коллекции')
 
     text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='описание коллекции'
     )
 
-    designer = models.ForeignKey(
+    designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         to='user_auth.User',
         on_delete=models.CASCADE,
         verbose_name='дизайнер коллекции',
@@ -260,9 +263,9 @@ class Item(core.models.BaseCreature):
         on_delete=models.CASCADE,
     )
 
-    main_image = models.ImageField(
+    main_image: Union[Any, 'models.ImageField'] = models.ImageField(
         verbose_name='основная картинка товара',
-        upload_to=market.utils.get_upload_location,
+        upload_to=utils.functions.get_item_main_image_location,
         null=True,
         blank=True,
     )
@@ -272,7 +275,7 @@ class Item(core.models.BaseCreature):
         help_text='добавьте стоимость вашего товара',
     )
 
-    text = models.TextField(
+    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='описание товара',
         help_text='опишите ваш товар',
         null=True,
@@ -294,7 +297,10 @@ class Item(core.models.BaseCreature):
         help_text='указывает к какому стилю принадлежит товар',
     )
 
-    collection = models.ForeignKey(
+    collection: Union[
+        models.query.QuerySet[Collection],
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(
         to=Collection,
         on_delete=models.CASCADE,
         verbose_name='коллекции, в которых есть этот товар',
@@ -309,9 +315,16 @@ class ItemPicture(models.Model):
     item: ManyToManyField shows for what item this picture
     """
 
-    picture = models.ImageField(verbose_name='изображение', help_text='')
+    picture: Union[Any, 'models.ImageField'] = models.ImageField(
+        verbose_name='изображение',
+        help_text='изображение для галерии товара',
+        upload_to=utils.functions.get_item_images_upload_location,
+    )
 
-    item = models.ForeignKey(
+    item: Union[
+        models.query.QuerySet[Item],
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',

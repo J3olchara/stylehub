@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import market.utils
+import utils.functions
 
 
 class Migration(migrations.Migration):
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(help_text='Нормализованное имя', unique=True, verbose_name='слаг')),
                 ('created', models.DateTimeField(auto_now_add=True, help_text='Автоматически выставляется при создании', verbose_name='дата и время создания')),
                 ('edited', models.DateTimeField(auto_now=True, help_text='Автоматически выставляется при изменении объекта', verbose_name='дата и время последнего редактирования')),
-                ('main_image', models.ImageField(blank=True, null=True, upload_to=market.utils.get_upload_location, verbose_name='основная картинка товара')),
+                ('main_image', models.ImageField(blank=True, null=True, upload_to=utils.functions.get_item_main_image_location, verbose_name='основная картинка товара')),
                 ('cost', models.PositiveBigIntegerField(help_text='добавьте стоимость вашего товара', verbose_name='стоимость товара')),
                 ('text', models.TextField(blank=True, help_text='опишите ваш товар', null=True, verbose_name='описание товара')),
                 ('category', models.ForeignKey(help_text='указывает на категорию, к которой относится товар', on_delete=django.db.models.deletion.CASCADE, to='market.categoryextended', verbose_name='категория товара')),
