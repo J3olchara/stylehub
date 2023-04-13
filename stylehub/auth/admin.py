@@ -4,18 +4,18 @@ from typing import TYPE_CHECKING, Any
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as UserAdminBase
 
+import auth.models
 import market.models
-from auth.models import DesignerProfile, User
 
 if TYPE_CHECKING:
-    DesignerBaseAdmin = admin.ModelAdmin[DesignerProfile]
+    DesignerBaseAdmin = admin.ModelAdmin[auth.models.DesignerProfile]
     CartInline = admin.TabularInline[Any, Any]
 else:
     DesignerBaseAdmin = admin.ModelAdmin
     CartInline = admin.TabularInline
 
 
-@admin.register(DesignerProfile)
+@admin.register(auth.models.DesignerProfile)
 class DesignerProfileAdmin(DesignerBaseAdmin):
     """class for see Designer model in Admin"""
 
@@ -29,7 +29,7 @@ class UserCartInline(CartInline):
     can_delete = False
 
 
-@admin.register(User)
+@admin.register(auth.models.User)
 class UserAdmin(UserAdminBase):
     """User admin model"""
 
