@@ -12,6 +12,7 @@ class OrderPictureInline(admin.StackedInline):
 
     model = market.models.OrderPicture
 
+
 @admin.register(market.models.OrderCustom)
 class OrderCustomAdmin(admin.ModelAdmin):  # type: ignore[type-arg]
     """
