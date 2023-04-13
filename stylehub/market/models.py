@@ -113,12 +113,13 @@ class OrderCustom(models.Model):
     user: Union[
         'auth.models.User', 'models.ForeignKey[Any, Any]'
     ] = models.ForeignKey(
-        auth.models.User,
+        to='user_auth.User',
         verbose_name='заказчик',
+        related_name='user',
         help_text='Пользователь, оформивший заказ',
         on_delete=models.SET_NULL,
         blank=False,
-        null=False,
+        null=True,
     )
     max_price: Union[
         int, 'models.IntegerField[Any, Any]'
@@ -151,12 +152,13 @@ class OrderCustom(models.Model):
     designer: Union[
         'auth.models.User', 'models.ForeignKey[Any, Any]'
     ] = models.ForeignKey(
-        auth.models.User,
+        to='user_auth.User',
         verbose_name='дизайнер',
+        related_name='designer',
         help_text='Дизайнер, получивший заказ',
         on_delete=models.SET_NULL,
         blank=False,
-        null=False,
+        null=True,
     )
     created: Union[
         datetime, 'models.DateTimeField[Any, Any]'
@@ -191,7 +193,7 @@ class OrderPicture(models.Model):
     picture: Union['models.ImageField[Any, Any]',] = models.ImageField(
         verbose_name='изображение',
         help_text='Изображение желаемого дизайна',
-        upload_to='/media/uploads/order_pictures',
+        upload_to='media/uploads/order_pictures',
     )
     order: Union[
         'OrderCustom', 'models.ForeignKey[Any, Any]'
@@ -199,5 +201,5 @@ class OrderPicture(models.Model):
         OrderCustom,
         verbose_name='заказ',
         help_text='Номер заказа',
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
