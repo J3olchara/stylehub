@@ -11,7 +11,7 @@ def get_item_images_upload_location(instance: Any, filename: str) -> str:
     """
     path = 'uploads/items'
     designer = str(instance.item.designer__id)
-    name = str(uuid4()) + f'.{filename.split(".")[-1]}'
+    name = str(instance.item__id) + f'.{filename.split(".")[-1]}'
     return str(settings.MEDIA_ROOT / path / designer / name)
 
 
@@ -21,7 +21,7 @@ def get_item_main_image_location(instance: Any, filename: str) -> str:
     """
     path = 'uploads/items'
     designer = str(instance.designer__id)
-    name = 'main_image' + str(uuid4) + f'.{filename.split(".")[-1]}'
+    name = 'main_image' + str(instance.id) + f'.{filename.split(".")[-1]}'
     return str(settings.MEDIA_ROOT / path / designer / name)
 
 
