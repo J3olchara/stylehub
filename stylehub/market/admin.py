@@ -1,6 +1,6 @@
 """market admin models"""
 
-from typing import TYPE_CHECKING, Any
+from typing import Any, TYPE_CHECKING
 
 from django.contrib import admin
 
