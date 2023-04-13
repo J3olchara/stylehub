@@ -29,10 +29,9 @@ class UserManager(UserManagerOld[AbstractUser]):
 
         creates cart for user
         """
-        cart = market.models.Cart.objects.create()
-        return super().create_user(
-            username, email, password, cart=cart, **extra_fields
-        )
+        user = super().create_user(username, email, password, **extra_fields)
+        market.models.Cart.objects.create(user=user)
+        return user
 
     def create_superuser(
         self,
@@ -46,10 +45,11 @@ class UserManager(UserManagerOld[AbstractUser]):
 
         creates cart for superuser
         """
-        cart = market.models.Cart.objects.create()
-        return super().create_superuser(
-            username, email, password, cart=cart, **extra_fields
+        user = super().create_superuser(
+            username, email, password, **extra_fields
         )
+        market.models.Cart.objects.create(user=user)
+        return user
 
 
 class User(AbstractUser):
@@ -88,15 +88,6 @@ class User(AbstractUser):
         unique=True,
     )
 
-    cart: (
-        'models.OneToOneField[Union[market.models.Cart, Combinable], '
-        'market.models.Cart]'
-    ) = models.OneToOneField(
-        verbose_name=_('корзина пользователя'),
-        to=market.models.Cart,
-        on_delete=models.PROTECT,
-    )
-
     last_category: (
         'models.ForeignKey[Union[market.models.CategoryExtended, '
         'Combinable, None], '
@@ -127,6 +118,8 @@ class User(AbstractUser):
         ),
         default=False,
     )
+
+    cart: market.models.Cart
 
     def clean(self) -> None:
         if self.last_styles.count() > 5:

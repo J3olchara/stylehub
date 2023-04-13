@@ -17,6 +17,7 @@ if TYPE_CHECKING:
         market.models.CategoryExtended
     ]
     TabularInlineBaseAdmin = TabularInline[Any, Any]
+    OrderClothesBase = admin.ModelAdmin[market.models.OrderClothes]
 else:
     BaseInline = admin.StackedInline
     BaseModel = admin.ModelAdmin
@@ -26,6 +27,7 @@ else:
     CategoryBasedBaseAdmin = admin.ModelAdmin
     CategoryExtendedBaseAdmin = admin.ModelAdmin
     TabularInlineBaseAdmin = TabularInline
+    OrderClothesBase = admin.ModelAdmin
 
 
 class ImageAdminInline(TabularInlineBaseAdmin):
@@ -107,3 +109,20 @@ class OrderCustomAdmin(BaseModel):
         OrderPictureInline,
     ]
     list_editable = (market.models.OrderCustom.header.field.name,)
+
+
+@admin.register(market.models.OrderClothes)
+class OrderClothesAdmin(OrderClothesBase):
+    """
+    admin model of clothes orders
+    """
+
+    list_display = (
+        market.models.OrderClothes.user.field.name,
+        market.models.OrderClothes.designer.field.name,
+        market.models.OrderClothes.sum.field.name,
+        market.models.OrderClothes.item.field.name,
+        market.models.OrderClothes.status.field.name,
+    )
+
+    list_editable = (market.models.OrderClothes.status.field.name,)
