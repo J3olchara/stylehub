@@ -1,5 +1,5 @@
 """auth admin models"""
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from django.contrib import admin
 from django.contrib.admin.options import TabularInline
