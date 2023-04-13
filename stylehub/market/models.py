@@ -205,6 +205,7 @@ class OrderPicture(models.Model):
         verbose_name='заказ',
         help_text='Номер заказа',
         on_delete=models.CASCADE,
+    )
 
 
 class Collection(core.models.BaseCreature):
