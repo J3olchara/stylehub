@@ -45,12 +45,6 @@ class User(AbstractUser):
         )
     )
 
-    cart = models.OneToOneField(
-        verbose_name='Корзина пользователя',
-        to=market.models.Cart,
-        on_delete=models.CASCADE,
-    )
-
     def clean(self) -> None:
         if self.last_styles.count() > 5:
             self.last_styles = self.last_styles[-5:]

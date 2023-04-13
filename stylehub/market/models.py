@@ -201,6 +201,12 @@ class Cart(core.models.CreatedEdited):
     edited: datetime. editing datetime
     items: QuerySet[market.models.Item]. chosen items
     """
+    cart = models.OneToOneField(
+        verbose_name='пользователь',
+        to='user_auth.User',
+        on_delete=models.CASCADE,
+    )
+
     items = models.ManyToManyField(
         verbose_name='предметы в корзине',
         help_text='Предметы, которые пользователь добавил в корзину',
