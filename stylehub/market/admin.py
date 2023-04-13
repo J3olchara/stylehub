@@ -1,9 +1,10 @@
 """market admin models"""
 
+from typing import TYPE_CHECKING, Any
+
 from django.contrib import admin
 
 import market.models
-from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
     BaseInline = admin.StackedInline[market.models.OrderPicture, Any]
