@@ -13,7 +13,9 @@ if TYPE_CHECKING:
     StyleBaseAdmin = admin.ModelAdmin[market.models.Style]
     CollectionBaseAdmin = admin.ModelAdmin[market.models.Collection]
     CategoryBasedBaseAdmin = admin.ModelAdmin[market.models.CategoryBase]
-    CategoryExtendedBaseAdmin = admin.ModelAdmin[market.models.CategoryExtended]
+    CategoryExtendedBaseAdmin = admin.ModelAdmin[
+        market.models.CategoryExtended
+    ]
     TabularInlineBaseAdmin = TabularInline[Any, Any]
 else:
     BaseInline = admin.StackedInline
