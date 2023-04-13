@@ -30,8 +30,7 @@ class UserManager(UserManagerOld[AbstractUser]):
         creates cart for user
         """
         user = super().create_user(username, email, password, **extra_fields)
-        user.cart = market.models.Cart.objects.create(user=user)
-        user.save()
+        market.models.Cart.objects.create(user=user)
         return user
 
     def create_superuser(
@@ -46,9 +45,10 @@ class UserManager(UserManagerOld[AbstractUser]):
 
         creates cart for superuser
         """
-        user = super().create_superuser(username, email, password, **extra_fields)
-        user.cart = market.models.Cart.objects.create(user=user)
-        user.save()
+        user = super().create_superuser(
+            username, email, password, **extra_fields
+        )
+        market.models.Cart.objects.create(user=user)
         return user
 
 
@@ -118,6 +118,8 @@ class User(AbstractUser):
         ),
         default=False,
     )
+
+    cart: market.models.Cart
 
     def clean(self) -> None:
         if self.last_styles.count() > 5:

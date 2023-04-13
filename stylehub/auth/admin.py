@@ -2,11 +2,10 @@
 from typing import TYPE_CHECKING, Any
 
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as UserAdminBase
 
-from auth.models import DesignerProfile, User
 import market.models
-
+from auth.models import DesignerProfile, User
 
 if TYPE_CHECKING:
     DesignerBaseAdmin = admin.ModelAdmin[DesignerProfile]
@@ -24,11 +23,14 @@ class DesignerProfileAdmin(DesignerBaseAdmin):
 
 
 class UserCartInline(CartInline):
+    """Inline cart field for User"""
+
     model = market.models.Cart
     can_delete = False
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
-    inlines = (UserCartInline, )
+class UserAdmin(UserAdminBase):
+    """User admin model"""
 
+    inlines = (UserCartInline,)
