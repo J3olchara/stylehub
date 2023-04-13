@@ -378,7 +378,8 @@ class Cart(core.models.CreatedEdited):
     items: QuerySet[market.models.Item]. chosen items
     """
 
-    cart = models.OneToOneField(
+    user = models.OneToOneField(
+        related_name='cart_user',
         verbose_name='пользователь',
         to='user_auth.User',
         on_delete=models.CASCADE,
@@ -389,3 +390,7 @@ class Cart(core.models.CreatedEdited):
         help_text='Предметы, которые пользователь добавил в корзину',
         to='Item',
     )
+
+    class Meta:
+        verbose_name = 'Корзина пользователя'
+        verbose_name_plural = 'Корзины пользователей'
