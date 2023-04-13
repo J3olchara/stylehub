@@ -4,23 +4,16 @@ from typing import TYPE_CHECKING, Any
 from django.contrib import admin
 from django.contrib.admin.options import TabularInline
 
-from market.models import (
-    CategoryBase,
-    CategoryExtended,
-    Collection,
-    Item,
-    ItemPicture,
-    Style,
-)
+import market.models
 
 if TYPE_CHECKING:
     BaseInline = admin.StackedInline[market.models.OrderPicture, Any]
     BaseModel = admin.ModelAdmin[market.models.OrderCustom]
-    ItemBaseAdmin = admin.ModelAdmin[Item]
-    StyleBaseAdmin = admin.ModelAdmin[Style]
-    CollectionBaseAdmin = admin.ModelAdmin[Collection]
-    CategoryBasedBaseAdmin = admin.ModelAdmin[CategoryBase]
-    CategoryExtendedBaseAdmin = admin.ModelAdmin[CategoryExtended]
+    ItemBaseAdmin = admin.ModelAdmin[market.models.Item]
+    StyleBaseAdmin = admin.ModelAdmin[market.models.Style]
+    CollectionBaseAdmin = admin.ModelAdmin[market.models.Collection]
+    CategoryBasedBaseAdmin = admin.ModelAdmin[market.models.CategoryBase]
+    CategoryExtendedBaseAdmin = admin.ModelAdmin[market.models.CategoryExtended]
     TabularInlineBaseAdmin = TabularInline[Any, Any]
 else:
     BaseInline = admin.StackedInline
@@ -39,21 +32,21 @@ class ImageAdminInline(TabularInlineBaseAdmin):
     """
 
     extra = 1
-    model = ItemPicture
+    model = market.models.ItemPicture
 
 
-@admin.register(Item)
+@admin.register(market.models.Item)
 class ItemAdmin(ItemBaseAdmin):
     """
     Item admin for realise Item in admin panel
     """
 
     inlines = (ImageAdminInline,)
-    list_display = (Item.name.field.name,)
-    filter_horizontal = (Item.styles.field.name,)
+    list_display = (market.models.Item.name.field.name,)
+    filter_horizontal = (market.models.Item.styles.field.name,)
 
 
-@admin.register(Style)
+@admin.register(market.models.Style)
 class StyleAdmin(StyleBaseAdmin):
     """
     Style admin for realise Style in admin panel
@@ -62,7 +55,7 @@ class StyleAdmin(StyleBaseAdmin):
     pass
 
 
-@admin.register(Collection)
+@admin.register(market.models.Collection)
 class CollectionAdmin(CollectionBaseAdmin):
     """
     Collection admin for realise Collection in admin panel
@@ -71,7 +64,7 @@ class CollectionAdmin(CollectionBaseAdmin):
     pass
 
 
-@admin.register(CategoryBase)
+@admin.register(market.models.CategoryBase)
 class CategoryBasedAdmin(CategoryBasedBaseAdmin):
     """
     CategoryBased admin for realise CategoryBased in admin panel
@@ -80,7 +73,7 @@ class CategoryBasedAdmin(CategoryBasedBaseAdmin):
     pass
 
 
-@admin.register(CategoryExtended)
+@admin.register(market.models.CategoryExtended)
 class CategoryExtendedAdmin(CategoryExtendedBaseAdmin):
     """
     CategoryExtended admin for realise CategoryExtended in admin panel
@@ -112,4 +105,3 @@ class OrderCustomAdmin(BaseModel):
         OrderPictureInline,
     ]
     list_editable = (market.models.OrderCustom.header.field.name,)
-

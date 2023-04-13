@@ -269,7 +269,7 @@ class Item(core.models.BaseCreature):
         null=True,
         blank=True,
     )
-    
+
     cost = models.IntegerField(
         verbose_name='стоимость товара',
         help_text='добавьте стоимость вашего товара',
@@ -289,7 +289,7 @@ class Item(core.models.BaseCreature):
         verbose_name='категория товара',
         help_text='указывает на категорию, к которой относится товар',
     )
-    
+
     styles = models.ManyToManyField(
         related_name='style',
         to=Style,
