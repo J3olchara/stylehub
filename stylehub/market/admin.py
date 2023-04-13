@@ -14,6 +14,8 @@ from market.models import (
 )
 
 if TYPE_CHECKING:
+    BaseInline = admin.StackedInline[market.models.OrderPicture, Any]
+    BaseModel = admin.ModelAdmin[market.models.OrderCustom]
     ItemBaseAdmin = admin.ModelAdmin[Item]
     StyleBaseAdmin = admin.ModelAdmin[Style]
     CollectionBaseAdmin = admin.ModelAdmin[Collection]
@@ -21,6 +23,8 @@ if TYPE_CHECKING:
     CategoryExtendedBaseAdmin = admin.ModelAdmin[CategoryExtended]
     TabularInlineBaseAdmin = TabularInline[Any, Any]
 else:
+    BaseInline = admin.StackedInline
+    BaseModel = admin.ModelAdmin
     ItemBaseAdmin = admin.ModelAdmin
     StyleBaseAdmin = admin.ModelAdmin
     CollectionBaseAdmin = admin.ModelAdmin
@@ -83,3 +87,29 @@ class CategoryExtendedAdmin(CategoryExtendedBaseAdmin):
     """
 
     pass
+
+
+class OrderPictureInline(BaseInline):
+    """
+    Allows picture to be added to order`s admin panel
+    """
+
+    model = market.models.OrderPicture
+
+
+@admin.register(market.models.OrderCustom)
+class OrderCustomAdmin(BaseModel):
+    """
+    Admin model order table
+    """
+
+    list_display = (
+        market.models.OrderCustom.user.field.name,
+        market.models.OrderCustom.header.field.name,
+        market.models.OrderCustom.max_price.field.name,
+    )
+    inlines = [
+        OrderPictureInline,
+    ]
+    list_editable = (market.models.OrderCustom.header.field.name,)
+
