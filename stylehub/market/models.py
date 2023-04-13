@@ -194,7 +194,7 @@ class OrderPicture(models.Model):
     order: id FK -> OrderCustom
     """
 
-    picture: Union['models.ImageField',] = models.ImageField(
+    picture: Union[Any, 'models.ImageField'] = models.ImageField(
         verbose_name='изображение',
         help_text='Изображение желаемого дизайна',
         upload_to='media/uploads/order_pictures',
@@ -258,7 +258,7 @@ class Item(core.models.BaseCreature):
 
     """
 
-    designer: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ForeignKey(
+    designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         related_name='item_designer',
         to='user_auth.User',
         on_delete=models.CASCADE,
@@ -358,7 +358,7 @@ class OrderClothes(core.models.CreatedEdited):
         ('4', 'выполнен'),
     )
 
-    user: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ForeignKey(
+    user: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         related_name='order_user',
         verbose_name='заказчик',
         to='user_auth.User',
@@ -398,7 +398,7 @@ class Cart(core.models.CreatedEdited):
     items: QuerySet[market.models.Item]. chosen items
     """
 
-    items: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ManyToManyField(
+    items: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ManyToManyField(
         verbose_name='предметы в корзине',
         help_text='Предметы, которые пользователь добавил в корзину',
         to='Item',
@@ -433,7 +433,7 @@ class Evaluation(core.models.CreatedEdited):
         (TERRIBLE, 'Ужасный товар'),
     )
 
-    user: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ForeignKey(
+    user: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
