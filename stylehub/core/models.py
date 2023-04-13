@@ -7,7 +7,32 @@ from django.db import models
 import core.utils
 
 
-class BaseCreature(models.Model):
+class CreatedEdited(models.Model):
+    """
+    Model for models that uses creation date and editing date
+
+    created: datetime. creation datetime
+    edited: datetime. editing datetime
+    """
+
+    created: Union[datetime, Any] = models.DateTimeField(
+        verbose_name='дата и время создания',
+        help_text='Когда объект был создан',
+        auto_now_add=True,
+    )
+    edited: Union[datetime, Any] = models.DateTimeField(
+        verbose_name='дата и время редактирования',
+        help_text='Когда объект в последний раз редактировали',
+        auto_now=True,
+    )
+
+    class Meta:
+        """settings for creatededited model"""
+
+        abstract = True
+
+
+class BaseCreature(CreatedEdited):
     """
     BaseCreature model for models like category, tag< style and other
 
@@ -28,25 +53,6 @@ class BaseCreature(models.Model):
         verbose_name='слаг',
         help_text='Нормализованное имя',
         unique=True,
-    )
-    created: Union[
-        datetime, 'models.DateTimeField[Any, Any]'
-    ] = models.DateTimeField(
-        verbose_name='дата и время создания',
-        help_text='Автоматически выставляется при создании',
-        auto_now_add=True,
-        blank=False,
-        null=False,
-    )
-    edited: Union[
-        datetime,
-        'models.DateTimeField[Any, Any]',
-    ] = models.DateTimeField(
-        verbose_name='дата и время последнего редактирования',
-        help_text='Автоматически выставляется при изменении объекта',
-        auto_now=True,
-        blank=False,
-        null=False,
     )
 
     def save(self, *args: Any, **kwargs: Any) -> None:
