@@ -21,12 +21,12 @@ class TestUser(TestCase):
 
     def test_creating_cart(self):
         """tests that cart is creating when user creates"""
-        test_username = "ILOVEDANILAEREMIN"
-        e_mail = "google_danila@gmail.com"
+        test_username = 'ILOVEDANILAEREMIN'
+        e_mail = 'google_danila@gmail.com'
         user = User.objects.create_user(username=test_username, email=e_mail)
         self.assertTrue(user.cart)
-        test_username = "ILOVEDANILAEREMIN1"
-        e_mail = "google_danila1@gmail.com"
+        test_username = 'ILOVEDANILAEREMIN1'
+        e_mail = 'google_danila1@gmail.com'
         superuser = User.objects.create_superuser(
             username=test_username, email=e_mail
         )
