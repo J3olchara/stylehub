@@ -2,6 +2,7 @@
 from datetime import datetime
 from typing import Any, Union
 
+from django.core import validators
 from django.db import models
 
 import auth.models
@@ -193,7 +194,7 @@ class OrderPicture(models.Model):
     order: id FK -> OrderCustom
     """
 
-    picture: Union['models.ImageField',] = models.ImageField(
+    picture: Union[Any, 'models.ImageField'] = models.ImageField(
         verbose_name='изображение',
         help_text='Изображение желаемого дизайна',
         upload_to='media/uploads/order_pictures',
@@ -257,7 +258,7 @@ class Item(core.models.BaseCreature):
 
     """
 
-    designer = models.ForeignKey(
+    designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         related_name='item_designer',
         to='user_auth.User',
         on_delete=models.CASCADE,
@@ -270,7 +271,7 @@ class Item(core.models.BaseCreature):
         blank=True,
     )
 
-    cost = models.IntegerField(
+    cost: Union[int, 'models.IntegerField[Any, Any]'] = models.IntegerField(
         verbose_name='стоимость товара',
         help_text='добавьте стоимость вашего товара',
     )
@@ -282,7 +283,10 @@ class Item(core.models.BaseCreature):
         blank=True,
     )
 
-    category = models.ForeignKey(
+    category: Union[
+        models.query.QuerySet[CategoryExtended],
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(
         related_name='item_category',
         to=CategoryExtended,
         on_delete=models.CASCADE,
@@ -290,7 +294,10 @@ class Item(core.models.BaseCreature):
         help_text='указывает на категорию, к которой относится товар',
     )
 
-    styles = models.ManyToManyField(
+    styles: Union[
+        models.query.QuerySet[Style],
+        'models.ManyToManyField[Any, Any]',
+    ] = models.ManyToManyField(
         related_name='style',
         to=Style,
         verbose_name='стиль товара',
@@ -351,7 +358,7 @@ class OrderClothes(core.models.CreatedEdited):
         ('4', 'выполнен'),
     )
 
-    user = models.ForeignKey(
+    user: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         related_name='order_user',
         verbose_name='заказчик',
         to='user_auth.User',
@@ -391,8 +398,94 @@ class Cart(core.models.CreatedEdited):
     items: QuerySet[market.models.Item]. chosen items
     """
 
-    items = models.ManyToManyField(
+    items: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ManyToManyField(
         verbose_name='предметы в корзине',
         help_text='Предметы, которые пользователь добавил в корзину',
         to='Item',
+    )
+
+
+class Evaluation(core.models.CreatedEdited):
+    """
+    Evalution on items from users
+
+    created: datetime. creation datetime
+    edited: datetime. editing datetime
+    user: QuerySet[auth.models.User]. User who evaluated Item
+    item: QuerySet[market.models.Item]. Item for Evaluation
+    rating: models.PositiveSmallIntegerField(int) Rating of evaluation
+            from EVALUATION_VALUE_CHOICES
+    goods: models.TextField(str) Good sides of Item
+    negatives: models.TextField(str) Bad sides of Item
+    text: models.TextField(str) Evaluation description
+    """
+
+    EXCELLENT: int = 5
+    GOOD: int = 4
+    COMMON: int = 3
+    BAD: int = 2
+    TERRIBLE: int = 1
+    EVALUATION_VALUE_CHOICES = (
+        (EXCELLENT, 'Отличный товар'),
+        (GOOD, 'Хороший товар'),
+        (COMMON, 'Обычный товар'),
+        (BAD, 'Плохой товар'),
+        (TERRIBLE, 'Ужасный товар'),
+    )
+
+    user: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
+        to='user_auth.User',
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='evaluations',
+        verbose_name='пользователь',
+        help_text='пользователь, оставивший отзыв',
+    )
+
+    item: Union[
+        models.query.QuerySet[Item],
+        'models.ForeignKey[Any, Any]',
+    ] = models.ForeignKey(
+        to=Item,
+        on_delete=models.CASCADE,
+        verbose_name='товар',
+        help_text='товар, к которому оставили отзыв',
+        related_name='rating_item',
+    )
+
+    rating: Union[
+        int, 'models.PositiveSmallIntegerField[Any, Any]'
+    ] = models.PositiveSmallIntegerField(
+        validators=[
+            validators.MaxValueValidator(
+                5, message='Максимальное значение оценки - 5'
+            ),
+            validators.MinValueValidator(
+                1, message='Минимальное значение оценки - 1'
+            ),
+        ],
+        choices=EVALUATION_VALUE_CHOICES,
+        verbose_name='оценка товара',
+        help_text='Ваша оценка',
+    )
+
+    goods: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+        verbose_name='Достоинства',
+        help_text='Какие позитивные стороны вы нашли у этого товара',
+        blank=True,
+        null=True,
+    )
+
+    negatives: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+        verbose_name='Недостатки',
+        help_text='Какие недостатки вы нашли у этого товара',
+        blank=True,
+        null=True,
+    )
+
+    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+        verbose_name='Комментарий',
+        help_text='Ваш комментарий после использования этого товара',
+        blank=True,
+        null=True,
     )
