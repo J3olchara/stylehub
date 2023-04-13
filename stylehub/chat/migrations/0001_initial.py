@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='Messages',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(blank=True, help_text='Приложите свое вложение к сообщению', null=True, upload_to=utils.functions.get_upload_location, verbose_name='Приложение к сообщению')),
+                ('image', models.ImageField(blank=True, help_text='Приложите свое вложение к сообщению', null=True, upload_to=utils.functions.get_message_image_upload_location, verbose_name='Приложение к сообщению')),
                 ('message', models.TextField(help_text='введите текст сообщения', verbose_name='текст сообщения')),
                 ('created', models.DateTimeField(auto_now_add=True, help_text='Автоматически выставляется при создании', verbose_name='дата и время создания')),
                 ('designer', models.ForeignKey(help_text='какому дизайнеру принадлежит сообщение', on_delete=django.db.models.deletion.CASCADE, related_name='designers_messgaes', to=settings.AUTH_USER_MODEL, verbose_name='дизайнер отправивший сообщение')),

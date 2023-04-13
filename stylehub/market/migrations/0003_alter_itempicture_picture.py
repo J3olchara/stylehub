@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='itempicture',
             name='picture',
-            field=models.ImageField(help_text='изображение для галерии товара', upload_to=utils.functions.get_upload_location, verbose_name='изображение'),
+            field=models.ImageField(help_text='изображение для галерии товара', upload_to=utils.functions.get_item_images_upload_location, verbose_name='изображение'),
         ),
     ]

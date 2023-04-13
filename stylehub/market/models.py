@@ -144,7 +144,7 @@ class Item(core.models.BaseCreature):
 
     main_image: Union[Any, 'models.ImageField'] = models.ImageField(
         verbose_name='основная картинка товара',
-        upload_to=utils.functions.get_upload_location,
+        upload_to=utils.functions.get_item_main_image_location,
         null=True,
         blank=True,
     )
@@ -203,7 +203,7 @@ class ItemPicture(models.Model):
     picture: Union[Any, 'models.ImageField'] = models.ImageField(
         verbose_name='изображение',
         help_text='изображение для галерии товара',
-        upload_to=utils.functions.get_upload_location,
+        upload_to=utils.functions.get_item_images_upload_location,
     )
 
     item: Union[

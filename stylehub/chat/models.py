@@ -46,7 +46,7 @@ class Messages(models.Model):
     image: Union[Any, 'models.ImageField'] = models.ImageField(
         verbose_name='Приложение к сообщению',
         help_text='Приложите свое вложение к сообщению',
-        upload_to=utils.functions.get_upload_location,
+        upload_to=utils.functions.get_message_image_upload_location,
         null=True,
         blank=True,
     )
