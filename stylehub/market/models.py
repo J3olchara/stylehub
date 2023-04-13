@@ -134,7 +134,9 @@ class Item(core.models.BaseCreature):
 
     """
 
-    designer = models.ForeignKey(to='user_auth.User', on_delete=models.CASCADE)
+    designer = models.ForeignKey(
+        related_name='designer', to='user_auth.User', on_delete=models.CASCADE
+    )
 
     main_image = models.ImageField(
         verbose_name='основная картинка товара',
@@ -143,7 +145,7 @@ class Item(core.models.BaseCreature):
         blank=True,
     )
 
-    cost = models.PositiveBigIntegerField(
+    cost = models.IntegerField(
         verbose_name='стоимость товара',
         help_text='добавьте стоимость вашего товара',
     )
@@ -156,6 +158,7 @@ class Item(core.models.BaseCreature):
     )
 
     category = models.ForeignKey(
+        related_name='category',
         to=CategoryExtended,
         on_delete=models.CASCADE,
         verbose_name='категория товара',
@@ -163,6 +166,7 @@ class Item(core.models.BaseCreature):
     )
 
     styles = models.ManyToManyField(
+        related_name='style',
         to=Style,
         verbose_name='стиль товара',
         help_text='указывает к какому стилю принадлежит товар',
@@ -190,6 +194,56 @@ class ItemPicture(models.Model):
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
+    )
+
+
+class OrderClothes(core.models.CreatedEdited):
+    """
+    OrderClothes model to store item buyings
+
+    user: FK.
+    designer: FK.
+    sum: int. order cost
+    item: FK
+    status: choces statuses. order status
+    """
+
+    statuses = (
+        ('0', 'Ожидает'),
+        ('1', 'Принят'),
+        ('2', 'в процессе'),
+        ('3', 'доставка'),
+        ('4', 'выполнен'),
+    )
+
+    user = models.ForeignKey(
+        related_name='order_user',
+        verbose_name='заказчик',
+        to='user_auth.User',
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    designer = models.ForeignKey(
+        related_name='order_designer',
+        verbose_name='исполнитель',
+        to='user_auth.User',
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    sum = models.IntegerField(
+        verbose_name='общая стоимость заказа',
+        null=False,
+        blank=False,
+    )
+    item = models.ForeignKey(
+        to='Item', on_delete=models.PROTECT, verbose_name='Заказанная вещь'
+    )
+    status = models.CharField(
+        max_length=127,
+        choices=statuses,
+        default='0',
+        blank=False,
+        null=False,
     )
 
 
