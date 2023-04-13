@@ -255,7 +255,9 @@ class Item(core.models.BaseCreature):
     """
 
     designer = models.ForeignKey(
-        related_name='designer', to='user_auth.User', on_delete=models.CASCADE
+        related_name='item_designer',
+        to='user_auth.User',
+        on_delete=models.CASCADE
     )
 
     main_image = models.ImageField(
@@ -278,7 +280,7 @@ class Item(core.models.BaseCreature):
     )
 
     category = models.ForeignKey(
-        related_name='category',
+        related_name='item_category',
         to=CategoryExtended,
         on_delete=models.CASCADE,
         verbose_name='категория товара',
