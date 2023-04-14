@@ -114,7 +114,7 @@ class OrderCustom(models.Model):
         ('done', 'выполнен'),
     )
 
-    user: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ForeignKey(
+    user: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         to='user_auth.User',
         verbose_name='заказчик',
         related_name='user',
