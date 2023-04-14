@@ -5,9 +5,9 @@ from typing import Any, Union
 from django.core import validators
 from django.db import models
 
-import auth.models
 import core.models
 import utils.functions
+import market.managers
 
 
 class Style(core.models.BaseCreature):
@@ -241,6 +241,7 @@ class Collection(core.models.BaseCreature):
 
 
 class Item(core.models.BaseCreature):
+
     """
     Item models
 
@@ -257,6 +258,7 @@ class Item(core.models.BaseCreature):
     collection: ManyToOneField(ForeignKey) market.models.Collection
 
     """
+    objects: Union[Any, models.Manager[Any]] = market.managers.ItemManager()
 
     designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         related_name='item_designer',
@@ -336,6 +338,7 @@ class ItemPicture(models.Model):
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
+        related_name='images',
     )
 
 

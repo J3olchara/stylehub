@@ -1,0 +1,11 @@
+
+{% if items %}
+    {% for item in items %}
+        <p> {{ item.name }} </p>
+        {% for image in item.images.all %}
+            <p> {{ image.picture.url }} </p>
+        {% endfor %}
+    {% endfor %}
+{% else %}
+<p> В этой коллекции пока ничего нет </p>
+{% endif %}
