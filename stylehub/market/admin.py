@@ -1,34 +1,13 @@
 """auth admin models"""
-from typing import TYPE_CHECKING, Any
-
 from django.contrib import admin
 from django.contrib.admin.options import TabularInline
 
 import market.models
 
-if TYPE_CHECKING:
-    BaseInline = admin.StackedInline[market.models.OrderPicture, Any]
-    BaseModel = admin.ModelAdmin[market.models.OrderCustom]
-    ItemBaseAdmin = admin.ModelAdmin[market.models.Item]
-    StyleBaseAdmin = admin.ModelAdmin[market.models.Style]
-    CollectionBaseAdmin = admin.ModelAdmin[market.models.Collection]
-    CategoryBasedBaseAdmin = admin.ModelAdmin[market.models.CategoryBase]
-    CategoryExtendedBaseAdmin = admin.ModelAdmin[
-        market.models.CategoryExtended
-    ]
-    TabularInlineBaseAdmin = TabularInline[Any, Any]
-else:
-    BaseInline = admin.StackedInline
-    BaseModel = admin.ModelAdmin
-    ItemBaseAdmin = admin.ModelAdmin
-    StyleBaseAdmin = admin.ModelAdmin
-    CollectionBaseAdmin = admin.ModelAdmin
-    CategoryBasedBaseAdmin = admin.ModelAdmin
-    CategoryExtendedBaseAdmin = admin.ModelAdmin
-    TabularInlineBaseAdmin = TabularInline
 
-
-class ImageAdminInline(TabularInlineBaseAdmin):
+class ImageAdminInline(
+    TabularInline[market.models.ItemPicture, market.models.Item]
+):
     """
     Admin class for realise Item image in ItemAdmin
     """
@@ -38,7 +17,7 @@ class ImageAdminInline(TabularInlineBaseAdmin):
 
 
 @admin.register(market.models.Item)
-class ItemAdmin(ItemBaseAdmin):
+class ItemAdmin(admin.ModelAdmin[market.models.Item]):
     """
     Item admin for realise Item in admin panel
     """
@@ -49,16 +28,21 @@ class ItemAdmin(ItemBaseAdmin):
 
 
 @admin.register(market.models.Style)
-class StyleAdmin(StyleBaseAdmin):
+class StyleAdmin(admin.ModelAdmin[market.models.Style]):
     """
     Style admin for realise Style in admin panel
     """
 
-    pass
+    list_display = (
+        'id',
+        market.models.Style.name.field.name,
+    )
+    list_editable = (market.models.Style.name.field.name,)
+    readonly_fields = (market.models.Style.slug.field.name,)
 
 
 @admin.register(market.models.Collection)
-class CollectionAdmin(CollectionBaseAdmin):
+class CollectionAdmin(admin.ModelAdmin[market.models.Collection]):
     """
     Collection admin for realise Collection in admin panel
     """
@@ -67,24 +51,37 @@ class CollectionAdmin(CollectionBaseAdmin):
 
 
 @admin.register(market.models.CategoryBase)
-class CategoryBasedAdmin(CategoryBasedBaseAdmin):
+class CategoryBaseAdmin(admin.ModelAdmin[market.models.CategoryBase]):
     """
     CategoryBased admin for realise CategoryBased in admin panel
     """
 
-    pass
+    list_display = (
+        'id',
+        market.models.CategoryBase.name.field.name,
+    )
+    list_editable = (market.models.CategoryBase.name.field.name,)
+    readonly_fields = (market.models.CategoryBase.slug.field.name,)
 
 
 @admin.register(market.models.CategoryExtended)
-class CategoryExtendedAdmin(CategoryExtendedBaseAdmin):
+class CategoryExtendedAdmin(admin.ModelAdmin[market.models.CategoryExtended]):
     """
     CategoryExtended admin for realise CategoryExtended in admin panel
     """
 
-    pass
+    list_display = (
+        'id',
+        market.models.CategoryExtended.name.field.name,
+        market.models.CategoryExtended.category_base.field.name,
+    )
+    list_editable = (market.models.CategoryExtended.name.field.name,)
+    readonly_fields = (market.models.CategoryExtended.slug.field.name,)
 
 
-class OrderPictureInline(BaseInline):
+class OrderPictureInline(
+    admin.StackedInline[market.models.OrderPicture, market.models.OrderCustom]
+):
     """
     Allows picture to be added to order`s admin panel
     """
@@ -93,7 +90,7 @@ class OrderPictureInline(BaseInline):
 
 
 @admin.register(market.models.OrderCustom)
-class OrderCustomAdmin(BaseModel):
+class OrderCustomAdmin(admin.ModelAdmin[market.models.OrderCustom]):
     """
     Admin model order table
     """
@@ -103,7 +100,5 @@ class OrderCustomAdmin(BaseModel):
         market.models.OrderCustom.header.field.name,
         market.models.OrderCustom.max_price.field.name,
     )
-    inlines = [
-        OrderPictureInline,
-    ]
+    inlines = (OrderPictureInline,)
     list_editable = (market.models.OrderCustom.header.field.name,)

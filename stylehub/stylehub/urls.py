@@ -1,7 +1,7 @@
 """stylehub URL Configuration"""
-from django.contrib import admin
-from django.conf import settings
 import django.urls
+from django.conf import settings
+from django.contrib import admin
 
 urlpatterns = [
     django.urls.path('admin/', admin.site.urls),
@@ -13,7 +13,5 @@ if settings.DEBUG:
     import debug_toolbar.urls
 
     urlpatterns += [
-        django.urls.path(
-            '__debug__/', django.urls.include(debug_toolbar.urls)
-        )
+        django.urls.path('__debug__/', django.urls.include(debug_toolbar.urls))
     ]

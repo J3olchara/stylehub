@@ -2,7 +2,10 @@
 import os
 from pathlib import Path
 
+import django_stubs_ext
 from dotenv import load_dotenv
+
+django_stubs_ext.monkeypatch()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

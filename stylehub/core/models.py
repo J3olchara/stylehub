@@ -2,6 +2,7 @@
 from datetime import datetime
 from typing import Any, Union
 
+from django.core.exceptions import ValidationError
 from django.db import models
 
 import core.utils
@@ -55,18 +56,20 @@ class BaseCreature(CreatedEdited):
         unique=True,
     )
 
-    def save(self, *args: Any, **kwargs: Any) -> None:
+    def clean(self) -> None:
         self.slug = self.get_slug()
-        return super().save(*args, **kwargs)
+        if type(self).objects.filter(slug=self.slug).exists():
+            raise ValidationError('Объект с таким именем уже существует')
+        return super().clean()
 
     def get_slug(self) -> str:
         """
-
+        creates slug by translating object username
         :return: normalized name
         """
         slug: str = self.name.upper()
         translate_tab = str.maketrans(core.utils.normalize_table)
-        return slug.translate(translate_tab)
+        return slug.translate(translate_tab).lower()
 
     def __str__(self) -> str:
         return f'{self.pk} {self.name}'

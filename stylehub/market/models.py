@@ -1,11 +1,10 @@
 """Market models"""
-from datetime import datetime
 from typing import Any, Union
 
 from django.core import validators
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-import auth.models
 import core.models
 import utils.functions
 
@@ -32,6 +31,9 @@ class Style(core.models.BaseCreature):
     class Meta:
         """Model settings"""
 
+        verbose_name = _('стиль')
+        verbose_name_plural = _('стили')
+
         ordering = (
             core.models.BaseCreature.created.field.name,
             core.models.BaseCreature.name.field.name,
@@ -49,9 +51,7 @@ class CategoryExtended(core.models.BaseCreature):
     edited: datetime. Editing datetime.
     """
 
-    category_base: Union[
-        'CategoryBase', 'models.ForeignKey[Any, Any]'
-    ] = models.ForeignKey(
+    category_base = models.ForeignKey(
         verbose_name='базовая категория вещи',
         help_text=(
             'Объясните способ носки вещи: '
@@ -63,6 +63,9 @@ class CategoryExtended(core.models.BaseCreature):
 
     class Meta:
         """Model settings"""
+
+        verbose_name = _('категория одежды')
+        verbose_name_plural = _('категории одежды')
 
         ordering = (
             core.models.BaseCreature.created.field.name,
@@ -85,13 +88,16 @@ class CategoryBase(core.models.BaseCreature):
     class Meta:
         """Model settings"""
 
+        verbose_name = _('тип одежды')
+        verbose_name_plural = _('типы одежды')
+
         ordering = (
             core.models.BaseCreature.created.field.name,
             core.models.BaseCreature.name.field.name,
         )
 
 
-class OrderCustom(models.Model):
+class OrderCustom(core.models.CreatedEdited):
     """
     order model
     describes user`s order
@@ -114,9 +120,7 @@ class OrderCustom(models.Model):
         ('done', 'выполнен'),
     )
 
-    user: Union[
-        'auth.models.User', 'models.ForeignKey[Any, Any]'
-    ] = models.ForeignKey(
+    user = models.ForeignKey(
         to='user_auth.User',
         verbose_name='заказчик',
         related_name='user',
@@ -125,26 +129,24 @@ class OrderCustom(models.Model):
         blank=False,
         null=True,
     )
-    max_price: Union[
-        int, 'models.IntegerField[Any, Any]'
-    ] = models.IntegerField(
+    max_price = models.IntegerField(
         verbose_name='максимальная сумма заказа',
         help_text='Бюджет пользователя',
     )
-    header: Union[str, 'models.CharField[Any, Any]'] = models.CharField(
+    header = models.CharField(
         verbose_name='заголовок',
         help_text='Заголовок заказа',
         max_length=100,
         blank=False,
         null=False,
     )
-    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+    text = models.TextField(
         verbose_name='описание стиля',
         help_text='Опишите стиль, добавьте интересные факты',
         blank=True,
         null=True,
     )
-    status: Union[str, 'models.CharField[Any, Any]'] = models.CharField(
+    status = models.CharField(
         verbose_name='заголовок',
         help_text='Заголовок заказа',
         default=process_choices[0][0],
@@ -153,9 +155,7 @@ class OrderCustom(models.Model):
         blank=False,
         null=False,
     )
-    designer: Union[
-        'auth.models.User', 'models.ForeignKey[Any, Any]'
-    ] = models.ForeignKey(
+    designer = models.ForeignKey(
         to='user_auth.User',
         verbose_name='дизайнер',
         related_name='designer',
@@ -164,25 +164,12 @@ class OrderCustom(models.Model):
         blank=False,
         null=True,
     )
-    created: Union[
-        datetime, 'models.DateTimeField[Any, Any]'
-    ] = models.DateTimeField(
-        verbose_name='дата и время создания',
-        help_text='Автоматически выставляется при создании',
-        auto_now_add=True,
-        blank=False,
-        null=False,
-    )
-    edited: Union[
-        datetime,
-        'models.DateTimeField[Any, Any]',
-    ] = models.DateTimeField(
-        verbose_name='дата и время последнего редактирования',
-        help_text='Автоматически выставляется при изменении объекта',
-        auto_now=True,
-        blank=False,
-        null=False,
-    )
+
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('заказ кастома')
+        verbose_name_plural = _('заказы кастомов')
 
 
 class OrderPicture(models.Model):
@@ -208,8 +195,14 @@ class OrderPicture(models.Model):
         on_delete=models.CASCADE,
     )
 
+    class Meta:
+        """Model settings"""
 
-class Collection(core.models.BaseCreature):
+        verbose_name = _('фотография заказа кастома')
+        verbose_name_plural = _('фотографии заказов кастомов')
+
+
+class Collection(core.models.CreatedEdited):
     """
     category model for items collection
     describes item base collection: Haute Couture for example
@@ -223,31 +216,37 @@ class Collection(core.models.BaseCreature):
     designer: ForeignKey - to user_auth.User
     """
 
-    style: Union[
-        models.query.QuerySet[Style],
-        'models.ManyToManyField[Any, Any]',
-    ] = models.ManyToManyField(Style, verbose_name='стиль коллекции')
+    style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
 
-    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
-        verbose_name='описание коллекции'
+    name = models.CharField(
+        verbose_name='Название коллекции',
+        max_length=100,
     )
 
-    designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
+    text = models.TextField(verbose_name='описание коллекции')
+
+    designer = models.ForeignKey(
         to='user_auth.User',
         on_delete=models.CASCADE,
         verbose_name='дизайнер коллекции',
         help_text='Укажите кто создал эту коллекцию',
     )
 
+    def __str__(self) -> str:
+        return self.name
 
-class Item(core.models.BaseCreature):
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('коллекция')
+        verbose_name_plural = _('коллекции')
+
+
+class Item(core.models.CreatedEdited):
     """
     Item models
 
-    name: char[50]. Creature name.
-    slug: char[50]. creature normalized name.
-    created: datetime. Creation datetime.
-    edited: datetime. Editing datetime.
+    name: char[50]. Item name.
     designer: ForeignKey to auth.models.designer
     main_image: ImageField - image to describe main idea of item
     cost: PositiveBigIntegerField - describe how many this item cost
@@ -255,64 +254,79 @@ class Item(core.models.BaseCreature):
     category: ForeignKey to market.models.Category
     styles: ManyToManyField market.models.Style
     collection: ManyToOneField(ForeignKey) market.models.Collection
+    created: datetime. Creation datetime.
+    edited: datetime. Editing datetime.
 
     """
 
-    designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
+    name = models.CharField(
+        verbose_name=_('Название товара'),
+        help_text=_(
+            'Придумайте не длинное название, передающее основные черты товара'
+        ),
+        max_length=50,
+    )
+    designer = models.ForeignKey(
+        verbose_name=_('Дизайнер вещи'),
         related_name='item_designer',
         to='user_auth.User',
         on_delete=models.CASCADE,
     )
 
-    main_image: Union[Any, 'models.ImageField'] = models.ImageField(
-        verbose_name='основная картинка товара',
+    main_image = models.ImageField(
+        verbose_name=_('основная картинка товара'),
         upload_to=utils.functions.get_item_main_image_location,
         null=True,
         blank=True,
     )
 
-    cost: Union[int, 'models.IntegerField[Any, Any]'] = models.IntegerField(
-        verbose_name='стоимость товара',
-        help_text='добавьте стоимость вашего товара',
+    cost = models.IntegerField(
+        verbose_name=_('стоимость товара'),
+        help_text=_('добавьте стоимость вашего товара'),
     )
 
-    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
-        verbose_name='описание товара',
-        help_text='опишите ваш товар',
+    text = models.TextField(
+        verbose_name=_('описание товара'),
+        help_text=_('опишите ваш товар'),
         null=True,
         blank=True,
     )
 
-    category: Union[
-        models.query.QuerySet[CategoryExtended],
-        'models.ForeignKey[Any, Any]',
-    ] = models.ForeignKey(
+    category = models.ForeignKey(
         related_name='item_category',
         to=CategoryExtended,
         on_delete=models.CASCADE,
-        verbose_name='категория товара',
-        help_text='указывает на категорию, к которой относится товар',
+        verbose_name=_('категория товара'),
+        help_text=_('указывает на категорию, к которой относится товар'),
     )
 
-    styles: Union[
-        models.query.QuerySet[Style],
-        'models.ManyToManyField[Any, Any]',
-    ] = models.ManyToManyField(
+    styles = models.ManyToManyField(
         related_name='style',
         to=Style,
-        verbose_name='стиль товара',
-        help_text='указывает к какому стилю принадлежит товар',
+        verbose_name=_('стиль товара'),
+        help_text=_('указывает к какому стилю принадлежит товар'),
     )
 
-    collection: Union[
-        models.query.QuerySet[Collection],
-        'models.ForeignKey[Any, Any]',
-    ] = models.ForeignKey(
+    collection = models.ForeignKey(
         to=Collection,
         on_delete=models.CASCADE,
-        verbose_name='коллекции, в которых есть этот товар',
+        verbose_name='коллекция, в которой есть этот товар',
         help_text='показывает участвует ли товар в каких-либо коллекциях',
     )
+
+    is_published = models.BooleanField(
+        verbose_name='Опубликован?',
+        default=True,
+    )
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('вещь')
+        verbose_name_plural = _('вещи')
 
 
 class ItemPicture(models.Model):
@@ -322,21 +336,24 @@ class ItemPicture(models.Model):
     item: ManyToManyField shows for what item this picture
     """
 
-    picture: Union[Any, 'models.ImageField'] = models.ImageField(
+    picture = models.ImageField(
         verbose_name='изображение',
         help_text='изображение для галерии товара',
         upload_to=utils.functions.get_item_images_upload_location,
     )
 
-    item: Union[
-        models.query.QuerySet[Item],
-        'models.ForeignKey[Any, Any]',
-    ] = models.ForeignKey(
+    item = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
     )
+
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('фотография вещи')
+        verbose_name_plural = _('фотографии вещей')
 
 
 class OrderClothes(core.models.CreatedEdited):
@@ -358,7 +375,7 @@ class OrderClothes(core.models.CreatedEdited):
         ('4', 'выполнен'),
     )
 
-    user: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
+    user = models.ForeignKey(
         related_name='order_user',
         verbose_name='заказчик',
         to='user_auth.User',
@@ -388,6 +405,12 @@ class OrderClothes(core.models.CreatedEdited):
         null=False,
     )
 
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('заказ одежды')
+        verbose_name_plural = _('заказы одежды')
+
 
 class Cart(core.models.CreatedEdited):
     """
@@ -409,6 +432,12 @@ class Cart(core.models.CreatedEdited):
         help_text='Предметы, которые пользователь добавил в корзину',
         to='Item',
     )
+
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('корзина')
+        verbose_name_plural = _('корзины')
 
 
 class Evaluation(core.models.CreatedEdited):
@@ -439,7 +468,7 @@ class Evaluation(core.models.CreatedEdited):
         (TERRIBLE, 'Ужасный товар'),
     )
 
-    user: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
+    user = models.ForeignKey(
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
@@ -448,10 +477,7 @@ class Evaluation(core.models.CreatedEdited):
         help_text='пользователь, оставивший отзыв',
     )
 
-    item: Union[
-        models.query.QuerySet[Item],
-        'models.ForeignKey[Any, Any]',
-    ] = models.ForeignKey(
+    item = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,
         verbose_name='товар',
@@ -459,9 +485,7 @@ class Evaluation(core.models.CreatedEdited):
         related_name='rating_item',
     )
 
-    rating: Union[
-        int, 'models.PositiveSmallIntegerField[Any, Any]'
-    ] = models.PositiveSmallIntegerField(
+    rating = models.PositiveSmallIntegerField(
         validators=[
             validators.MaxValueValidator(
                 5, message='Максимальное значение оценки - 5'
@@ -475,23 +499,29 @@ class Evaluation(core.models.CreatedEdited):
         help_text='Ваша оценка',
     )
 
-    goods: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+    goods = models.TextField(
         verbose_name='Достоинства',
         help_text='Какие позитивные стороны вы нашли у этого товара',
         blank=True,
         null=True,
     )
 
-    negatives: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+    negatives = models.TextField(
         verbose_name='Недостатки',
         help_text='Какие недостатки вы нашли у этого товара',
         blank=True,
         null=True,
     )
 
-    text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
+    text = models.TextField(
         verbose_name='Комментарий',
         help_text='Ваш комментарий после использования этого товара',
         blank=True,
         null=True,
     )
+
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('отзыв')
+        verbose_name_plural = _('отзывы')
