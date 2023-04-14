@@ -11,12 +11,13 @@ else:
 
 
 class ItemManager(BaseManager):
-    """ Manager for Item model """
+    """Manager for Item model"""
+
     def get_collections_items(
         self, collection_number: int
     ) -> models.query.QuerySet[Any]:
-        """ Returns Item, which belongs collection with
-            id=collection_number"""
+        """Returns Item, which belongs collection with
+        id=collection_number"""
         self.model: Any = apps.get_model('market', 'Item')
         style: Any = apps.get_model('market', 'Style')
         prefetch_styles: Any = models.Prefetch(

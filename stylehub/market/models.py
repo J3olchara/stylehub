@@ -6,8 +6,8 @@ from django.core import validators
 from django.db import models
 
 import core.models
-import utils.functions
 import market.managers
+import utils.functions
 
 
 class Style(core.models.BaseCreature):
@@ -114,9 +114,7 @@ class OrderCustom(models.Model):
         ('done', 'выполнен'),
     )
 
-    user: Union[
-        'auth.models.User', 'models.ForeignKey[Any, Any]'
-    ] = models.ForeignKey(
+    user: Union[Any, 'models.ForeignKey[Any, Any]',] = models.ForeignKey(
         to='user_auth.User',
         verbose_name='заказчик',
         related_name='user',
@@ -153,9 +151,7 @@ class OrderCustom(models.Model):
         blank=False,
         null=False,
     )
-    designer: Union[
-        'auth.models.User', 'models.ForeignKey[Any, Any]'
-    ] = models.ForeignKey(
+    designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
         to='user_auth.User',
         verbose_name='дизайнер',
         related_name='designer',
@@ -258,6 +254,7 @@ class Item(core.models.BaseCreature):
     collection: ManyToOneField(ForeignKey) market.models.Collection
 
     """
+
     objects: Union[Any, models.Manager[Any]] = market.managers.ItemManager()
 
     designer: Union[Any, 'models.ForeignKey[Any, Any]'] = models.ForeignKey(
