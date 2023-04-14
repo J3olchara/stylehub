@@ -88,15 +88,6 @@ class User(AbstractUser):
         unique=True,
     )
 
-    cart: (
-        'models.OneToOneField[Union[market.models.Cart, Combinable], '
-        'market.models.Cart]'
-    ) = models.OneToOneField(
-        verbose_name=_('корзина пользователя'),
-        to=market.models.Cart,
-        on_delete=models.PROTECT,
-    )
-
     last_category: (
         'models.ForeignKey[Union[market.models.CategoryExtended, '
         'Combinable, None], '

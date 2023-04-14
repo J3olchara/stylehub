@@ -378,7 +378,7 @@ class Cart(core.models.CreatedEdited):
     items: QuerySet[market.models.Item]. chosen items
     """
 
-    cart = models.OneToOneField(
+    user = models.OneToOneField(
         verbose_name='пользователь',
         to='user_auth.User',
         on_delete=models.CASCADE,
