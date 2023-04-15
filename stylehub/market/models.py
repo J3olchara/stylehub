@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import core.models
+import market.managers
 import utils.functions
 
 
@@ -216,6 +217,8 @@ class Collection(core.models.CreatedEdited):
     designer: ForeignKey - to user_auth.User
     """
 
+    objects = market.managers.CollectionManager()
+
     style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
 
     name = models.CharField(
@@ -312,6 +315,7 @@ class Item(core.models.CreatedEdited):
         on_delete=models.CASCADE,
         verbose_name='коллекция, в которой есть этот товар',
         help_text='показывает участвует ли товар в каких-либо коллекциях',
+        related_name='items',
     )
 
     is_published = models.BooleanField(
@@ -347,6 +351,7 @@ class ItemPicture(models.Model):
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
+        related_name='images',
     )
 
     class Meta:
