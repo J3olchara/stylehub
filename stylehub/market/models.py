@@ -6,8 +6,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import core.models
-import utils.functions
 import market.managers
+import utils.functions
 
 
 class Style(core.models.BaseCreature):
