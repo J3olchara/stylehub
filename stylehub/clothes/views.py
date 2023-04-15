@@ -28,6 +28,9 @@ class Wear(WearDetailView):
 class Collection(CollectionDetailView):
     """gives an collection information"""
 
-    model = market.models.Collection
+    # model = market.models.Collection
     template_name = 'clothes/collection.html'
+    queryset = (
+        market.models.Collection.objects.get_items_in_collection()
+    )
     context_object_name = 'collection'

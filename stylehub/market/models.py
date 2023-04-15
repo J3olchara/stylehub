@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 import core.models
 import utils.functions
+import market.managers
 
 
 class Style(core.models.BaseCreature):
@@ -215,6 +216,8 @@ class Collection(core.models.CreatedEdited):
     text: TextField - collection description
     designer: ForeignKey - to user_auth.User
     """
+
+    objects = market.managers.CollectionManager()
 
     style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
 
