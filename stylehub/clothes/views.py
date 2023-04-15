@@ -62,12 +62,12 @@ class Designer(generic.ListView[market.models.Collection]):
             auth.models.DesignerProfile, pk=designer_id
         )
         readonly = not self.request.user.id == designer.user.id
-        user_form = auth.forms.User_form(
+        user_form = auth.forms.UserForm(
             self.request.POST or None,
             readonly=readonly,
             instance=designer.user,
         )
-        designer_form = auth.forms.Designer_profile_form(
+        designer_form = auth.forms.DesignerProfileForm(
             self.request.POST or None, readonly=readonly, instance=designer
         )
         context['user_form'] = user_form

@@ -6,7 +6,7 @@ from django import forms
 from auth.models import DesignerProfile, User
 
 
-class User_form(forms.ModelForm[User]):
+class UserForm(forms.ModelForm[User]):
     """Form for change user info"""
 
     def __init__(
@@ -41,7 +41,7 @@ class User_form(forms.ModelForm[User]):
         }
 
 
-class Designer_profile_form(forms.ModelForm[DesignerProfile]):
+class DesignerProfileForm(forms.ModelForm[DesignerProfile]):
     """Form for change Designer profile"""
 
     def __init__(
