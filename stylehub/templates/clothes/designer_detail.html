@@ -1,0 +1,45 @@
+<form enctype="multipart/form-data" method="post" class="form-example">
+ {% csrf_token %}
+ {% for field in user_form %}
+          {{ field }}
+          {{ field.label_tag }}
+          <p class="range_label d-inline-block"></p>
+          {% if field.help_text %}
+            <p class='form-text'> {{ field.help_text }} </p>
+          {% endif %}
+          {% for error in field.errors %}
+            <p class='text-danger'> {{ error|escape }} </p>
+          {% endfor %}
+        {% endfor %}
+ {% for field in designer_form %}
+          {{ field }}
+          {{ field.label_tag }}
+          <p class="range_label d-inline-block"></p>
+          {% if field.help_text %}
+            <p class='form-text'> {{ field.help_text }} </p>
+          {% endif %}
+          {% for error in field.errors %}
+            <p class='text-danger'> {{ error|escape }} </p>
+          {% endfor %}
+    {% endfor %}
+ <button type="submit" class="btn btn-primary">Отправить</button>
+ {% for collection in collections %}
+    <p> {{ collection.name }} </p>
+ {% endfor %}
+ {% if is_paginated %}
+      <div class="pagination">
+          <span class="page-links">
+              {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+              <span class="page-current">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+              </span>
+              {% if page_obj.has_next %}
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+              {% endif %}
+          </span>
+      </div>
+  {% endif %}
+</form>
+  

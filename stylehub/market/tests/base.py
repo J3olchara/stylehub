@@ -13,11 +13,19 @@ class MarketSetUp(TestCase):
     """
 
     def setUp(self) -> None:
+        self.user_password = '1231313213dfsafdqw312'
+        self.designer_password = '123456765sdffghhgjf123'
         self.user = auth.models.User.objects.create_user(
             username='some_so_uqi13231',
             email='desaofesijf@gmail.com',
-            password='1231313213dfsafdqw312',
+            password=self.user_password,
         )
+        self.designer_user = auth.models.User.objects.create_user(
+            username='this_user_will_be_a_designer',
+            email='designer@gmail.com',
+            password=self.designer_password,
+        )
+        self.designer1 = self.designer_user.make_designer()
         self.style1 = market.models.Style.objects.create(name='some_style1')
         self.category_base1 = market.models.CategoryBase.objects.create(
             name='cat_base1'
