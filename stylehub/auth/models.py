@@ -65,6 +65,7 @@ class User(AbstractUser):
         verbose_name=_('последние пять посещённых стилей'),
         to=market.models.Style,
         blank=True,
+        related_name='styles',
     )
 
     is_designer: (
