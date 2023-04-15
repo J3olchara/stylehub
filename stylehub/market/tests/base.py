@@ -40,3 +40,4 @@ class MarketSetUp(TestCase):
         )
         self.item1.styles.add(self.style1)
         self.item1.save()
+        self.collection1.save()

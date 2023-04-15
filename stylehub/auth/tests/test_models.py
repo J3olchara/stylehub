@@ -3,22 +3,13 @@ Tests for auth models
 
 write your model tests here
 """
-from django.test import TestCase
-
 import market.models
 from auth.models import User
+from auth.tests.base import AuthSetup
 
 
-class TestUser(TestCase):
+class TestUser(AuthSetup):
     """Tests for User model"""
-
-    def setUp(self) -> None:
-        """auto vars for tests"""
-        self.user = User.objects.create_user(
-            username='setup_test_username',
-            email='setup_test_email@gmail.com',
-            password='Verysecret',
-        )
 
     def test_creating_cart(self):
         """tests that cart is creating when user creates"""
