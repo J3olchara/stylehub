@@ -77,6 +77,18 @@ class User(AbstractUser):
         default=False,
     )
 
+    saved = models.ManyToManyField(
+        verbose_name='Сохранённые пользователем вещи',
+        to=market.models.Item,
+        related_name='saved_items',
+    )
+
+    lovely = models.ManyToManyField(
+        verbose_name='Любимые дизайнеры',
+        to='User',
+        related_name='lovely_designers'
+    )
+
     def clean(self) -> None:
         if self.last_styles.count() > 5:
             to_remove = self.last_styles.order_by('?').last()

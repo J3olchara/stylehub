@@ -17,7 +17,7 @@ class Wear(generic.DetailView[market.models.Item]):
 
 
 class Collection(generic.DetailView[market.models.Collection]):
-    """gives an collection information"""
+    """gives a collection information"""
 
     template_name = 'clothes/collection.html'
     queryset = market.models.Collection.objects.get_items_in_collection()
