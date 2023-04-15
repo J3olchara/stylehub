@@ -1,16 +1,11 @@
 """ Managers for models in market.models """
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from django.apps import apps
 from django.db import models
 
-if TYPE_CHECKING:
-    BaseManager = models.Manager[Any]
-else:
-    BaseManager = models.Manager
 
-
-class CollectionManager(BaseManager):
+class CollectionManager(models.Manager[Any]):
     """Manager for Collection model"""
 
     def get_items_in_collection(self) -> models.query.QuerySet[Any]:

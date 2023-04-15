@@ -3,21 +3,12 @@ page views for clothes shop
 
 write your clothes shop views here
 """
-from typing import TYPE_CHECKING
-
 from django.views import generic
 
 import market.models
 
-if TYPE_CHECKING:
-    WearDetailView = generic.DetailView[market.models.Item]
-    CollectionDetailView = generic.DetailView[market.models.Collection]
-else:
-    WearDetailView = generic.DetailView
-    CollectionDetailView = generic.DetailView
 
-
-class Wear(WearDetailView):
+class Wear(generic.DetailView[market.models.Item]):
     """gives an item information"""
 
     model = market.models.Item
@@ -25,7 +16,7 @@ class Wear(WearDetailView):
     context_object_name = 'item'
 
 
-class Collection(CollectionDetailView):
+class Collection(generic.DetailView[market.models.Collection]):
     """gives an collection information"""
 
     template_name = 'clothes/collection.html'
