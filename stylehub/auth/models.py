@@ -86,7 +86,7 @@ class User(AbstractUser):
     lovely = models.ManyToManyField(
         verbose_name='Любимые дизайнеры',
         to='User',
-        related_name='lovely_designers'
+        related_name='lovely_designers',
     )
 
     def clean(self) -> None:
