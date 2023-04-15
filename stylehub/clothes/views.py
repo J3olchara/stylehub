@@ -48,15 +48,15 @@ class Designer(generic.ListView[market.models.Collection]):
             pk=designer_id
         ).first()
         return (
-            market.models.Collection.objects.get_items_in_collection().filter(
+            market.models.Collection.objects.get_items_in_collection()
+            .filter(
                 designer=designer.user
             )
         )
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         """returns context data to show forms"""
-        self.object_list = self.get_queryset()
-        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(object_list=self.get_queryset(), **kwargs)
         designer_id = self.kwargs.get('pk')
         designer = get_object_or_404(
             auth.models.DesignerProfile, pk=designer_id
