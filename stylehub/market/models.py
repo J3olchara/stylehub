@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import core.models
+import market.managers
 import utils.functions
 
 
@@ -259,6 +260,8 @@ class Item(core.models.CreatedEdited):
 
     """
 
+    objects = market.managers.ItemManager()
+
     name = models.CharField(
         verbose_name=_('Название товара'),
         help_text=_(
@@ -368,11 +371,11 @@ class OrderClothes(core.models.CreatedEdited):
     """
 
     statuses = (
-        ('0', 'Ожидает'),
-        ('1', 'Принят'),
-        ('2', 'в процессе'),
-        ('3', 'доставка'),
-        ('4', 'выполнен'),
+        ('wait', 'Ожидает'),
+        ('got', 'Принят'),
+        ('proc', 'в процессе'),
+        ('deli', 'доставка'),
+        ('done', 'выполнен'),
     )
 
     user = models.ForeignKey(
@@ -400,7 +403,7 @@ class OrderClothes(core.models.CreatedEdited):
     status = models.CharField(
         max_length=127,
         choices=statuses,
-        default='0',
+        default='wait',
         blank=False,
         null=False,
     )
@@ -482,7 +485,7 @@ class Evaluation(core.models.CreatedEdited):
         on_delete=models.CASCADE,
         verbose_name='товар',
         help_text='товар, к которому оставили отзыв',
-        related_name='rating_item',
+        related_name='evaluations',
     )
 
     rating = models.PositiveSmallIntegerField(

@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AlterModelManagers(
             name='user',
             managers=[
-                ('objects', auth.models.UserManager()),
+                ('objects', auth.managers.UserManager()),
             ],
         ),
         migrations.RenameField(

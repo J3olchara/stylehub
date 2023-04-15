@@ -2,54 +2,12 @@
 from typing import Any, Optional, Sequence, Union
 
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import UserManager as UserManagerOld
 from django.db import models
 from django.db.models.expressions import Combinable
 from django.utils.translation import gettext_lazy as _
 
+import auth.managers
 import market.models
-
-
-class UserManager(UserManagerOld[AbstractUser]):
-    """
-    User manager
-
-    Write your custom objects methods here
-    """
-
-    def create_user(
-        self,
-        username: str,
-        email: Optional[str] = None,
-        password: Optional[str] = None,
-        **extra_fields: Any
-    ) -> AbstractUser:
-        """
-        extended user creating
-
-        creates cart for user
-        """
-        user = super().create_user(username, email, password, **extra_fields)
-        market.models.Cart.objects.create(user=user)
-        return user
-
-    def create_superuser(
-        self,
-        username: str,
-        email: Optional[str] = None,
-        password: Optional[str] = None,
-        **extra_fields: Any
-    ) -> AbstractUser:
-        """
-        extended superuser creating
-
-        creates cart for superuser
-        """
-        superuser = super().create_superuser(
-            username, email, password, **extra_fields
-        )
-        market.models.Cart.objects.create(user=superuser)
-        return superuser
 
 
 class User(AbstractUser):
@@ -61,7 +19,7 @@ class User(AbstractUser):
     is_designer: bool. user is designer?
     """
 
-    objects = UserManager()
+    objects = auth.managers.UserManager()
 
     gender_choices = (
         ('', _('Не указан')),
