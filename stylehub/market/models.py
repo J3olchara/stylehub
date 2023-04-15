@@ -404,12 +404,17 @@ class Item(core.models.CreatedEdited):
     def buy(self, user: 'auth.models.User') -> OrderClothes:
         """creates an order with item and increments bought count"""
         self.bought += 1
+        self.save()
         return OrderClothes.objects.create(
             user=user,
             designer=self.designer,
             sum=self.cost,
             item=self,
         )
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        super().save()
+        self.collection.save()
 
     class Meta:
         """Model settings"""
