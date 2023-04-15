@@ -78,13 +78,13 @@ class User(AbstractUser):
     )
 
     saved = models.ManyToManyField(
-        verbose_name='Сохранённые пользователем вещи',
+        verbose_name=_('Сохранённые пользователем вещи'),
         to=market.models.Item,
         related_name='saved_items',
     )
 
     lovely = models.ManyToManyField(
-        verbose_name='Любимые дизайнеры',
+        verbose_name=_('Любимые дизайнеры'),
         to='User',
         related_name='lovely_designers',
     )

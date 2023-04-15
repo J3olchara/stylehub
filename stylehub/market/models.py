@@ -271,6 +271,7 @@ class Item(core.models.CreatedEdited):
         ),
         max_length=50,
     )
+
     designer = models.ForeignKey(
         verbose_name=_('Дизайнер вещи'),
         related_name='item_designer',
