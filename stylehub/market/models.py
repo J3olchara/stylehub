@@ -312,6 +312,7 @@ class Item(core.models.CreatedEdited):
         on_delete=models.CASCADE,
         verbose_name='коллекция, в которой есть этот товар',
         help_text='показывает участвует ли товар в каких-либо коллекциях',
+        related_name='items',
     )
 
     is_published = models.BooleanField(
@@ -347,6 +348,7 @@ class ItemPicture(models.Model):
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
+        related_name='images',
     )
 
     class Meta:
