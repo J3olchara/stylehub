@@ -412,6 +412,10 @@ class Item(core.models.CreatedEdited):
             item=self,
         )
 
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        super().save()
+        self.collection.save()
+
     class Meta:
         """Model settings"""
 
