@@ -1,5 +1,5 @@
 """
-Tests for market model managers
+Market model managers tests
 
 write your model manager tests here
 """
@@ -18,3 +18,16 @@ class TestItem(MarketSetUp):
         """
         item = market.models.Item.objects.get_details().get(id=self.item1.id)
         self.assertIn('evaluations', item._prefetched_objects_cache.keys())
+
+
+class TestCollectionManager(MarketSetUp):
+    """test class for Collection manager functions"""
+
+    def test_get_items_in_collection(self):
+        """tests that get_items_in_collection queryset have prefetched items"""
+        collection = (
+            market.models.Collection.objects.get_items_in_collection().get(
+                id=self.collection1.id
+            )
+        )
+        self.assertIn('items', collection._prefetched_objects_cache.keys())

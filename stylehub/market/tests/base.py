@@ -1,6 +1,4 @@
-"""
-base classes for testing market
-"""
+"""base classes to market tests"""
 from django.test import TestCase
 
 import auth.models
