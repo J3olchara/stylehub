@@ -30,7 +30,5 @@ class Collection(CollectionDetailView):
 
     # model = market.models.Collection
     template_name = 'clothes/collection.html'
-    queryset = (
-        market.models.Collection.objects.get_items_in_collection()
-    )
+    queryset = market.models.Collection.objects.get_items_in_collection()
     context_object_name = 'collection'

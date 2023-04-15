@@ -14,7 +14,7 @@ class CollectionManager(BaseManager):
     """Manager for Collection model"""
 
     def get_items_in_collection(self) -> models.query.QuerySet[Any]:
-        """Returns Item, which belongs collection """
+        """Returns Item, which belongs collection"""
         item: Any = apps.get_model('market', 'Item')
         style: Any = apps.get_model('market', 'Style')
         image: Any = apps.get_model('market', 'ItemPicture')
