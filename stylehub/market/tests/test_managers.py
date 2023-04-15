@@ -1,10 +1,26 @@
-""" Test managers from market app"""
+"""
+Market model managers tests
 
+write your model manager tests here
+"""
 import market.models
-import market.tests.base
+from market.tests.base import MarketSetUp
 
 
-class TestCollectionManager(market.tests.base.SetUpBaseClass):
+class TestItem(MarketSetUp):
+    """tests item manager"""
+
+    def test_item_details(self):
+        """
+        tests item_details function
+
+        item must have prefetched evaluations
+        """
+        item = market.models.Item.objects.get_details().get(id=self.item1.id)
+        self.assertIn('evaluations', item._prefetched_objects_cache.keys())
+
+
+class TestCollectionManager(MarketSetUp):
     """test class for Collection manager functions"""
 
     def test_get_items_in_collection(self):

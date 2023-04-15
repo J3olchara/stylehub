@@ -7,11 +7,10 @@ write youth here
 from django.test import Client
 from django.urls import reverse
 
-import market.models
-import market.tests.base
+from market.tests.base import MarketSetUp
 
 
-class TestEndpoints(market.tests.base.SetUpBaseClass):
+class TestEndpoints(MarketSetUp):
     """Tests endpoints of all views in market app"""
 
     def test_wear_endpoint(self):

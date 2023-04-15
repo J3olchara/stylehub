@@ -11,9 +11,9 @@ import market.models
 class Wear(generic.DetailView[market.models.Item]):
     """gives an item information"""
 
-    model = market.models.Item
     template_name = 'clothes/wear.html'
     context_object_name = 'item'
+    queryset = market.models.Item.objects.get_details()
 
 
 class Collection(generic.DetailView[market.models.Collection]):
