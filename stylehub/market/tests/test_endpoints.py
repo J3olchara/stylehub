@@ -63,17 +63,6 @@ class TestEndpoints(MarketSetUp):
         )
 
         designer_client = Client()
-        print(
-            (self.designer_password),
-            self.designer_user.username,
-            self.designer_user.password,
-        )
-        print(
-            designer_client.login(
-                username=self.designer_user.username,
-                password=self.designer_password,
-            )
-        )
         designer_get_resp = designer_client.get(path)
         self.assertEqual(
             designer_get_resp.status_code,
@@ -86,7 +75,7 @@ class TestEndpoints(MarketSetUp):
             302,
             'Дизайнер не может редактировать свой профиль',
         )
-        
+
     def test_recommend_endpoint(self):
         """tests clothes:recommend page endpoint"""
         path = reverse('clothes:recommend')

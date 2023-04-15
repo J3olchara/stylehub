@@ -94,8 +94,8 @@ class Designer(generic.ListView[market.models.Collection]):
                 )
             )
         raise Http404()
-        
-        
+
+
 class Recommend(generic.ListView[market.models.Collection]):
     """gives a popular collections based on user seen history"""
 
