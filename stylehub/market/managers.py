@@ -8,7 +8,7 @@ from django.db import models
 class ItemManager(models.Manager[Any]):
     """Item manager for Item model"""
 
-    def get_details(self) -> models.QuerySet['market.models.Item']:
+    def get_details(self) -> models.QuerySet[Any]:
         """item with evaluations :return"""
         evaluations = apps.get_model('market', 'Evaluation')
         prefetch_evals = models.Prefetch(

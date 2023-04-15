@@ -6,7 +6,7 @@ write youth here
 """
 from django.test import Client
 from django.urls import reverse
-import market.models
+
 from market.tests.base import MarketSetUp
 
 
