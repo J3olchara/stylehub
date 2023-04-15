@@ -7,11 +7,10 @@ write youth here
 from django.test import Client
 from django.urls import reverse
 
-import market.models
-import market.tests.base
+from market.tests.base import MarketSetUp
 
 
-class TestEndpoints(market.tests.base.SetUpBaseClass):
+class TestEndpoints(MarketSetUp):
     """Tests endpoints of all views in market app"""
 
     def test_wear_endpoint(self):
@@ -22,7 +21,7 @@ class TestEndpoints(market.tests.base.SetUpBaseClass):
         self.assertEqual(resp.status_code, 200)
 
     def test_collection_detail_endpoint(self):
-        """tests collection:pk page endpoint"""
+        """tests clothes:collection_detail page endpoint"""
         path = reverse(
             'clothes:collection_detail', kwargs={'pk': self.collection1.id}
         )
@@ -64,16 +63,9 @@ class TestEndpoints(market.tests.base.SetUpBaseClass):
         )
 
         designer_client = Client()
-        print(
-            (self.designer_password),
-            self.designer_user.username,
-            self.designer_user.password,
-        )
-        print(
-            designer_client.login(
-                username=self.designer_user.username,
-                password=self.designer_password,
-            )
+        designer_client.login(
+            username=self.designer_user.username,
+            password=self.designer_password,
         )
         designer_get_resp = designer_client.get(path)
         self.assertEqual(
@@ -87,3 +79,10 @@ class TestEndpoints(market.tests.base.SetUpBaseClass):
             302,
             'Дизайнер не может редактировать свой профиль',
         )
+
+    def test_recommend_endpoint(self):
+        """tests clothes:recommend page endpoint"""
+        path = reverse('clothes:recommend')
+        client = Client()
+        resp = client.get(path)
+        self.assertEqual(resp.status_code, 200)

@@ -5,6 +5,7 @@ from django.core import validators
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+import auth.models
 import core.models
 import market.managers
 import utils.functions
@@ -203,6 +204,62 @@ class OrderPicture(models.Model):
         verbose_name_plural = _('фотографии заказов кастомов')
 
 
+class OrderClothes(core.models.CreatedEdited):
+    """
+    OrderClothes model to store item buyings
+
+    user: FK.
+    designer: FK.
+    sum: int. order cost
+    item: FK
+    status: choces statuses. order status
+    """
+
+    statuses = (
+        ('wait', 'Ожидает'),
+        ('got', 'Принят'),
+        ('proc', 'в процессе'),
+        ('deli', 'доставка'),
+        ('done', 'выполнен'),
+    )
+
+    user = models.ForeignKey(
+        related_name='order_user',
+        verbose_name='заказчик',
+        to='user_auth.User',
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    designer = models.ForeignKey(
+        related_name='order_designer',
+        verbose_name='исполнитель',
+        to='user_auth.User',
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    sum = models.IntegerField(
+        verbose_name='общая стоимость заказа',
+        null=False,
+        blank=False,
+    )
+    item = models.ForeignKey(
+        to='Item', on_delete=models.PROTECT, verbose_name='Заказанная вещь'
+    )
+    status = models.CharField(
+        max_length=127,
+        choices=statuses,
+        default='wait',
+        blank=False,
+        null=False,
+    )
+
+    class Meta:
+        """Model settings"""
+
+        verbose_name = _('заказ одежды')
+        verbose_name_plural = _('заказы одежды')
+
+
 class Collection(core.models.CreatedEdited):
     """
     category model for items collection
@@ -212,14 +269,16 @@ class Collection(core.models.CreatedEdited):
     slug: char[50]. creature normalized name.
     created: datetime. Creation datetime.
     edited: datetime. Editing datetime.
-    style: ManyToManyField market.models.Style
+    styles: ManyToManyField market.models.Style
     text: TextField - collection description
     designer: ForeignKey - to user_auth.User
     """
 
     objects = market.managers.CollectionManager()
 
-    style = models.ManyToManyField(Style, verbose_name='стиль коллекции')
+    styles = models.ManyToManyField(
+        Style, verbose_name='стиль коллекции', related_name='item_styles'
+    )
 
     name = models.CharField(
         verbose_name='Название коллекции',
@@ -234,6 +293,13 @@ class Collection(core.models.CreatedEdited):
         verbose_name='дизайнер коллекции',
         help_text='Укажите кто создал эту коллекцию',
     )
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        for item in Item.objects.pref_styles().filter(collection=self):
+            for style in item.styles.all():
+                if style not in self.styles.all():
+                    self.styles.add(style)
+        return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.name
@@ -262,6 +328,8 @@ class Item(core.models.CreatedEdited):
 
     """
 
+    objects = market.managers.ItemManager()
+
     name = models.CharField(
         verbose_name=_('Название товара'),
         help_text=_(
@@ -269,6 +337,7 @@ class Item(core.models.CreatedEdited):
         ),
         max_length=50,
     )
+
     designer = models.ForeignKey(
         verbose_name=_('Дизайнер вещи'),
         related_name='item_designer',
@@ -318,6 +387,12 @@ class Item(core.models.CreatedEdited):
         related_name='items',
     )
 
+    bought = models.IntegerField(
+        verbose_name=_('куплено раз'),
+        help_text=_('сколько раз купили этот товар'),
+        default=0,
+    )
+
     is_published = models.BooleanField(
         verbose_name='Опубликован?',
         default=True,
@@ -325,6 +400,16 @@ class Item(core.models.CreatedEdited):
 
     def __str__(self) -> str:
         return self.name
+
+    def buy(self, user: 'auth.models.User') -> OrderClothes:
+        """creates an order with item and increments bought count"""
+        self.bought += 1
+        return OrderClothes.objects.create(
+            user=user,
+            designer=self.designer,
+            sum=self.cost,
+            item=self,
+        )
 
     class Meta:
         """Model settings"""
@@ -359,62 +444,6 @@ class ItemPicture(models.Model):
 
         verbose_name = _('фотография вещи')
         verbose_name_plural = _('фотографии вещей')
-
-
-class OrderClothes(core.models.CreatedEdited):
-    """
-    OrderClothes model to store item buyings
-
-    user: FK.
-    designer: FK.
-    sum: int. order cost
-    item: FK
-    status: choces statuses. order status
-    """
-
-    statuses = (
-        ('0', 'Ожидает'),
-        ('1', 'Принят'),
-        ('2', 'в процессе'),
-        ('3', 'доставка'),
-        ('4', 'выполнен'),
-    )
-
-    user = models.ForeignKey(
-        related_name='order_user',
-        verbose_name='заказчик',
-        to='user_auth.User',
-        on_delete=models.SET_NULL,
-        null=True,
-    )
-    designer = models.ForeignKey(
-        related_name='order_designer',
-        verbose_name='исполнитель',
-        to='user_auth.User',
-        on_delete=models.SET_NULL,
-        null=True,
-    )
-    sum = models.IntegerField(
-        verbose_name='общая стоимость заказа',
-        null=False,
-        blank=False,
-    )
-    item = models.ForeignKey(
-        to='Item', on_delete=models.PROTECT, verbose_name='Заказанная вещь'
-    )
-    status = models.CharField(
-        max_length=127,
-        choices=statuses,
-        default='0',
-        blank=False,
-        null=False,
-    )
-
-    class Meta:
-        """Model settings"""
-
-        verbose_name = _('заказ одежды')
-        verbose_name_plural = _('заказы одежды')
 
 
 class Cart(core.models.CreatedEdited):
@@ -487,7 +516,7 @@ class Evaluation(core.models.CreatedEdited):
         on_delete=models.CASCADE,
         verbose_name='товар',
         help_text='товар, к которому оставили отзыв',
-        related_name='rating_item',
+        related_name='evaluations',
     )
 
     rating = models.PositiveSmallIntegerField(
