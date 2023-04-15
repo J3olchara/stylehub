@@ -19,13 +19,13 @@ import market.models
 class Wear(generic.DetailView[market.models.Item]):
     """gives an item information"""
 
-    model = market.models.Item
     template_name = 'clothes/wear.html'
     context_object_name = 'item'
+    queryset = market.models.Item.objects.get_details()
 
 
 class Collection(generic.DetailView[market.models.Collection]):
-    """gives an collection information"""
+    """gives a collection information"""
 
     template_name = 'clothes/collection.html'
     queryset = market.models.Collection.objects.get_items_in_collection()
@@ -94,3 +94,14 @@ class Designer(generic.ListView[market.models.Collection]):
                 )
             )
         raise Http404()
+        
+        
+class Recommend(generic.ListView[market.models.Collection]):
+    """gives a popular collections based on user seen history"""
+
+    template_name = 'clothes/recommend.html'
+    context_object_name = 'collections'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        """get popular collections queryset"""
+        return market.models.Collection.objects.recommend(self.request.user)

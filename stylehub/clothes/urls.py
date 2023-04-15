@@ -23,4 +23,9 @@ urlpatterns = [
         clothes.views.Designer.as_view(),
         name='designer_detail',
     ),
+    django.urls.path(
+        'recommend/',
+        clothes.views.Recommend.as_view(),
+        name='recommend',
+    ),
 ]

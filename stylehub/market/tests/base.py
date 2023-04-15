@@ -1,12 +1,16 @@
-""" class for insert test objects in database """
+"""base classes to market tests"""
 from django.test import TestCase
 
 import auth.models
 import market.models
 
 
-class SetUpBaseClass(TestCase):
-    """Tests endpoints of all views in market app"""
+class MarketSetUp(TestCase):
+    """
+    base test class for market setup
+
+    have all model objects from market models
+    """
 
     def setUp(self) -> None:
         self.user_password = '1231313213dfsafdqw312'
@@ -44,3 +48,4 @@ class SetUpBaseClass(TestCase):
         )
         self.item1.styles.add(self.style1)
         self.item1.save()
+        self.collection1.save()
