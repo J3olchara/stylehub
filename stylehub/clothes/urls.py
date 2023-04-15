@@ -18,4 +18,9 @@ urlpatterns = [
         clothes.views.Collection.as_view(),
         name='collection_detail',
     ),
+    django.urls.path(
+        'designer/<int:pk>/',
+        clothes.views.Designer.as_view(),
+        name='designer_detail',
+    ),
 ]
