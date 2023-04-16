@@ -15,16 +15,12 @@ class OrderClothesManager(models.Manager[Any]):
         self, user: Union['auth.models.User', AnonymousUser]
     ) -> models.QuerySet[Any]:
         """get users orders"""
-        if user.is_authenticated:
-            # print('auth')
-            # print(len(self.get_queryset().filter(user=user)))
-            return (
-                self.get_queryset()
-                .filter(user=user)
-                .select_related(self.model.item.field.name)
-                .order_by(
-                    Case(When(status='done', then=Value(1)), default=Value(0)),
-                    f'-{self.model.edited.field.name}',
-                )
+        return (
+            self.get_queryset()
+            .filter(user=user)
+            .select_related(self.model.item.field.name)
+            .order_by(
+                Case(When(status='done', then=Value(1)), default=Value(0)),
+                f'-{self.model.edited.field.name}',
             )
-        return self.model.objects.none()
+        )

@@ -122,5 +122,3 @@ class OrderClothesAdmin(admin.ModelAdmin[clothes.models.OrderClothes]):
         clothes.models.OrderClothes.status.field.name,
         clothes.models.OrderClothes.edited.field.name,
     )
-    # inlines = (OrderPictureInline,)
-    # list_editable = (clothes.models.OrderClothes.header.field.name,)

@@ -92,7 +92,7 @@ class TestEndpoints(MarketSetUp):
         path = reverse('clothes:orders')
         client = Client()
         not_auth_resp = client.get(path)
-        self.assertEqual(not_auth_resp.status_code, 200)
+        self.assertEqual(not_auth_resp.status_code, 302)
         client.login(username=self.user.username, password=self.user_password)
         auth_resp = client.get(path)
         self.assertEqual(auth_resp.status_code, 200)
