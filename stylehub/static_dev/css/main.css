@@ -1,1 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+a, button, p, span, h1, h2, h3, h4, h5, h6{
+    font-family: "Fira Mono Medium", "Helvetica", sans-serif!important;
+}
+.footer-logo {
+    margin-top: -25px;
+}
+.nav-link {
+    color: black;
+    font-size: 17px;
+    border-bottom: solid white 2px;
+    transition: border-bottom-color 5s;
+}
+.active-link {
+    color: rgb(64, 64, 64);
+    border-bottom-color: grey;
+}
