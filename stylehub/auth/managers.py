@@ -1,8 +1,9 @@
 """Managers for auth models"""
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from django.apps import apps
-from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.auth.models import UserManager as UserManagerOld
 
 
@@ -48,3 +49,17 @@ class UserManager(UserManagerOld[AbstractUser]):
         cart = apps.get_model('market', 'Cart')
         cart.objects.create(user=superuser)
         return superuser
+
+    def get_lovely_items(
+        self, user: Union['auth.models.User', AnonymousUser]
+    ) -> models.query.QuerySet[Any]:
+        users = apps.get_model('user_auth', 'User')
+        prefetch_items = models.Prefetch(
+            self.model.lovely.field.name, queryset=users.objects.all()
+        )
+
+        return (
+            self.get_queryset()
+            .filter(pk=user.id)
+            .prefetch_related(prefetch_items)
+        )

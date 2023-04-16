@@ -28,4 +28,9 @@ urlpatterns = [
         clothes.views.Recommend.as_view(),
         name='recommend',
     ),
+    django.urls.path(
+        'lovely/',
+        clothes.views.Lovely.as_view(),
+        name='lovely'
+    )
 ]
