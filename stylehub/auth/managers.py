@@ -51,7 +51,7 @@ class UserManager(UserManagerOld[AbstractUser]):
         return superuser
 
     def get_lovely_designers(
-        self, user: Union['auth.models.User', AnonymousUser]
+        self, user: Union[AbstractUser, AnonymousUser]
     ) -> models.query.QuerySet[Any]:
         """Returns lovely designers of this user"""
         users = apps.get_model('user_auth', 'User')
