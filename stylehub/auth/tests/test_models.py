@@ -45,8 +45,8 @@ class TestUser(AuthSetup):
             username='testdesignerusername',
             email='testdesigneruser@gmail.com',
             password=designer_user_password,
-            is_designer=True,
         )
+        designer_user.make_designer()
         user.lovely.add(designer_user)
 
         lovely = User.objects.get_lovely_designers(user)
