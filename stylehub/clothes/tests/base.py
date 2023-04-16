@@ -5,9 +5,10 @@ from market.tests.base import MarketSetUp
 
 
 class ClothesSetup(MarketSetUp):
-    """ setup db clothes models """
+    """setup db clothes models"""
+
     def setUp(self) -> None:
-        """ setup method """
+        """setup method"""
         super().setUp()
         self.order = clothes.models.OrderClothes.objects.create(
             user=self.user,
