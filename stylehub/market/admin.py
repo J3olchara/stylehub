@@ -106,3 +106,21 @@ class OrderCustomAdmin(admin.ModelAdmin[custom.models.OrderCustom]):
     )
     inlines = (OrderPictureInline,)
     list_editable = (custom.models.OrderCustom.header.field.name,)
+
+
+@admin.register(clothes.models.OrderClothes)
+class OrderClothesAdmin(admin.ModelAdmin[clothes.models.OrderClothes]):
+    """
+    Admin model order table
+    """
+
+    list_display = (
+        clothes.models.OrderClothes.user.field.name,
+        clothes.models.OrderClothes.designer.field.name,
+        clothes.models.OrderClothes.sum.field.name,
+        clothes.models.OrderClothes.item.field.name,
+        clothes.models.OrderClothes.status.field.name,
+        clothes.models.OrderClothes.edited.field.name,
+    )
+    # inlines = (OrderPictureInline,)
+    # list_editable = (clothes.models.OrderClothes.header.field.name,)
