@@ -7,6 +7,7 @@ from django.db.models.expressions import Combinable
 from django.utils.translation import gettext_lazy as _
 
 import auth.managers
+import clothes.models
 import market.models
 
 
@@ -80,7 +81,7 @@ class User(AbstractUser):
 
     saved = models.ManyToManyField(
         verbose_name=_('Сохранённые пользователем вещи'),
-        to=market.models.Item,
+        to=clothes.models.Item,
         related_name='saved_items',
     )
 

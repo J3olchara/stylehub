@@ -5,7 +5,7 @@ write your model manager tests here
 """
 from django.test import override_settings
 
-import market.models
+import clothes.models
 from auth.tests.base import AuthSetup
 from market.tests.base import MarketSetUp
 
@@ -19,7 +19,7 @@ class TestItem(MarketSetUp):
 
         item must have prefetched evaluations
         """
-        item = market.models.Item.objects.get_details().get(id=self.item1.id)
+        item = clothes.models.Item.objects.get_details().get(id=self.item1.id)
         self.assertIn('evaluations', item._prefetched_objects_cache.keys())
 
 
@@ -29,7 +29,7 @@ class TestCollectionManager(MarketSetUp, AuthSetup):
     def test_get_items_in_collection(self):
         """tests that get_items_in_collection queryset have prefetched items"""
         collection = (
-            market.models.Collection.objects.get_items_in_collection().get(
+            clothes.models.Collection.objects.get_items_in_collection().get(
                 id=self.collection1.id
             )
         )
@@ -43,11 +43,15 @@ class TestCollectionManager(MarketSetUp, AuthSetup):
         self.user.last_styles.set(self.collection1.styles.all())
         self.user.save()
         with override_settings(POPULAR_COLLECTION_BUYS=10):
-            collections = market.models.Collection.objects.recommend(self.user)
+            collections = clothes.models.Collection.objects.recommend(
+                self.user
+            )
             self.assertNotIn(self.collection1, collections)
 
             self.item1.bought = 11
             self.item1.save()
 
-            collections = market.models.Collection.objects.recommend(self.user)
+            collections = clothes.models.Collection.objects.recommend(
+                self.user
+            )
             self.assertIn(self.collection1, collections)

@@ -15,7 +15,7 @@ class ItemManager(models.Manager[Any]):
 
     def get_details(self) -> models.QuerySet[Any]:
         """item with evaluations :return"""
-        evaluations = apps.get_model('market', 'Evaluation')
+        evaluations = apps.get_model('clothes', 'Evaluation')
         prefetch_evals = models.Prefetch(
             'evaluations', evaluations.objects.all()
         )
@@ -34,9 +34,9 @@ class CollectionManager(models.Manager[Any]):
 
     def get_items_in_collection(self) -> models.query.QuerySet[Any]:
         """Returns Item, which belongs collection"""
-        item: Any = apps.get_model('market', 'Item')
+        item: Any = apps.get_model('clothes', 'Item')
         style: Any = apps.get_model('market', 'Style')
-        image: Any = apps.get_model('market', 'ItemPicture')
+        image: Any = apps.get_model('clothes', 'ItemPicture')
         prefetch_images = models.Prefetch(
             'images',
             queryset=image.objects.all().only(image.picture.field.name),
@@ -53,7 +53,6 @@ class CollectionManager(models.Manager[Any]):
             self.model.styles.field.name,
             queryset=style.objects.only(style.name.field.name),
         )
-
         return (
             self.get_queryset()
             .prefetch_related(prefetch_items)
@@ -64,7 +63,7 @@ class CollectionManager(models.Manager[Any]):
         self, user: Union['auth.models.User', AnonymousUser]
     ) -> models.query.QuerySet[Any]:
         """return popular items based on user last seen styles"""
-        item = apps.get_model('market', 'Item')
+        item = apps.get_model('clothes', 'Item')
         qs: models.query.QuerySet[Any] = self.get_items_in_collection()
         if user.is_authenticated and user.last_styles.count() >= 1:
             qs = qs.filter(styles__in=user.last_styles.all())

@@ -5,10 +5,7 @@ from django.core import validators
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-import auth.models
 import core.models
-import market.managers
-import utils.functions
 
 
 class Style(core.models.BaseCreature):
@@ -99,81 +96,6 @@ class CategoryBase(core.models.BaseCreature):
         )
 
 
-class OrderCustom(core.models.CreatedEdited):
-    """
-    order model
-    describes user`s order
-
-    user: id FK -> auth.User
-    max_price: integer. User`s budget
-    header: char[100]. Short essence of order
-    text: Task for designer
-    status: char[4]. Choices
-    created: datetime. Creation datetime.
-    edited: datetime. Editing datetime.
-    designer: id FK -> auth.User.
-    """
-
-    process_choices = (
-        ('wait', 'в обработке'),
-        ('got', 'принят'),
-        ('proc', 'в процессе'),
-        ('deli', 'в доставке'),
-        ('done', 'выполнен'),
-    )
-
-    user = models.ForeignKey(
-        to='user_auth.User',
-        verbose_name='заказчик',
-        related_name='user',
-        help_text='Пользователь, оформивший заказ',
-        on_delete=models.SET_NULL,
-        blank=False,
-        null=True,
-    )
-    max_price = models.IntegerField(
-        verbose_name='максимальная сумма заказа',
-        help_text='Бюджет пользователя',
-    )
-    header = models.CharField(
-        verbose_name='заголовок',
-        help_text='Заголовок заказа',
-        max_length=100,
-        blank=False,
-        null=False,
-    )
-    text = models.TextField(
-        verbose_name='описание стиля',
-        help_text='Опишите стиль, добавьте интересные факты',
-        blank=True,
-        null=True,
-    )
-    status = models.CharField(
-        verbose_name='заголовок',
-        help_text='Заголовок заказа',
-        default=process_choices[0][0],
-        choices=process_choices,
-        max_length=4,
-        blank=False,
-        null=False,
-    )
-    designer = models.ForeignKey(
-        to='user_auth.User',
-        verbose_name='дизайнер',
-        related_name='designer',
-        help_text='Дизайнер, получивший заказ',
-        on_delete=models.SET_NULL,
-        blank=False,
-        null=True,
-    )
-
-    class Meta:
-        """Model settings"""
-
-        verbose_name = _('заказ кастома')
-        verbose_name_plural = _('заказы кастомов')
-
-
 class OrderPicture(models.Model):
     """
     order model
@@ -183,35 +105,24 @@ class OrderPicture(models.Model):
     order: id FK -> OrderCustom
     """
 
-    picture: Union[Any, 'models.ImageField'] = models.ImageField(
+    picture = models.ImageField(
         verbose_name='изображение',
         help_text='Изображение желаемого дизайна',
         upload_to='media/uploads/order_pictures',
-    )
-    order: Union[
-        'OrderCustom', 'models.ForeignKey[Any, Any]'
-    ] = models.ForeignKey(
-        OrderCustom,
-        verbose_name='заказ',
-        help_text='Номер заказа',
-        on_delete=models.CASCADE,
     )
 
     class Meta:
         """Model settings"""
 
-        verbose_name = _('фотография заказа кастома')
-        verbose_name_plural = _('фотографии заказов кастомов')
+        abstract = True
 
 
-class OrderClothes(core.models.CreatedEdited):
+class Order(core.models.CreatedEdited):
     """
-    OrderClothes model to store item buyings
+    Order model to store item buyings
 
     user: FK.
     designer: FK.
-    sum: int. order cost
-    item: FK
     status: choces statuses. order status
     """
 
@@ -224,26 +135,16 @@ class OrderClothes(core.models.CreatedEdited):
     )
 
     user = models.ForeignKey(
-        related_name='order_user',
         verbose_name='заказчик',
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
     )
     designer = models.ForeignKey(
-        related_name='order_designer',
         verbose_name='исполнитель',
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
-    )
-    sum = models.IntegerField(
-        verbose_name='общая стоимость заказа',
-        null=False,
-        blank=False,
-    )
-    item = models.ForeignKey(
-        to='Item', on_delete=models.PROTECT, verbose_name='Заказанная вещь'
     )
     status = models.CharField(
         max_length=127,
@@ -256,199 +157,10 @@ class OrderClothes(core.models.CreatedEdited):
     class Meta:
         """Model settings"""
 
+        abstract = True
+
         verbose_name = _('заказ одежды')
         verbose_name_plural = _('заказы одежды')
-
-
-class Collection(core.models.CreatedEdited):
-    """
-    category model for items collection
-    describes item base collection: Haute Couture for example
-
-    name: char[50]. Creature name.
-    slug: char[50]. creature normalized name.
-    created: datetime. Creation datetime.
-    edited: datetime. Editing datetime.
-    styles: ManyToManyField market.models.Style
-    text: TextField - collection description
-    designer: ForeignKey - to user_auth.User
-    """
-
-    objects = market.managers.CollectionManager()
-
-    styles = models.ManyToManyField(
-        Style, verbose_name='стиль коллекции', related_name='item_styles'
-    )
-
-    name = models.CharField(
-        verbose_name='Название коллекции',
-        max_length=100,
-    )
-
-    text = models.TextField(verbose_name='описание коллекции')
-
-    designer = models.ForeignKey(
-        to='user_auth.User',
-        on_delete=models.CASCADE,
-        verbose_name='дизайнер коллекции',
-        help_text='Укажите кто создал эту коллекцию',
-    )
-
-    def save(self, *args: Any, **kwargs: Any) -> None:
-        for item in Item.objects.pref_styles().filter(collection=self):
-            for style in item.styles.all():
-                if style not in self.styles.all():
-                    self.styles.add(style)
-        return super().save(*args, **kwargs)
-
-    def __str__(self) -> str:
-        return self.name
-
-    class Meta:
-        """Model settings"""
-
-        verbose_name = _('коллекция')
-        verbose_name_plural = _('коллекции')
-
-
-class Item(core.models.CreatedEdited):
-    """
-    Item models
-
-    name: char[50]. Item name.
-    designer: ForeignKey to auth.models.designer
-    main_image: ImageField - image to describe main idea of item
-    cost: PositiveBigIntegerField - describe how many this item cost
-    text: TextField - item description
-    category: ForeignKey to market.models.Category
-    styles: ManyToManyField market.models.Style
-    collection: ManyToOneField(ForeignKey) market.models.Collection
-    created: datetime. Creation datetime.
-    edited: datetime. Editing datetime.
-
-    """
-
-    objects = market.managers.ItemManager()
-
-    name = models.CharField(
-        verbose_name=_('Название товара'),
-        help_text=_(
-            'Придумайте не длинное название, передающее основные черты товара'
-        ),
-        max_length=50,
-    )
-
-    designer = models.ForeignKey(
-        verbose_name=_('Дизайнер вещи'),
-        related_name='item_designer',
-        to='user_auth.User',
-        on_delete=models.CASCADE,
-    )
-
-    main_image = models.ImageField(
-        verbose_name=_('основная картинка товара'),
-        upload_to=utils.functions.get_item_main_image_location,
-        null=True,
-        blank=True,
-    )
-
-    cost = models.IntegerField(
-        verbose_name=_('стоимость товара'),
-        help_text=_('добавьте стоимость вашего товара'),
-    )
-
-    text = models.TextField(
-        verbose_name=_('описание товара'),
-        help_text=_('опишите ваш товар'),
-        null=True,
-        blank=True,
-    )
-
-    category = models.ForeignKey(
-        related_name='item_category',
-        to=CategoryExtended,
-        on_delete=models.CASCADE,
-        verbose_name=_('категория товара'),
-        help_text=_('указывает на категорию, к которой относится товар'),
-    )
-
-    styles = models.ManyToManyField(
-        related_name='style',
-        to=Style,
-        verbose_name=_('стиль товара'),
-        help_text=_('указывает к какому стилю принадлежит товар'),
-    )
-
-    collection = models.ForeignKey(
-        to=Collection,
-        on_delete=models.CASCADE,
-        verbose_name='коллекция, в которой есть этот товар',
-        help_text='показывает участвует ли товар в каких-либо коллекциях',
-        related_name='items',
-    )
-
-    bought = models.IntegerField(
-        verbose_name=_('куплено раз'),
-        help_text=_('сколько раз купили этот товар'),
-        default=0,
-    )
-
-    is_published = models.BooleanField(
-        verbose_name='Опубликован?',
-        default=True,
-    )
-
-    def __str__(self) -> str:
-        return self.name
-
-    def buy(self, user: 'auth.models.User') -> OrderClothes:
-        """creates an order with item and increments bought count"""
-        self.bought += 1
-        self.save()
-        return OrderClothes.objects.create(
-            user=user,
-            designer=self.designer,
-            sum=self.cost,
-            item=self,
-        )
-
-    def save(self, *args: Any, **kwargs: Any) -> None:
-        super().save()
-        self.collection.save()
-
-    class Meta:
-        """Model settings"""
-
-        verbose_name = _('вещь')
-        verbose_name_plural = _('вещи')
-
-
-class ItemPicture(models.Model):
-    """
-    models realise pictures gallery for item
-    picture: ImageField one of many item picture
-    item: ManyToManyField shows for what item this picture
-    """
-
-    picture = models.ImageField(
-        verbose_name='изображение',
-        help_text='изображение для галерии товара',
-        upload_to=utils.functions.get_item_images_upload_location,
-    )
-
-    item = models.ForeignKey(
-        to=Item,
-        on_delete=models.CASCADE,
-        verbose_name='галерея изображений товара',
-        help_text='добавьте как можно болеее информативные фотографии',
-        related_name='images',
-    )
-
-    class Meta:
-        """Model settings"""
-
-        verbose_name = _('фотография вещи')
-        verbose_name_plural = _('фотографии вещей')
 
 
 class Cart(core.models.CreatedEdited):
@@ -469,7 +181,7 @@ class Cart(core.models.CreatedEdited):
     items = models.ManyToManyField(
         verbose_name='предметы в корзине',
         help_text='Предметы, которые пользователь добавил в корзину',
-        to='Item',
+        to='clothes.Item',
     )
 
     class Meta:
@@ -481,12 +193,11 @@ class Cart(core.models.CreatedEdited):
 
 class Evaluation(core.models.CreatedEdited):
     """
-    Evalution on items from users
+    Evalution abstract model
 
     created: datetime. creation datetime
     edited: datetime. editing datetime
-    user: QuerySet[auth.models.User]. User who evaluated Item
-    item: QuerySet[market.models.Item]. Item for Evaluation
+    user: QuerySet[auth.models.User]. User that evaluated
     rating: models.PositiveSmallIntegerField(int) Rating of evaluation
             from EVALUATION_VALUE_CHOICES
     goods: models.TextField(str) Good sides of Item
@@ -516,14 +227,6 @@ class Evaluation(core.models.CreatedEdited):
         help_text='пользователь, оставивший отзыв',
     )
 
-    item = models.ForeignKey(
-        to=Item,
-        on_delete=models.CASCADE,
-        verbose_name='товар',
-        help_text='товар, к которому оставили отзыв',
-        related_name='evaluations',
-    )
-
     rating = models.PositiveSmallIntegerField(
         validators=[
             validators.MaxValueValidator(
@@ -534,33 +237,32 @@ class Evaluation(core.models.CreatedEdited):
             ),
         ],
         choices=EVALUATION_VALUE_CHOICES,
-        verbose_name='оценка товара',
+        verbose_name='оценка',
         help_text='Ваша оценка',
     )
 
     goods = models.TextField(
         verbose_name='Достоинства',
-        help_text='Какие позитивные стороны вы нашли у этого товара',
         blank=True,
         null=True,
     )
 
     negatives = models.TextField(
         verbose_name='Недостатки',
-        help_text='Какие недостатки вы нашли у этого товара',
         blank=True,
         null=True,
     )
 
     text = models.TextField(
         verbose_name='Комментарий',
-        help_text='Ваш комментарий после использования этого товара',
         blank=True,
         null=True,
     )
 
     class Meta:
         """Model settings"""
+
+        abstract = True
 
         verbose_name = _('отзыв')
         verbose_name_plural = _('отзывы')

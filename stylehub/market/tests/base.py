@@ -2,6 +2,7 @@
 from django.test import TestCase
 
 import auth.models
+import clothes.models
 import market.models
 
 
@@ -36,10 +37,10 @@ class MarketSetUp(TestCase):
                 category_base=self.category_base1,
             )
         )
-        self.collection1 = market.models.Collection.objects.create(
+        self.collection1 = clothes.models.Collection.objects.create(
             name='some_collection1', designer=self.user
         )
-        self.item1 = market.models.Item.objects.create(
+        self.item1 = clothes.models.Item.objects.create(
             name='item_name1231',
             designer=self.user,
             cost=99999,
