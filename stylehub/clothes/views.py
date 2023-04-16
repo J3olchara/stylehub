@@ -13,26 +13,26 @@ from django.views import generic
 
 import auth.forms
 import auth.models
-import market.models
+import clothes.models
 
 
-class Wear(generic.DetailView[market.models.Item]):
+class Wear(generic.DetailView[clothes.models.Item]):
     """gives an item information"""
 
     template_name = 'clothes/wear.html'
     context_object_name = 'item'
-    queryset = market.models.Item.objects.get_details()
+    queryset = clothes.models.Item.objects.get_details()
 
 
-class Collection(generic.DetailView[market.models.Collection]):
+class Collection(generic.DetailView[clothes.models.Collection]):
     """gives a collection information"""
 
     template_name = 'clothes/collection.html'
-    queryset = market.models.Collection.objects.get_items_in_collection()
+    queryset = clothes.models.Collection.objects.get_items_in_collection()
     context_object_name = 'collection'
 
 
-class Designer(generic.ListView[market.models.Collection]):
+class Designer(generic.ListView[clothes.models.Collection]):
     """Gives information about designer"""
 
     template_name = 'clothes/designer_detail.html'
@@ -48,7 +48,7 @@ class Designer(generic.ListView[market.models.Collection]):
             pk=designer_id
         ).first()
         return (
-            market.models.Collection.objects.get_items_in_collection().filter(
+            clothes.models.Collection.objects.get_items_in_collection().filter(
                 designer=designer.user
             )
         )
@@ -76,11 +76,9 @@ class Designer(generic.ListView[market.models.Collection]):
         context['readonly'] = readonly
         return context
 
-    def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponse:
+    def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
         """Processing request.POST"""
-        context = self.get_context_data(*args, **kwargs)
+        context = self.get_context_data(**kwargs)
         designer_id = self.kwargs.get('pk')
         readonly = context['readonly']
         if not readonly:
@@ -97,7 +95,7 @@ class Designer(generic.ListView[market.models.Collection]):
         raise Http404()
 
 
-class Recommend(generic.ListView[market.models.Collection]):
+class Recommend(generic.ListView[clothes.models.Collection]):
     """gives a popular collections based on user seen history"""
 
     template_name = 'clothes/recommend.html'
@@ -105,4 +103,4 @@ class Recommend(generic.ListView[market.models.Collection]):
 
     def get_queryset(self) -> QuerySet[Any]:
         """get popular collections queryset"""
-        return market.models.Collection.objects.recommend(self.request.user)
+        return clothes.models.Collection.objects.recommend(self.request.user)
