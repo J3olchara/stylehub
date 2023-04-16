@@ -114,7 +114,7 @@ class Orders(
 
     template_name = 'clothes/orders.html'
     context_object_name = 'orders'
-    ogin_url = "/admin/"
+    ogin_url = '/admin/'
 
     def get_queryset(self) -> QuerySet[Any]:
         """get user orders queryset"""
