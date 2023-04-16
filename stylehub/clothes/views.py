@@ -3,9 +3,10 @@ page views for clothes shop
 
 write your clothes shop views here
 """
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from django.contrib.auth import mixins
+from django.contrib.auth.models import AbstractUser
 from django.db.models import QuerySet
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -123,13 +124,13 @@ class Orders(
 
 
 class Lovely(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
-    """gives a lovely user items"""
+    """gives a lovely user designers"""
 
     template_name = 'clothes/lovely.html'
-    context_object_name = 'items'
+    context_object_name = 'designers'
     login_url = 'admin/'
 
-    def get_queryset(self) -> QuerySet[Any]:
+    def get_queryset(self) -> Optional[AbstractUser]:
+        """Returns designers"""
         user = self.request.user
-        print(auth.models.User.objects.get_lovely_items(user).get(pk=user.id)._prefetched_objects_cache.keys())
-        return auth.models.User.objects.get_lovely_items(user)
+        return auth.models.User.objects.get_lovely_designers(user)

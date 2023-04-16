@@ -23,4 +23,6 @@ class DesignerProfileAdmin(DesignerBaseAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin[User]):
+    """class for see all fields usermodel in Admin"""
+
     filter_horizontal = (User.lovely.field.name, User.saved.field.name)

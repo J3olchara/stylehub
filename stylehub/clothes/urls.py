@@ -30,8 +30,6 @@ urlpatterns = [
     ),
     django.urls.path('orders/', clothes.views.Orders.as_view(), name='orders'),
     django.urls.path(
-        'lovely/',
-        clothes.views.Lovely.as_view(),
-        name='lovely'
-    )
+        'lovely/', clothes.views.Lovely.as_view(), name='lovely_designers'
+    ),
 ]

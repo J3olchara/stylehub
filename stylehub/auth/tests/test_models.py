@@ -30,3 +30,23 @@ class TestUser(AuthSetup):
         """testing that user can to be designer"""
         designer_profile = self.user.make_designer()
         self.assertTrue(designer_profile)
+
+    def test_get_lovely_designers(self):
+        """tests get_lovely_designers method"""
+        user_password = 'trkorerwpoowerpoopo'
+        designer_user_password = 'ncxxcvmxcvm231354354'
+        user = User.objects.create_user(
+            username='testusername',
+            email='testemail@gmail.com',
+            password=user_password,
+        )
+
+        designer_user = User.objects.create_user(
+            username='testdesignerusername',
+            email='testdesigneruser@gmail.com',
+            password=designer_user_password,
+        )
+        user.lovely.add(designer_user)
+
+        lovely = User.objects.get_lovely_designers(user)
+        self.assertEqual(len(lovely), 1)

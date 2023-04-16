@@ -2,9 +2,9 @@
 from typing import Any, Optional, Union
 
 from django.apps import apps
-from django.db import models
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.auth.models import UserManager as UserManagerOld
+from django.db import models
 
 
 class UserManager(UserManagerOld[AbstractUser]):
@@ -50,16 +50,21 @@ class UserManager(UserManagerOld[AbstractUser]):
         cart.objects.create(user=superuser)
         return superuser
 
-    def get_lovely_items(
+    def get_lovely_designers(
         self, user: Union['auth.models.User', AnonymousUser]
     ) -> models.query.QuerySet[Any]:
+        """Returns lovely designers of this user"""
         users = apps.get_model('user_auth', 'User')
-        prefetch_items = models.Prefetch(
+        prefetch_designers = models.Prefetch(
             self.model.lovely.field.name, queryset=users.objects.all()
         )
 
         return (
-            self.get_queryset()
-            .filter(pk=user.id)
-            .prefetch_related(prefetch_items)
+            (
+                self.get_queryset()
+                .filter(pk=user.id)
+                .prefetch_related(prefetch_designers)
+            )
+            .first()
+            .lovely.all()
         )
