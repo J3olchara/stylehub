@@ -5,9 +5,6 @@ from django.contrib import admin
 
 from auth.models import DesignerProfile, User
 
-# admin.site.register(User, UserAdmin)
-
-
 if TYPE_CHECKING:
     DesignerBaseAdmin = admin.ModelAdmin[DesignerProfile]
 else:
