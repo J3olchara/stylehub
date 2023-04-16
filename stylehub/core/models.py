@@ -60,6 +60,7 @@ class BaseCreature(CreatedEdited):
         self.slug = self.get_slug()
         if type(self).objects.filter(slug=self.slug).exists():
             raise ValidationError('Объект с таким именем уже существует')
+        self.name = self.name.capitalize()
         return super().clean()
 
     def get_slug(self) -> str:
