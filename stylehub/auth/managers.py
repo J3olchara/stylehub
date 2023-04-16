@@ -56,7 +56,8 @@ class UserManager(UserManagerOld[AbstractUser]):
         """Returns lovely designers of this user"""
         users = apps.get_model('user_auth', 'User')
         prefetch_designers = models.Prefetch(
-            self.model.lovely.field.name, queryset=users.objects.all()
+            self.model.lovely.field.name,
+            queryset=users.objects.filter(is_designer=True),
         )
 
         return (

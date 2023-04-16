@@ -45,6 +45,7 @@ class TestUser(AuthSetup):
             username='testdesignerusername',
             email='testdesigneruser@gmail.com',
             password=designer_user_password,
+            is_designer=True,
         )
         user.lovely.add(designer_user)
 
