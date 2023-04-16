@@ -5,6 +5,7 @@ write your clothes shop views here
 """
 from typing import Any, Dict
 
+from django.contrib.auth import mixins
 from django.db.models import QuerySet
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -104,3 +105,18 @@ class Recommend(generic.ListView[clothes.models.Collection]):
     def get_queryset(self) -> QuerySet[Any]:
         """get popular collections queryset"""
         return clothes.models.Collection.objects.recommend(self.request.user)
+
+
+class Orders(
+    mixins.LoginRequiredMixin, generic.ListView[clothes.models.Collection]
+):
+    """gives a user orders"""
+
+    template_name = 'clothes/orders.html'
+    context_object_name = 'orders'
+    login_url = '/admin/'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        """get user orders queryset"""
+        user = self.request.user
+        return clothes.models.OrderClothes.objects.get_user_orders(user)

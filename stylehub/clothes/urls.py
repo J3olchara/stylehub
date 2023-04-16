@@ -28,4 +28,5 @@ urlpatterns = [
         clothes.views.Recommend.as_view(),
         name='recommend',
     ),
+    django.urls.path('orders/', clothes.views.Orders.as_view(), name='orders'),
 ]
