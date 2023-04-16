@@ -120,3 +120,16 @@ class Orders(
         """get user orders queryset"""
         user = self.request.user
         return clothes.models.OrderClothes.objects.get_user_orders(user)
+
+
+class Lovely(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
+    """gives a lovely user designers"""
+
+    template_name = 'clothes/lovely.html'
+    context_object_name = 'designers'
+    login_url = 'admin/'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        """Returns designers"""
+        user = self.request.user
+        return auth.models.User.objects.get_lovely_designers(user)

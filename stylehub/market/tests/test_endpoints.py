@@ -96,3 +96,13 @@ class TestEndpoints(MarketSetUp):
         client.login(username=self.user.username, password=self.user_password)
         auth_resp = client.get(path)
         self.assertEqual(auth_resp.status_code, 200)
+
+    def test_lovely_endpoint(self):
+        """tests lovely designers endpoint"""
+        path = reverse('clothes:lovely_designers')
+        client = Client()
+        not_auth_resp = client.get(path)
+        self.assertEqual(not_auth_resp.status_code, 302)
+        client.login(username=self.user.username, password=self.user_password)
+        auth_resp = client.get(path)
+        self.assertEqual(auth_resp.status_code, 200)
