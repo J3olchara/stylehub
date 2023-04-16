@@ -28,10 +28,8 @@ class TestCollectionManager(MarketSetUp, AuthSetup):
 
     def test_get_items_in_collection(self):
         """tests that get_items_in_collection queryset have prefetched items"""
-        collection = (
-            clothes.models.Collection.objects.get_items_in_collection().get(
-                id=self.collection1.id
-            )
+        collection = clothes.models.Collection.objects.with_items().get(
+            id=self.collection1.id
         )
         self.assertIn('items', collection._prefetched_objects_cache.keys())
 

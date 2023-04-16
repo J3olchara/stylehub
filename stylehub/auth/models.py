@@ -22,6 +22,8 @@ class User(AbstractUser):
 
     objects = auth.managers.UserManager()
 
+    designers = auth.managers.DesignerManager()
+
     gender_choices = (
         ('', _('Не указан')),
         ('male', _('Мужской')),
@@ -121,7 +123,7 @@ class DesignerProfile(models.Model):
     """
 
     user: Union[User, 'models.OneToOneField[Any, Any]'] = models.OneToOneField(
-        to=User, on_delete=models.CASCADE
+        to=User, on_delete=models.PROTECT, related_name='designer_profile'
     )
 
     avatar: 'models.ImageField' = models.ImageField(

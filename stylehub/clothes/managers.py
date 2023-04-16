@@ -22,17 +22,25 @@ class ItemManager(models.Manager[Any]):
         return self.get_queryset().prefetch_related(prefetch_evals)
 
     def pref_styles(self) -> models.QuerySet[Any]:
-        """prefetching item styles"""
+        """returns new queryset with prefetched item styles"""
         style: Any = apps.get_model('market', 'Style')
         return self.get_queryset().prefetch_related(
             models.Prefetch('styles', queryset=style.objects.all())
+        )
+
+    def unpopular(self):
+        """returns random items with unpopular designers"""
+        return (
+            self.get_queryset()
+            .filter(designer__in=auth.models.User.designers.unpopular().all())
+            .order_by('?')
         )
 
 
 class CollectionManager(models.Manager[Any]):
     """Manager for Collection model"""
 
-    def get_items_in_collection(self) -> models.query.QuerySet[Any]:
+    def with_items(self) -> models.query.QuerySet[Any]:
         """Returns Item, which belongs collection"""
         item: Any = apps.get_model('clothes', 'Item')
         style: Any = apps.get_model('market', 'Style')
@@ -63,14 +71,25 @@ class CollectionManager(models.Manager[Any]):
         self, user: Union['auth.models.User', AnonymousUser]
     ) -> models.query.QuerySet[Any]:
         """return popular items based on user last seen styles"""
-        item = apps.get_model('clothes', 'Item')
-        qs: models.query.QuerySet[Any] = self.get_items_in_collection()
+        item: Any = apps.get_model('clothes', 'Item')
+        qs: models.query.QuerySet[Any] = self.with_items()
         if user.is_authenticated and user.last_styles.count() >= 1:
             qs = qs.filter(styles__in=user.last_styles.all())
         return (
             qs.annotate(
-                col_buys=aggregates.Sum(f'items__{item.bought.field.name}')
+                buys=aggregates.Sum(f'items__{item.bought.field.name}')
             )
-            .filter(col_buys__gte=settings.POPULAR_COLLECTION_BUYS)
-            .order_by('-col_buys')
+            .filter(buys__gte=settings.POPULAR_COLLECTION_BUYS)
+            .order_by('-buys')
+        )
+
+    def top(self) -> models.QuerySet[Any]:
+        """returns top collections base on count items bought"""
+        item: Any = apps.get_model('clothes', 'Item')
+        return (
+            self.with_items()
+            .annotate(
+                buys=aggregates.Sum(f'items__{item.bought.field.name}')
+            )
+            .order_by('-buys')
         )

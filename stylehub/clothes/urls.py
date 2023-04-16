@@ -11,6 +11,11 @@ app_name = 'clothes'
 
 urlpatterns = [
     django.urls.path(
+        '',
+        clothes.views.Main.as_view(),
+        name='main',
+    ),
+    django.urls.path(
         'wear/<int:pk>/', clothes.views.Wear.as_view(), name='wear'
     ),
     django.urls.path(

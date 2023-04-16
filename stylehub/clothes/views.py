@@ -5,6 +5,7 @@ write your clothes shop views here
 """
 from typing import Any, Dict
 
+from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -14,6 +15,43 @@ from django.views import generic
 import auth.forms
 import auth.models
 import clothes.models
+
+
+class Main(generic.TemplateView):
+    """
+    MAIN STYLEHUB PAGE
+
+    there are popular designers and collections and unpopular designers
+    that we want to popularize
+    """
+
+    template_name = 'clothes/index.html'
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        per_page_designers = 10
+        per_page_collections = 10
+        per_page_unpopular_items = 20
+        context = super().get_context_data(**kwargs)
+        context['designers'] = (
+            auth.models.User.designers
+            .top()[: per_page_designers * 5].all()
+        )
+        context['collections'] = (
+            clothes.models.Collection.objects
+            .top()[: per_page_collections * 10].all()
+        )
+        context['unpopular'] = (
+            clothes.models.Item.objects
+            .unpopular()[: per_page_unpopular_items * 20].all()
+        )
+        return context
+
+
+class PopularCollections(generic.ListView):
+    paginate_by = 10
+    template_name = 'clothes/collections.html'
+    object_list = clothes.models.Collection.objects.top()[:paginate_by * 10].all()
+    context_object_name = 'collectionsp'
 
 
 class Wear(generic.DetailView[clothes.models.Item]):
@@ -28,7 +66,7 @@ class Collection(generic.DetailView[clothes.models.Collection]):
     """gives a collection information"""
 
     template_name = 'clothes/collection.html'
-    queryset = clothes.models.Collection.objects.get_items_in_collection()
+    queryset = clothes.models.Collection.objects.with_items()
     context_object_name = 'collection'
 
 
@@ -47,10 +85,8 @@ class Designer(generic.ListView[clothes.models.Collection]):
         designer = auth.models.DesignerProfile.objects.filter(
             pk=designer_id
         ).first()
-        return (
-            clothes.models.Collection.objects.get_items_in_collection().filter(
-                designer=designer.user
-            )
+        return clothes.models.Collection.objects.with_items().filter(
+            designer=designer.user
         )
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
