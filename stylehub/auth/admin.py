@@ -2,11 +2,10 @@
 from typing import TYPE_CHECKING
 
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
 from auth.models import DesignerProfile, User
 
-admin.site.register(User, UserAdmin)
+# admin.site.register(User, UserAdmin)
 
 
 if TYPE_CHECKING:
@@ -20,3 +19,8 @@ class DesignerProfileAdmin(DesignerBaseAdmin):
     """class for see Designer model in Admin"""
 
     pass
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin[User]):
+    filter_horizontal = (User.lovely.field.name, User.saved.field.name)
