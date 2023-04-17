@@ -126,4 +126,5 @@ class MainImageMixin(models.Model):
 
     class Meta:
         """for meta information"""
+
         abstract = True
