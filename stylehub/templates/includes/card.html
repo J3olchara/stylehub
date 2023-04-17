@@ -12,7 +12,7 @@
         </svg>
       </span>
       <img class="card-img bg-gradient"
-           src="{% if item.main_image %}{{ item.main_image }}{% else %}{% static 'img/default.png' %}{% endif %}"
+           src="{% if item.main_image %}{{ item.get_url }}{% else %}{% static 'img/default.png' %}{% endif %}"
            alt="Card image cap">
     </div>
     <div class="card-footer border-0 d-flex flex-column justify-content-between">

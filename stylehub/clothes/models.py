@@ -110,7 +110,7 @@ class Collection(core.models.CreatedEdited):
         verbose_name_plural = _('коллекции')
 
 
-class Item(core.models.CreatedEdited):
+class Item(core.models.MainImageMixin, core.models.CreatedEdited):
     """
     Item models
 
@@ -157,14 +157,6 @@ class Item(core.models.CreatedEdited):
         choices=item_genders,
         default=item_genders[2][0],
         max_length=15,
-    )
-
-    main_image = models.ForeignKey(
-        core.models.Image,
-        verbose_name=_('основная картинка товара'),
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
     )
 
     cost = models.IntegerField(

@@ -85,18 +85,19 @@ class BaseCreature(CreatedEdited):
         abstract = True
 
 
-class Image(models.Model):
+class MainImageMixin(models.Model):
     """
     PhotoGallery Model for Item
     image: second-needed image for gallery
     item: FK to Item that uses this image
     """
 
-    image: 'models.ImageField' = models.ImageField(
+    main_image: 'models.ImageField' = models.ImageField(
         verbose_name='фото',
         help_text='Загрузите фото',
         upload_to=utils.functions.get_item_main_image_location,
-        max_length=200,
+        max_length=255,
+        null=True,
     )
 
     def get_image_px(
@@ -108,13 +109,21 @@ class Image(models.Model):
         crop: string. crop centering
         quality: integer. quality of the new image
         """
-        return get_thumbnail(self.image, px, crop=crop, quality=quality)
+        return get_thumbnail(self.main_image, px, crop=crop, quality=quality)
 
     def image_tmb(self) -> Union[SafeString, Any]:
         """returns HTML picture for Item"""
-        if self.image:
-            return mark_safe(f'<img src="{self.image.url}" width="50">')
+        if self.main_image:
+            return mark_safe(f'<img src="{self.main_image.url}" width="50">')
         return mark_safe('Изображения нет')
 
+    @property
+    def get_url(self) -> str:
+        """returns url like 'media/uploads/...'"""
+        return f'{self.main_image.url}'
+
     def __str__(self) -> str:
-        return str(self.image.url)
+        return str(self.main_image.url)
+
+    class Meta:
+        abstract = True
