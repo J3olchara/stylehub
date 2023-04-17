@@ -3,15 +3,16 @@ from typing import Any
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_cleanup import cleanup
 
 import auth.models
 import clothes.managers
 import core.models
-import market.managers
 import market.models
 import utils.functions
 
 
+@cleanup.select
 class OrderClothes(market.models.Order):
     """
     OrderClothes model to store item buyings
@@ -73,7 +74,7 @@ class Collection(core.models.CreatedEdited):
     designer: ForeignKey - to user_auth.User
     """
 
-    objects = market.managers.CollectionManager()
+    objects = clothes.managers.CollectionManager()
 
     styles = models.ManyToManyField(
         market.models.Style,
@@ -112,6 +113,7 @@ class Collection(core.models.CreatedEdited):
         verbose_name_plural = _('коллекции')
 
 
+@cleanup.select
 class Item(core.models.CreatedEdited):
     """
     Item models
@@ -129,7 +131,7 @@ class Item(core.models.CreatedEdited):
 
     """
 
-    objects = market.managers.ItemManager()
+    objects = clothes.managers.ItemManager()
 
     name = models.CharField(
         verbose_name=_('Название товара'),
@@ -224,6 +226,7 @@ class Item(core.models.CreatedEdited):
         verbose_name_plural = _('вещи')
 
 
+@cleanup.select
 class ItemPicture(models.Model):
     """
     models realise pictures gallery for item
@@ -258,7 +261,7 @@ class Evaluation(market.models.Evaluation):
 
     created: datetime. creation datetime
     edited: datetime. editing datetime
-    user: QuerySet[auth.models.User]. User who evaluated Item
+    user: QuerySet[auth.models.User]. User who evaluated Item.
     item: QuerySet[market.models.Item]. Item for Evaluation
     rating: models.PositiveSmallIntegerField(int) Rating of evaluation
             from EVALUATION_VALUE_CHOICES

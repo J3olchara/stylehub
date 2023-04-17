@@ -23,7 +23,7 @@ class TestEndpoints(MarketSetUp):
     def test_collection_detail_endpoint(self):
         """tests clothes:collection_detail page endpoint"""
         path = reverse(
-            'clothes:collection_detail', kwargs={'pk': self.collection1.id}
+            'clothes:collection', kwargs={'pk': self.collection1.id}
         )
         client = Client()
         resp = client.get(path)
@@ -31,9 +31,7 @@ class TestEndpoints(MarketSetUp):
 
     def test_designer_detail_endpoint(self):
         """Test designer:pk page endpoint"""
-        path = reverse(
-            'clothes:designer_detail', kwargs={'pk': self.designer1.id}
-        )
+        path = reverse('clothes:designer', kwargs={'pk': self.designer1.id})
         client = Client()
         not_auth_resp_get = client.get(path)
         self.assertEqual(
@@ -83,6 +81,34 @@ class TestEndpoints(MarketSetUp):
     def test_recommend_endpoint(self):
         """tests clothes:recommend page endpoint"""
         path = reverse('clothes:recommend')
+        client = Client()
+        resp = client.get(path)
+        self.assertEqual(resp.status_code, 200)
+
+    def test_main_endpoint(self):
+        """tests clothes:main page endpoint"""
+        path = reverse('clothes:main')
+        client = Client()
+        resp = client.get(path)
+        self.assertEqual(resp.status_code, 200)
+
+    def test_collections_endpoint(self):
+        """tests clothes:collections page endpoint"""
+        path = reverse('clothes:collections')
+        client = Client()
+        resp = client.get(path)
+        self.assertEqual(resp.status_code, 200)
+
+    def test_designers_endpoint(self):
+        """tests clothes:designers page endpoint"""
+        path = reverse('clothes:designers')
+        client = Client()
+        resp = client.get(path)
+        self.assertEqual(resp.status_code, 200)
+
+    def test_unpopular_endpoint(self):
+        """tests clothes:unpopular page endpoint"""
+        path = reverse('clothes:unpopular')
         client = Client()
         resp = client.get(path)
         self.assertEqual(resp.status_code, 200)
