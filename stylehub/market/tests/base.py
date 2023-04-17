@@ -42,11 +42,21 @@ class MarketSetUp(TestCase):
         )
         self.item1 = clothes.models.Item.objects.create(
             name='item_name1231',
-            designer=self.user,
+            designer=self.designer_user,
             cost=99999,
+            category=self.category_extended1,
+            collection=self.collection1,
+        )
+        self.item2 = clothes.models.Item.objects.create(
+            name='test_item2',
+            designer=self.designer_user,
+            cost=1200,
             category=self.category_extended1,
             collection=self.collection1,
         )
         self.item1.styles.add(self.style1)
         self.item1.save()
+        self.collection1.save()
+        self.item2.styles.add(self.style1)
+        self.item2.save()
         self.collection1.save()
