@@ -4,11 +4,11 @@ from typing import Any, Dict
 from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from django.shortcuts import HttpResponse
-from django.views import generic
+import django.views.generic
 import clothes.models
 
 
-class Home(generic.ListView):  # type: ignore[type-arg]
+class Home(django.views.generic.ListView):  # type: ignore[type-arg]
     """returns homepage"""
 
     template_name = 'home/index.html'
