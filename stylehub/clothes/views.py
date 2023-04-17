@@ -5,7 +5,6 @@ write your clothes shop views here
 """
 from typing import Any, Dict
 
-from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -28,29 +27,47 @@ class Main(generic.TemplateView):
     template_name = 'clothes/index.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        per_page_designers = 10
-        per_page_collections = 10
-        per_page_unpopular_items = 20
         context = super().get_context_data(**kwargs)
-        context['designers'] = (
-            auth.models.User.designers
-            .top()[: per_page_designers * 5].all()
-        )
-        context['collections'] = (
-            clothes.models.Collection.objects
-            .top()[: per_page_collections * 10].all()
-        )
-        context['unpopular'] = (
-            clothes.models.Item.objects
-            .unpopular()[: per_page_unpopular_items * 20].all()
-        )
+        context['designers'] = auth.models.User.designers.top()[:10].all()
+        context['collections'] = clothes.models.Collection.objects.top()[
+            :5
+        ].all()
+        context['unpopular'] = clothes.models.Item.objects.unpopular()[
+            :20
+        ].all()
         return context
 
 
-class PopularCollections(generic.ListView):
+class PopularCollections(generic.ListView[clothes.models.Collection]):
+    """returns popular collections based on their count of buys"""
+
     paginate_by = 10
     template_name = 'clothes/collections.html'
-    object_list = clothes.models.Collection.objects.top()[:paginate_by * 10].all()
+    object_list = clothes.models.Collection.objects.top()[
+        : paginate_by * 15
+    ].all()
+    context_object_name = 'collectionsp'
+
+
+class PopularDesigners(generic.ListView[auth.models.User]):
+    """returns popular designers based on their count of buys"""
+
+    paginate_by = 20
+    template_name = 'clothes/designers.html'
+    object_list = auth.models.User.designers.top()[: paginate_by * 15].all()
+    context_object_name = 'collectionsp'
+
+
+class UnpopularItems(generic.ListView[clothes.models.Item]):
+    """
+    returns unpopular items paginator based on designer count of bought items
+    """
+
+    paginate_by = 40
+    template_name = 'clothes/items.html'
+    object_list = clothes.models.Item.objects.unpopular()[
+        : paginate_by * 15
+    ].all()
     context_object_name = 'collectionsp'
 
 
@@ -82,11 +99,11 @@ class Designer(generic.ListView[clothes.models.Collection]):
     def get_queryset(self) -> QuerySet[Any]:
         """Returns queryset for listview"""
         designer_id = self.kwargs.get('pk')
-        designer = auth.models.DesignerProfile.objects.filter(
-            pk=designer_id
-        ).first()
-        return clothes.models.Collection.objects.with_items().filter(
-            designer=designer.user
+        designer = auth.models.DesignerProfile.objects.get(pk=designer_id)
+        return (
+            clothes.models.Collection.objects.with_items()
+            .filter(designer=designer.user)
+            .order_by(f'-{clothes.models.Collection.created.field.name}')
         )
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -124,9 +141,7 @@ class Designer(generic.ListView[clothes.models.Collection]):
                 user_form.save()
                 designer_form.save(files=request.FILES)
             return redirect(
-                reverse_lazy(
-                    'clothes:designer_detail', kwargs={'pk': designer_id}
-                )
+                reverse_lazy('clothes:designer', kwargs={'pk': designer_id})
             )
         raise Http404()
 

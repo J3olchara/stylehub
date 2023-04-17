@@ -5,7 +5,6 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as UserManagerOld
-from django.db import models
 from django.db.models import QuerySet, aggregates
 
 
@@ -93,38 +92,29 @@ class DesignerManager(UserManager):
         return user
 
     def get_queryset(self) -> QuerySet[AbstractUser]:
-        designer_profile: Any = apps.get_model('user_auth', 'DesignerProfile')
-        prefetch_designer = models.Prefetch(
-            lookup='designer_profile', queryset=designer_profile.objects
-        )
         return (
             super()
             .get_queryset()
-            .prefetch_related(prefetch_designer)
+            .select_related('designer_profile')
             .filter(is_designer=True)
         )
 
     def with_buys(self) -> QuerySet[AbstractUser]:
         """returns new queryset of designer users"""
         item: Any = apps.get_model('clothes', 'Item')
-        return (
-            self.get_queryset()
-            .annotate(
-                buys=aggregates.Sum(
-                    f'item_designer__{item.bought.field.name}'
-                ),
-            )
-            .order_by('-buys')
+        return self.get_queryset().annotate(
+            buys=aggregates.Sum(f'item_designer__{item.bought.field.name}'),
         )
 
-    def top(self) -> QuerySet[AbstractUser]:
+    def top(self) -> QuerySet[Any]:
         """returns new queryset of top designer users"""
         return self.with_buys().order_by('-buys')
 
     def unpopular(self) -> QuerySet[AbstractUser]:
         """returns new queryset of unpopular designer users"""
-        return (
+        qs = (
             self.with_buys()
-            .filter(buys__lte=settings.POPULAR_DESIGNER_BUYS)
+            .filter(buys__lt=settings.POPULAR_DESIGNER_BUYS)
             .order_by('buys')
         )
+        return qs

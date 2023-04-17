@@ -28,13 +28,14 @@ class ItemManager(models.Manager[Any]):
             models.Prefetch('styles', queryset=style.objects.all())
         )
 
-    def unpopular(self):
+    def unpopular(self) -> models.QuerySet[Any]:
         """returns random items with unpopular designers"""
-        return (
+        qs = (
             self.get_queryset()
             .filter(designer__in=auth.models.User.designers.unpopular().all())
             .order_by('?')
         )
+        return qs
 
 
 class CollectionManager(models.Manager[Any]):
@@ -88,8 +89,6 @@ class CollectionManager(models.Manager[Any]):
         item: Any = apps.get_model('clothes', 'Item')
         return (
             self.with_items()
-            .annotate(
-                buys=aggregates.Sum(f'items__{item.bought.field.name}')
-            )
+            .annotate(buys=aggregates.Sum(f'items__{item.bought.field.name}'))
             .order_by('-buys')
         )

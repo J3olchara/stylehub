@@ -3,6 +3,7 @@ from typing import Any
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_cleanup import cleanup
 
 import auth.models
 import clothes.managers
@@ -11,6 +12,7 @@ import market.models
 import utils.functions
 
 
+@cleanup.select
 class OrderClothes(market.models.Order):
     """
     OrderClothes model to store item buyings
@@ -110,6 +112,7 @@ class Collection(core.models.CreatedEdited):
         verbose_name_plural = _('коллекции')
 
 
+@cleanup.select
 class Item(core.models.CreatedEdited):
     """
     Item models
@@ -238,6 +241,7 @@ class Item(core.models.CreatedEdited):
         verbose_name_plural = _('вещи')
 
 
+@cleanup.select
 class ItemPicture(models.Model):
     """
     models realise pictures gallery for item

@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.expressions import Combinable
 from django.utils.translation import gettext_lazy as _
+from django_cleanup import cleanup
 
 import auth.managers
 import clothes.models
@@ -108,6 +109,7 @@ class User(AbstractUser):
         return DesignerProfile.objects.create(user=self)
 
 
+@cleanup.select
 class DesignerProfile(models.Model):
     """
     This model correspond Designers
