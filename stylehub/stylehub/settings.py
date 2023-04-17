@@ -154,6 +154,10 @@ STATIC_ROOT = BASE_DIR / 'static_dev'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
+# Auth/Login pages
+
+LOGIN_URL = 'admin/'
+
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

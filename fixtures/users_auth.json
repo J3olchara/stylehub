@@ -1,0 +1,26 @@
+[
+{
+    "model": "user_auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$6BAnAPPBAZWtxQLzhACC7O$Xa3d35AJl0GbBQONiMSPSX9WO0kXbTrpti9ueZYNDPw=",
+        "last_login": "2023-04-16T13:57:11.828Z",
+        "is_superuser": true,
+        "username": "senya",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2023-04-16T13:57:04.660Z",
+        "gender": "",
+        "email": "senya.borodulin@mail.ru",
+        "last_category": null,
+        "is_designer": false,
+        "groups": [],
+        "user_permissions": [],
+        "last_styles": [],
+        "saved": [],
+        "lovely": []
+    }
+}
+]
