@@ -87,9 +87,8 @@ class BaseCreature(CreatedEdited):
 
 class MainImageMixin(models.Model):
     """
-    PhotoGallery Model for Item
-    image: second-needed image for gallery
-    item: FK to Item that uses this image
+    MainPhoto Model for Item
+    main_image: second-needed image for gallery
     """
 
     main_image: 'models.ImageField' = models.ImageField(

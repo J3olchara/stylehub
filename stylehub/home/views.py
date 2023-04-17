@@ -1,14 +1,11 @@
 """HOMEPAGE app pages views"""
-from typing import Any, Dict
-
-from django.db.models.query import QuerySet
-from django.http import HttpRequest
-from django.shortcuts import HttpResponse
 import django.views.generic
+from django.db.models.query import QuerySet
+
 import clothes.models
 
 
-class Home(django.views.generic.ListView):  # type: ignore[type-arg]
+class Home(django.views.generic.ListView['clothes.models.Item']):
     """returns homepage"""
 
     template_name = 'home/index.html'

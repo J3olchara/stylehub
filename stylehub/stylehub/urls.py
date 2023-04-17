@@ -1,10 +1,12 @@
 """stylehub URL Configuration"""
+from typing import Any
+
 import django.urls
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 
-urlpatterns = [
+urlpatterns: Any = [
     django.urls.path('admin/', admin.site.urls),
     django.urls.path('', django.urls.include('home.urls')),
     django.urls.path('clothes/', django.urls.include('clothes.urls')),

@@ -2,7 +2,6 @@
 from django.contrib import admin
 from django.contrib.admin.options import TabularInline
 
-import core.models
 import clothes.models
 import custom.models
 import market.models
