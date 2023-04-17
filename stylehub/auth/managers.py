@@ -1,10 +1,11 @@
 """Managers for auth models"""
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from django.apps import apps
 from django.conf import settings
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.auth.models import UserManager as UserManagerOld
+from django.db import models
 from django.db.models import QuerySet, aggregates
 from django.db.models.functions import Coalesce
 
@@ -55,6 +56,24 @@ class UserManager(UserManagerOld[AbstractUser]):
     def get_queryset(self) -> QuerySet[AbstractUser]:
         """show only active users"""
         return super().get_queryset().filter(is_active=True)
+
+    def get_lovely_designers(
+        self, user: Union[AbstractUser, AnonymousUser]
+    ) -> models.query.QuerySet[Any]:
+        """Returns lovely designers of this user"""
+        prefetch_designers = models.Prefetch(
+            self.model.lovely.field.name,
+            queryset=self.model.objects.filter(is_designer=True),
+        )
+        return (
+            (
+                self.get_queryset()
+                .filter(pk=user.id)
+                .prefetch_related(prefetch_designers)
+            )
+            .first()
+            .lovely.all()
+        )
 
 
 class DesignerManager(UserManager):

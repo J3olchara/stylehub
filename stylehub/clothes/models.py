@@ -26,6 +26,8 @@ class OrderClothes(market.models.Order):
     edited: editing datetime
     """
 
+    objects = clothes.managers.OrderClothesManager()
+
     user = models.ForeignKey(
         verbose_name='заказчик',
         to='user_auth.User',
@@ -95,7 +97,6 @@ class Collection(core.models.CreatedEdited):
     )
 
     def save(self, *args: Any, **kwargs: Any) -> None:
-        self.name = self.name.capitalize()
         for item in Item.objects.pref_styles().filter(collection=self):
             for style in item.styles.all():
                 if style not in self.styles.all():
@@ -132,15 +133,8 @@ class Item(core.models.CreatedEdited):
 
     objects = clothes.managers.ItemManager()
 
-    item_genders = (
-        ('male', _('Мужской')),
-        ('female', _('Женский')),
-        ('unisex', _('Унисекс')),
-        ('childish', _('Детский')),
-    )
-
     name = models.CharField(
-        verbose_name=_('название товара'),
+        verbose_name=_('Название товара'),
         help_text=_(
             'Придумайте не длинное название, передающее основные черты товара'
         ),
@@ -148,18 +142,10 @@ class Item(core.models.CreatedEdited):
     )
 
     designer = models.ForeignKey(
-        verbose_name=_('дизайнер вещи'),
+        verbose_name=_('Дизайнер вещи'),
         related_name='item_designer',
         to='user_auth.User',
         on_delete=models.CASCADE,
-    )
-
-    gender = models.CharField(
-        verbose_name=_('пол'),
-        help_text=_('Кто будет носить эту вещь?'),
-        choices=item_genders,
-        default=item_genders[2][0],
-        max_length=15,
     )
 
     main_image = models.ImageField(
@@ -230,7 +216,6 @@ class Item(core.models.CreatedEdited):
         )
 
     def save(self, *args: Any, **kwargs: Any) -> None:
-        self.name = self.name.capitalize()
         super().save()
         self.collection.save()
 

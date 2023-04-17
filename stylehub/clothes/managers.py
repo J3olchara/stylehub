@@ -1,11 +1,12 @@
 """Managers for market models"""
+
 from typing import Any, Union
 
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.db import models
-from django.db.models import aggregates
+from django.db.models import Case, Value, When, aggregates
 
 import auth.models
 
@@ -15,7 +16,7 @@ class ItemManager(models.Manager[Any]):
 
     def get_details(self) -> models.QuerySet[Any]:
         """item with evaluations :return"""
-        evaluations = apps.get_model('clothes', 'Evaluation')
+        evaluations: Any = apps.get_model('clothes', 'Evaluation')
         prefetch_evals = models.Prefetch(
             'evaluations', evaluations.objects.all()
         )
@@ -91,4 +92,22 @@ class CollectionManager(models.Manager[Any]):
             self.with_items()
             .annotate(buys=aggregates.Sum(f'items__{item.bought.field.name}'))
             .order_by('-buys')
+        )
+
+
+class OrderClothesManager(models.Manager[Any]):
+    """Manager for OrderClothes model in clothes app"""
+
+    def get_user_orders(
+        self, user: Union['auth.models.User', AnonymousUser]
+    ) -> models.QuerySet[Any]:
+        """get users orders"""
+        return (
+            self.get_queryset()
+            .filter(user=user)
+            .select_related(self.model.item.field.name)
+            .order_by(
+                Case(When(status='done', then=Value(1)), default=Value(0)),
+                f'-{self.model.edited.field.name}',
+            )
         )
