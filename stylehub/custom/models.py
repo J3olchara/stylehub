@@ -1,6 +1,7 @@
 """Market models"""
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_cleanup import cleanup
 
 import market.models
 
@@ -66,6 +67,7 @@ class OrderCustom(market.models.Order):
         verbose_name_plural = _('заказы кастомов')
 
 
+@cleanup.select
 class OrderCustomPicture(market.models.OrderPicture):
     """
     order model

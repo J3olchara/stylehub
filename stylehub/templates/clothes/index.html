@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<h1>designers</h1>
+	{% for designer in designers %}
+		<a href="{% url 'clothes:designer' pk=designer.id %}">{{ designer.name }}</a>
+	{% endfor %}
+	<h1>collections</h1>
+	{% for collection in collections %}
+		<a href="{% url 'clothes:collection' pk=collection.id %}">{{ collection.name }}</a>
+	{% endfor %}
+	<h1>unpopular</h1>
+	{% for item in unpopular %}
+		<a href="{% url 'clothes:wear' pk=item.id %}">{{ item.name }}</a>
+	{% endfor %}
+{% endblock %}

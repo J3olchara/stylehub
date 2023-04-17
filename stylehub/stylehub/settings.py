@@ -162,3 +162,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # project filter variables
 
 POPULAR_COLLECTION_BUYS = int(os.environ['POPULAR_COLLECTION_BUYS'])
+POPULAR_DESIGNER_BUYS = int(os.environ['POPULAR_DESIGNER_BUYS'])
