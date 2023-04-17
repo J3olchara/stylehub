@@ -12,4 +12,5 @@ class Home(django.views.generic.ListView['clothes.models.Item']):
     context_object_name = 'items_raw'
 
     def get_queryset(self) -> QuerySet['clothes.models.Item']:
+        """returns items"""
         return clothes.models.Item.objects.all()

@@ -125,4 +125,5 @@ class MainImageMixin(models.Model):
         return str(self.main_image.url)
 
     class Meta:
+        """for meta information"""
         abstract = True
