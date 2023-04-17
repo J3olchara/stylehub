@@ -52,4 +52,7 @@ urlpatterns = [
     django.urls.path(
         'lovely/', clothes.views.Lovely.as_view(), name='lovely_designers'
     ),
+    django.urls.path(
+        'saved/', clothes.views.Saved.as_view(), name='saved_items'
+    ),
 ]

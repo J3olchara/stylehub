@@ -75,6 +75,24 @@ class UserManager(UserManagerOld[AbstractUser]):
             .lovely.all()
         )
 
+    def get_saved_items(
+        self, user: Union[AbstractUser, AnonymousUser]
+    ) -> models.query.QuerySet[Any]:
+        """returns saved items of this user"""
+        item = apps.get_model('clothes', 'Item')
+        prefetch_items = models.Prefetch(
+            self.model.saved.field.name, queryset=item.objects.all()
+        )
+        return (
+            (
+                self.get_queryset()
+                .filter(pk=user.id)
+                .prefetch_related(prefetch_items)
+            )
+            .first()
+            .saved.all()
+        )
+
 
 class DesignerManager(UserManager):
     """manager to work with designers"""

@@ -175,7 +175,7 @@ class Orders(
         return clothes.models.OrderClothes.objects.get_user_orders(user)
 
 
-class Lovely(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
+class Lovely(mixins.LoginRequiredMixin, generic.ListView[auth.models.User]):
     """gives a lovely user designers"""
 
     template_name = 'clothes/lovely.html'
@@ -186,3 +186,16 @@ class Lovely(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
         """Returns designers"""
         user = self.request.user
         return auth.models.User.objects.get_lovely_designers(user)
+
+
+class Saved(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
+    """gives saved user items"""
+
+    template_name = 'clothes/saved.html'
+    context_object_name = 'items'
+    login_url = 'admin/'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        """returns items(clothes)"""
+        user = self.request.user
+        return auth.models.User.objects.get_saved_items(user)
