@@ -4,8 +4,12 @@ from typing import Any, Union
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.html import mark_safe
+from django.utils.safestring import SafeString
+from sorl.thumbnail import get_thumbnail
 
 import core.utils
+import utils.functions
 
 
 class CreatedEdited(models.Model):
@@ -79,3 +83,38 @@ class BaseCreature(CreatedEdited):
         """Model settings"""
 
         abstract = True
+
+
+class Image(models.Model):
+    """
+    PhotoGallery Model for Item
+    image: second-needed image for gallery
+    item: FK to Item that uses this image
+    """
+
+    image: 'models.ImageField' = models.ImageField(
+        verbose_name='фото',
+        help_text='Загрузите фото',
+        upload_to=utils.functions.get_item_main_image_location,
+        max_length=200,
+    )
+
+    def get_image_px(
+        self, px: str = '300x400', crop: str = 'center', quality: int = 70
+    ) -> Any:
+        """
+        crops the picture
+        px: string. format of the new image (1200x400, 1200)
+        crop: string. crop centering
+        quality: integer. quality of the new image
+        """
+        return get_thumbnail(self.image, px, crop=crop, quality=quality)
+
+    def image_tmb(self) -> Union[SafeString, Any]:
+        """returns HTML picture for Item"""
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" width="50">')
+        return mark_safe('Изображения нет')
+
+    def __str__(self) -> str:
+        return str(self.image.url)

@@ -159,9 +159,10 @@ class Item(core.models.CreatedEdited):
         max_length=15,
     )
 
-    main_image = models.ImageField(
+    main_image = models.ForeignKey(
+        core.models.Image,
         verbose_name=_('основная картинка товара'),
-        upload_to=utils.functions.get_item_main_image_location,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )

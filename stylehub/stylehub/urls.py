@@ -1,6 +1,7 @@
 """stylehub URL Configuration"""
 import django.urls
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
@@ -9,6 +10,7 @@ urlpatterns = [
     django.urls.path('clothes/', django.urls.include('clothes.urls')),
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar.urls
