@@ -1,0 +1,893 @@
+[
+{
+    "model": "market.style",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-16T13:58:19.561Z",
+        "edited": "2023-04-16T13:58:19.561Z",
+        "name": "Английский",
+        "slug": "ahглийckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 2,
+    "fields": {
+        "created": "2023-04-16T13:58:23.592Z",
+        "edited": "2023-04-16T13:58:23.592Z",
+        "name": "Авангард",
+        "slug": "abahгapд",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 3,
+    "fields": {
+        "created": "2023-04-16T13:58:28.521Z",
+        "edited": "2023-04-16T13:58:28.521Z",
+        "name": "Авиатор",
+        "slug": "abиatop",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 4,
+    "fields": {
+        "created": "2023-04-16T13:58:32.346Z",
+        "edited": "2023-04-16T13:58:32.346Z",
+        "name": "Азиатский",
+        "slug": "aзиatckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 5,
+    "fields": {
+        "created": "2023-04-16T13:58:37.077Z",
+        "edited": "2023-04-16T13:58:37.077Z",
+        "name": "Академический",
+        "slug": "akaдemичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 6,
+    "fields": {
+        "created": "2023-04-16T13:58:43.045Z",
+        "edited": "2023-04-16T13:58:43.045Z",
+        "name": "Анимализм",
+        "slug": "ahиmaлизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 7,
+    "fields": {
+        "created": "2023-04-16T13:58:56.505Z",
+        "edited": "2023-04-16T13:58:56.505Z",
+        "name": "Аристократический",
+        "slug": "apиctokpatичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 8,
+    "fields": {
+        "created": "2023-04-16T13:59:28.561Z",
+        "edited": "2023-04-16T13:59:28.561Z",
+        "name": "Арт-деко",
+        "slug": "aptдeko",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 9,
+    "fields": {
+        "created": "2023-04-16T13:59:32.367Z",
+        "edited": "2023-04-16T13:59:32.367Z",
+        "name": "Балетный",
+        "slug": "бaлethый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 10,
+    "fields": {
+        "created": "2023-04-16T13:59:35.580Z",
+        "edited": "2023-04-16T13:59:35.580Z",
+        "name": "Бельевой",
+        "slug": "бeльeboй",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 11,
+    "fields": {
+        "created": "2023-04-16T13:59:38.472Z",
+        "edited": "2023-04-16T13:59:38.472Z",
+        "name": "Бохо",
+        "slug": "бoxo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 12,
+    "fields": {
+        "created": "2023-04-16T13:59:43.922Z",
+        "edited": "2023-04-16T13:59:43.922Z",
+        "name": "Бэби-долл",
+        "slug": "бэбидoлл",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 13,
+    "fields": {
+        "created": "2023-04-16T13:59:48.422Z",
+        "edited": "2023-04-16T13:59:48.422Z",
+        "name": "Вамп",
+        "slug": "bamп",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 14,
+    "fields": {
+        "created": "2023-04-16T13:59:51.709Z",
+        "edited": "2023-04-16T13:59:51.709Z",
+        "name": "Вестерн",
+        "slug": "becteph",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 15,
+    "fields": {
+        "created": "2023-04-16T13:59:55.481Z",
+        "edited": "2023-04-16T13:59:55.481Z",
+        "name": "Винтаж",
+        "slug": "bиhtaж",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 16,
+    "fields": {
+        "created": "2023-04-16T13:59:59.432Z",
+        "edited": "2023-04-16T13:59:59.432Z",
+        "name": "Восточный",
+        "slug": "boctoчhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 17,
+    "fields": {
+        "created": "2023-04-16T14:00:04.140Z",
+        "edited": "2023-04-16T14:00:04.140Z",
+        "name": "Гангстерский",
+        "slug": "гahгctepckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 18,
+    "fields": {
+        "created": "2023-04-16T14:00:07.043Z",
+        "edited": "2023-04-16T14:00:07.043Z",
+        "name": "Гарсон",
+        "slug": "гapcoh",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 19,
+    "fields": {
+        "created": "2023-04-16T14:00:09.922Z",
+        "edited": "2023-04-16T14:00:09.922Z",
+        "name": "Гаучо",
+        "slug": "гaучo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 20,
+    "fields": {
+        "created": "2023-04-16T14:00:13.537Z",
+        "edited": "2023-04-16T14:00:13.537Z",
+        "name": "Голливудский",
+        "slug": "гoллиbудckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 21,
+    "fields": {
+        "created": "2023-04-16T14:00:16.485Z",
+        "edited": "2023-04-16T14:00:16.485Z",
+        "name": "Гламурный",
+        "slug": "глamуphый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 22,
+    "fields": {
+        "created": "2023-04-16T14:00:19.648Z",
+        "edited": "2023-04-16T14:00:19.648Z",
+        "name": "Глэм-рок",
+        "slug": "глэmpok",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 23,
+    "fields": {
+        "created": "2023-04-16T14:00:23.860Z",
+        "edited": "2023-04-16T14:00:23.860Z",
+        "name": "Городской шик",
+        "slug": "гopoдckoйшиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 24,
+    "fields": {
+        "created": "2023-04-16T14:00:27.328Z",
+        "edited": "2023-04-16T14:00:27.328Z",
+        "name": "Готический",
+        "slug": "гotичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 25,
+    "fields": {
+        "created": "2023-04-16T14:00:30.608Z",
+        "edited": "2023-04-16T14:00:30.608Z",
+        "name": "Гранж",
+        "slug": "гpahж",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 26,
+    "fields": {
+        "created": "2023-04-16T14:00:33.702Z",
+        "edited": "2023-04-16T14:00:33.703Z",
+        "name": "Граффити",
+        "slug": "гpaффиtи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 27,
+    "fields": {
+        "created": "2023-04-16T14:00:36.921Z",
+        "edited": "2023-04-16T14:00:36.921Z",
+        "name": "Деловой",
+        "slug": "дeлoboй",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 28,
+    "fields": {
+        "created": "2023-04-16T14:00:40.351Z",
+        "edited": "2023-04-16T14:00:40.351Z",
+        "name": "Денди",
+        "slug": "дehди",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 29,
+    "fields": {
+        "created": "2023-04-16T14:00:43.187Z",
+        "edited": "2023-04-16T14:00:43.187Z",
+        "name": "Дерби",
+        "slug": "дepби",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 30,
+    "fields": {
+        "created": "2023-04-16T14:00:47.017Z",
+        "edited": "2023-04-16T14:00:47.017Z",
+        "name": "Джинсовый",
+        "slug": "джиhcobый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 31,
+    "fields": {
+        "created": "2023-04-16T14:00:50.989Z",
+        "edited": "2023-04-16T14:00:50.989Z",
+        "name": "Джипси",
+        "slug": "джипcи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 32,
+    "fields": {
+        "created": "2023-04-16T14:00:53.556Z",
+        "edited": "2023-04-16T14:00:53.556Z",
+        "name": "Диско",
+        "slug": "диcko",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 33,
+    "fields": {
+        "created": "2023-04-16T14:00:56.351Z",
+        "edited": "2023-04-16T14:00:56.351Z",
+        "name": "Зут",
+        "slug": "зуt",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 34,
+    "fields": {
+        "created": "2023-04-16T14:00:59.317Z",
+        "edited": "2023-04-16T14:00:59.317Z",
+        "name": "Кантри",
+        "slug": "kahtpи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 35,
+    "fields": {
+        "created": "2023-04-16T14:01:20.274Z",
+        "edited": "2023-04-16T14:01:20.274Z",
+        "name": "Колониальный",
+        "slug": "koлohиaльhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 36,
+    "fields": {
+        "created": "2023-04-16T14:01:23.085Z",
+        "edited": "2023-04-16T14:01:23.085Z",
+        "name": "Коко Шанель",
+        "slug": "kokoшaheль",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 37,
+    "fields": {
+        "created": "2023-04-16T14:01:26.082Z",
+        "edited": "2023-04-16T14:01:26.082Z",
+        "name": "Колор блок",
+        "slug": "koлopблok",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 38,
+    "fields": {
+        "created": "2023-04-16T14:01:28.737Z",
+        "edited": "2023-04-16T14:01:28.737Z",
+        "name": "Концептуализм",
+        "slug": "kohцeпtуaлизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 39,
+    "fields": {
+        "created": "2023-04-16T14:01:31.674Z",
+        "edited": "2023-04-16T14:01:31.674Z",
+        "name": "Клубный",
+        "slug": "kлубhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 40,
+    "fields": {
+        "created": "2023-04-16T14:01:36.641Z",
+        "edited": "2023-04-16T14:01:36.641Z",
+        "name": "Конструктивизм",
+        "slug": "kohctpуktиbизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 41,
+    "fields": {
+        "created": "2023-04-16T14:01:39.723Z",
+        "edited": "2023-04-16T14:01:39.723Z",
+        "name": "Космический",
+        "slug": "kocmичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 42,
+    "fields": {
+        "created": "2023-04-16T14:01:42.439Z",
+        "edited": "2023-04-16T14:01:42.439Z",
+        "name": "Кэжуал",
+        "slug": "kэжуaл",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 43,
+    "fields": {
+        "created": "2023-04-16T14:01:46.717Z",
+        "edited": "2023-04-16T14:01:46.717Z",
+        "name": "Лагом",
+        "slug": "лaгom",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 44,
+    "fields": {
+        "created": "2023-04-16T14:01:49.946Z",
+        "edited": "2023-04-16T14:01:49.946Z",
+        "name": "Ламберджек",
+        "slug": "лamбepджek",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 45,
+    "fields": {
+        "created": "2023-04-16T14:01:53.301Z",
+        "edited": "2023-04-16T14:01:53.301Z",
+        "name": "Милитари",
+        "slug": "mилиtapи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 46,
+    "fields": {
+        "created": "2023-04-16T14:01:56.666Z",
+        "edited": "2023-04-16T14:01:56.666Z",
+        "name": "Минимализм",
+        "slug": "mиhиmaлизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 47,
+    "fields": {
+        "created": "2023-04-16T14:01:59.582Z",
+        "edited": "2023-04-16T14:01:59.582Z",
+        "name": "Морской",
+        "slug": "mopckoй",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 48,
+    "fields": {
+        "created": "2023-04-16T14:02:03.730Z",
+        "edited": "2023-04-16T14:02:03.730Z",
+        "name": "Мори",
+        "slug": "mopи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 49,
+    "fields": {
+        "created": "2023-04-16T14:02:06.852Z",
+        "edited": "2023-04-16T14:02:06.852Z",
+        "name": "Натуральный",
+        "slug": "hatуpaльhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 50,
+    "fields": {
+        "created": "2023-04-16T14:02:09.981Z",
+        "edited": "2023-04-16T14:02:09.981Z",
+        "name": "Нормкор",
+        "slug": "hopmkop",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 51,
+    "fields": {
+        "created": "2023-04-16T14:02:13.510Z",
+        "edited": "2023-04-16T14:02:13.510Z",
+        "name": "Нью-лук",
+        "slug": "hьюлуk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 52,
+    "fields": {
+        "created": "2023-04-16T14:02:15.952Z",
+        "edited": "2023-04-16T14:02:15.952Z",
+        "name": "Неофолк",
+        "slug": "heoфoлk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 53,
+    "fields": {
+        "created": "2023-04-16T14:02:18.410Z",
+        "edited": "2023-04-16T14:02:18.410Z",
+        "name": "Оверсайз",
+        "slug": "obepcaйз",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 54,
+    "fields": {
+        "created": "2023-04-16T14:02:20.831Z",
+        "edited": "2023-04-16T14:02:20.831Z",
+        "name": "Панк",
+        "slug": "пahk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 55,
+    "fields": {
+        "created": "2023-04-16T14:02:23.228Z",
+        "edited": "2023-04-16T14:02:23.228Z",
+        "name": "Пин-ап",
+        "slug": "пиhaп",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 56,
+    "fields": {
+        "created": "2023-04-16T14:02:27.325Z",
+        "edited": "2023-04-16T14:02:27.325Z",
+        "name": "Преппи",
+        "slug": "пpeппи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 57,
+    "fields": {
+        "created": "2023-04-16T14:02:30.888Z",
+        "edited": "2023-04-16T14:02:30.888Z",
+        "name": "Парижский шик",
+        "slug": "пapижckийшиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 58,
+    "fields": {
+        "created": "2023-04-16T14:02:34.002Z",
+        "edited": "2023-04-16T14:02:34.002Z",
+        "name": "Пэчворк",
+        "slug": "пэчbopk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 59,
+    "fields": {
+        "created": "2023-04-16T14:02:37.071Z",
+        "edited": "2023-04-16T14:02:37.072Z",
+        "name": "Ретро",
+        "slug": "petpo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 60,
+    "fields": {
+        "created": "2023-04-16T14:02:39.697Z",
+        "edited": "2023-04-16T14:02:39.697Z",
+        "name": "Романтический",
+        "slug": "pomahtичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 61,
+    "fields": {
+        "created": "2023-04-16T14:02:42.775Z",
+        "edited": "2023-04-16T14:02:42.775Z",
+        "name": "Рокабилли",
+        "slug": "pokaбилли",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 62,
+    "fields": {
+        "created": "2023-04-16T14:02:45.476Z",
+        "edited": "2023-04-16T14:02:45.476Z",
+        "name": "Рустик",
+        "slug": "pуctиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 63,
+    "fields": {
+        "created": "2023-04-16T14:02:47.976Z",
+        "edited": "2023-04-16T14:02:47.976Z",
+        "name": "Сафари",
+        "slug": "caфapи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 64,
+    "fields": {
+        "created": "2023-04-16T14:02:51.170Z",
+        "edited": "2023-04-16T14:02:51.170Z",
+        "name": "Свэг",
+        "slug": "cbэг",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 65,
+    "fields": {
+        "created": "2023-04-16T14:02:54.385Z",
+        "edited": "2023-04-16T14:02:54.385Z",
+        "name": "Скандинавский",
+        "slug": "ckahдиhabckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 66,
+    "fields": {
+        "created": "2023-04-16T14:02:57.135Z",
+        "edited": "2023-04-16T14:02:57.135Z",
+        "name": "Спортивный",
+        "slug": "cпoptиbhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 67,
+    "fields": {
+        "created": "2023-04-16T14:02:59.845Z",
+        "edited": "2023-04-16T14:02:59.845Z",
+        "name": "Тедди-герлз",
+        "slug": "teддигepлз",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 68,
+    "fields": {
+        "created": "2023-04-16T14:03:02.511Z",
+        "edited": "2023-04-16T14:03:02.511Z",
+        "name": "Теквир",
+        "slug": "tekbиp",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 69,
+    "fields": {
+        "created": "2023-04-16T14:03:04.829Z",
+        "edited": "2023-04-16T14:03:04.829Z",
+        "name": "Трэш",
+        "slug": "tpэш",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 70,
+    "fields": {
+        "created": "2023-04-16T14:03:07.336Z",
+        "edited": "2023-04-16T14:03:07.336Z",
+        "name": "Уличный",
+        "slug": "уличhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 71,
+    "fields": {
+        "created": "2023-04-16T14:03:09.837Z",
+        "edited": "2023-04-16T14:03:09.838Z",
+        "name": "Фьюжн",
+        "slug": "фьюжh",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 72,
+    "fields": {
+        "created": "2023-04-16T14:03:12.293Z",
+        "edited": "2023-04-16T14:03:12.293Z",
+        "name": "Хиппи",
+        "slug": "xиппи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 73,
+    "fields": {
+        "created": "2023-04-16T14:03:15.016Z",
+        "edited": "2023-04-16T14:03:15.016Z",
+        "name": "Шебби-шик",
+        "slug": "шeббишиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 74,
+    "fields": {
+        "created": "2023-04-16T14:03:17.762Z",
+        "edited": "2023-04-16T14:03:17.762Z",
+        "name": "Эко",
+        "slug": "эko",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 75,
+    "fields": {
+        "created": "2023-04-16T14:03:20.121Z",
+        "edited": "2023-04-16T14:03:20.121Z",
+        "name": "Экстравагантный",
+        "slug": "эkctpabaгahthый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 76,
+    "fields": {
+        "created": "2023-04-16T14:03:22.548Z",
+        "edited": "2023-04-16T14:03:22.548Z",
+        "name": "Эмо",
+        "slug": "эmo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 77,
+    "fields": {
+        "created": "2023-04-16T14:03:25.635Z",
+        "edited": "2023-04-16T14:03:25.635Z",
+        "name": "Эротический",
+        "slug": "эpotичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 78,
+    "fields": {
+        "created": "2023-04-16T14:03:28.078Z",
+        "edited": "2023-04-16T14:03:28.078Z",
+        "name": "Этажный",
+        "slug": "эtaжhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 79,
+    "fields": {
+        "created": "2023-04-16T14:03:30.484Z",
+        "edited": "2023-04-16T14:03:30.484Z",
+        "name": "Эклектика",
+        "slug": "эkлektиka",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 80,
+    "fields": {
+        "created": "2023-04-16T14:03:32.892Z",
+        "edited": "2023-04-16T14:03:32.892Z",
+        "name": "Этнический",
+        "slug": "эthичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 81,
+    "fields": {
+        "created": "2023-04-16T14:03:35.878Z",
+        "edited": "2023-04-16T14:03:35.878Z",
+        "name": "Яппи",
+        "slug": "яппи",
+        "text": ""
+    }
+}
+]

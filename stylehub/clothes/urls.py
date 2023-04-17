@@ -11,14 +11,31 @@ app_name = 'clothes'
 
 urlpatterns = [
     django.urls.path(
+        '',
+        clothes.views.Main.as_view(),
+        name='main',
+    ),
+    django.urls.path(
+        'collections/',
+        clothes.views.PopularCollections.as_view(),
+        name='collections',
+    ),
+    django.urls.path(
+        'designers/',
+        clothes.views.PopularDesigners.as_view(),
+        name='designers',
+    ),
+    django.urls.path(
+        'unpopular/',
+        clothes.views.UnpopularItems.as_view(),
+        name='unpopular',
+    ),
+    django.urls.path(
         'wear/<int:pk>/', clothes.views.Wear.as_view(), name='wear'
     ),
     django.urls.path(
         'collection/<int:pk>/',
         clothes.views.Collection.as_view(),
-<<<<<<< Updated upstream
-        name='collection_detail',
-=======
         name='collection',
     ),
     django.urls.path(
@@ -39,6 +56,12 @@ urlpatterns = [
     django.urls.path('orders/', clothes.views.Orders.as_view(), name='orders'),
     django.urls.path(
         'lovely/', clothes.views.Lovely.as_view(), name='lovely_designers'
->>>>>>> Stashed changes
+    ),
+    django.urls.path('orders/', clothes.views.Orders.as_view(), name='orders'),
+    django.urls.path(
+        'lovely/', clothes.views.Lovely.as_view(), name='lovely_designers'
+    ),
+    django.urls.path(
+        'saved/', clothes.views.Saved.as_view(), name='saved_items'
     ),
 ]

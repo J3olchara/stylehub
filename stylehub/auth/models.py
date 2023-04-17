@@ -5,8 +5,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.expressions import Combinable
 from django.utils.translation import gettext_lazy as _
+from django_cleanup import cleanup
 
 import auth.managers
+import clothes.models
 import market.models
 
 
@@ -20,6 +22,8 @@ class User(AbstractUser):
     """
 
     objects = auth.managers.UserManager()
+
+    designers = auth.managers.DesignerManager()
 
     gender_choices = (
         ('', _('Не указан')),
@@ -65,6 +69,7 @@ class User(AbstractUser):
         verbose_name=_('последние пять посещённых стилей'),
         to=market.models.Style,
         blank=True,
+        related_name='styles',
     )
 
     is_designer: (
@@ -79,7 +84,7 @@ class User(AbstractUser):
 
     saved = models.ManyToManyField(
         verbose_name=_('Сохранённые пользователем вещи'),
-        to=market.models.Item,
+        to=clothes.models.Item,
         related_name='saved_items',
     )
 
@@ -104,6 +109,7 @@ class User(AbstractUser):
         return DesignerProfile.objects.create(user=self)
 
 
+@cleanup.select
 class DesignerProfile(models.Model):
     """
     This model correspond Designers
@@ -119,7 +125,7 @@ class DesignerProfile(models.Model):
     """
 
     user: Union[User, 'models.OneToOneField[Any, Any]'] = models.OneToOneField(
-        to=User, on_delete=models.CASCADE
+        to=User, on_delete=models.PROTECT, related_name='designer_profile'
     )
 
     avatar: 'models.ImageField' = models.ImageField(

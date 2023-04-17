@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+{% load static i18n %}
+{% block content %}
+  <h1 class="text-center my-2">{% trans 'Главная' %}</h1>
+  <div class="d-flex gap-3">
+    {% for item in items_raw %}
+      {% include 'includes/card.html' %}
+    {% endfor %}
+  </div>
+
+{% endblock %}

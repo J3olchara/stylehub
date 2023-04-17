@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': (
-            'django.contrib.auth.password_validation' '.MinimumLengthValidator'
+            'django.contrib.auth.password_validation.MinimumLengthValidator'
         ),
     },
     {
@@ -146,8 +146,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static_dev/'
+STATICFILES_DIRS = [BASE_DIR / 'static_dev']
 
-STATIC_ROOT = BASE_DIR / 'static_dev'
+# STATIC_ROOT = BASE_DIR / 'static_dev' с этим не работает
 
 # Media files path
 
@@ -161,3 +162,8 @@ LOGIN_URL = 'admin/'
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# project filter variables
+
+POPULAR_COLLECTION_BUYS = int(os.environ['POPULAR_COLLECTION_BUYS'])
+POPULAR_DESIGNER_BUYS = int(os.environ['POPULAR_DESIGNER_BUYS'])

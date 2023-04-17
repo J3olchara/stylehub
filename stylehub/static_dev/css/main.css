@@ -1,1 +1,100 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+a, button, p, span, h1, h2, h3, h4, h5, h6 {
+    font-family: "Fira Mono Medium", "Helvetica", sans-serif !important;
+}
+
+.footer-logo {
+    margin-top: -25px;
+}
+
+.nav-link {
+    color: black;
+    font-size: 17px;
+    border-bottom: solid white 2px;
+    transition: border-bottom-color 5s;
+}
+
+.active-link {
+    color: rgb(64, 64, 64);
+    border-bottom-color: grey;
+}
+
+.gender {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: #ffffff;
+    padding: 2px 8px;
+    font-size: 0.85rem;
+    border-radius: 2px;
+}
+.male {
+    background-color: #008aa0;
+}
+.female {
+    background-color: #f182d7;
+}
+.unisex {
+    background-color: #59a448;
+}
+.childish {
+    background-color: #cc00ff;
+}
+
+.heart svg {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    transition: 0.3s;
+    fill: white;
+    stroke: black;
+    stroke-width: 2px;
+}
+
+.heart svg:hover {
+    stroke: red;
+}
+
+.heart-fill svg {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    fill: red;
+    stroke: red;
+}
+
+.card {
+    border: rgb(240, 240, 240) solid 1px;
+}
+
+.card-footer {
+    background-color: rgb(253, 253, 253);
+}
+
+.hearted svg {
+    fill: white;
+    stroke: black;
+    stroke-width: 4px;
+}
+.card {
+    height: 450px;
+}
+.card-footer {
+    height: 128px;
+}
+.card-img {
+    height: 322px;
+    overflow: hidden;
+}

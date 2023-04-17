@@ -4,8 +4,12 @@ from typing import Any, Union
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.html import mark_safe
+from django.utils.safestring import SafeString
+from sorl.thumbnail import get_thumbnail
 
 import core.utils
+import utils.functions
 
 
 class CreatedEdited(models.Model):
@@ -60,6 +64,7 @@ class BaseCreature(CreatedEdited):
         self.slug = self.get_slug()
         if type(self).objects.filter(slug=self.slug).exists():
             raise ValidationError('Объект с таким именем уже существует')
+        self.name = self.name.capitalize()
         return super().clean()
 
     def get_slug(self) -> str:
@@ -76,5 +81,50 @@ class BaseCreature(CreatedEdited):
 
     class Meta:
         """Model settings"""
+
+        abstract = True
+
+
+class MainImageMixin(models.Model):
+    """
+    MainPhoto Model for Item
+    main_image: second-needed image for gallery
+    """
+
+    main_image: 'models.ImageField' = models.ImageField(
+        verbose_name='фото',
+        help_text='Загрузите фото',
+        upload_to=utils.functions.get_item_main_image_location,
+        max_length=255,
+        null=True,
+    )
+
+    def get_image_px(
+        self, px: str = '300x400', crop: str = 'center', quality: int = 70
+    ) -> Any:
+        """
+        crops the picture
+        px: string. format of the new image (1200x400, 1200)
+        crop: string. crop centering
+        quality: integer. quality of the new image
+        """
+        return get_thumbnail(self.main_image, px, crop=crop, quality=quality)
+
+    def image_tmb(self) -> Union[SafeString, Any]:
+        """returns HTML picture for Item"""
+        if self.main_image:
+            return mark_safe(f'<img src="{self.main_image.url}" width="50">')
+        return mark_safe('Изображения нет')
+
+    @property
+    def get_url(self) -> str:
+        """returns url like 'media/uploads/...'"""
+        return f'{self.main_image.url}'
+
+    def __str__(self) -> str:
+        return str(self.main_image.url)
+
+    class Meta:
+        """for meta information"""
 
         abstract = True

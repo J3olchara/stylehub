@@ -16,23 +16,78 @@ from django.views import generic
 import auth.forms
 import auth.models
 import clothes.models
-import clothes.forms
-import market.models
 
 
-class Wear(generic.DetailView[market.models.Item]):
+class Main(generic.TemplateView):
+    """
+    MAIN STYLEHUB PAGE
+
+    there are popular designers and collections and unpopular designers
+    that we want to popularize
+    """
+
+    template_name = 'clothes/index.html'
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['designers'] = auth.models.User.designers.top()[:10].all()
+        context['collections'] = clothes.models.Collection.objects.top()[
+            :5
+        ].all()
+        context['unpopular'] = (
+            clothes.models.Item.objects.unpopular().order_by('?')[:20].all()
+        )
+        return context
+
+
+class PopularCollections(generic.ListView[clothes.models.Collection]):
+    """returns popular collections based on their count of buys"""
+
+    paginate_by = 10
+    template_name = 'clothes/collections.html'
+    queryset = clothes.models.Collection.objects.top()[
+        : paginate_by * 15
+    ].all()
+    context_object_name = 'collectionsp'
+
+
+class PopularDesigners(generic.ListView[auth.models.User]):
+    """returns popular designers based on their count of buys"""
+
+    paginate_by = 20
+    template_name = 'clothes/designers.html'
+    queryset = auth.models.User.designers.top()[: paginate_by * 15].all()
+    context_object_name = 'designersp'
+
+
+class UnpopularItems(generic.ListView[clothes.models.Item]):
+    """
+    returns unpopular items paginator based on designer count of bought items
+    """
+
+    paginate_by = 40
+    template_name = 'clothes/items.html'
+    queryset = (
+        clothes.models.Item.objects.unpopular()
+        .order_by('?')[: paginate_by * 15]
+        .all()
+    )
+    context_object_name = 'itemsp'
+
+
+class Wear(generic.DetailView[clothes.models.Item]):
     """gives an item information"""
 
     template_name = 'clothes/wear.html'
     context_object_name = 'item'
-    queryset = market.models.Item.objects.get_details()
+    queryset = clothes.models.Item.objects.get_details()
 
 
-class Collection(generic.DetailView[market.models.Collection]):
+class Collection(generic.DetailView[clothes.models.Collection]):
     """gives a collection information"""
 
     template_name = 'clothes/collection.html'
-    queryset = market.models.Collection.objects.get_items_in_collection()
+    queryset = clothes.models.Collection.objects.with_items()
     context_object_name = 'collection'
 
 
@@ -121,7 +176,7 @@ class Orders(
         return clothes.models.OrderClothes.objects.get_user_orders(user)
 
 
-class Lovely(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
+class Lovely(mixins.LoginRequiredMixin, generic.ListView[auth.models.User]):
     """gives a lovely user designers"""
 
     template_name = 'clothes/lovely.html'
@@ -163,3 +218,16 @@ class CreateSomething(mixins.LoginRequiredMixin, generic.FormView[Any]):
 
     def get_success_url(self) -> str:
         return self.request.path
+
+
+class Saved(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
+    """gives saved user items"""
+
+    template_name = 'clothes/saved.html'
+    context_object_name = 'items'
+    login_url = 'admin/'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        """returns items(clothes)"""
+        user = self.request.user
+        return auth.models.User.objects.get_saved_items(user)

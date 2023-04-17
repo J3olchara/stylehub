@@ -2,29 +2,31 @@
 from django.contrib import admin
 from django.contrib.admin.options import TabularInline
 
+import clothes.models
+import custom.models
 import market.models
 
 
 class ImageAdminInline(
-    TabularInline[market.models.ItemPicture, market.models.Item]
+    TabularInline[clothes.models.ItemPicture, clothes.models.Item]
 ):
     """
     Admin class for realise Item image in ItemAdmin
     """
 
     extra = 1
-    model = market.models.ItemPicture
+    model = clothes.models.ItemPicture
 
 
-@admin.register(market.models.Item)
-class ItemAdmin(admin.ModelAdmin[market.models.Item]):
+@admin.register(clothes.models.Item)
+class ItemAdmin(admin.ModelAdmin[clothes.models.Item]):
     """
     Item admin for realise Item in admin panel
     """
 
     inlines = (ImageAdminInline,)
-    list_display = (market.models.Item.name.field.name,)
-    filter_horizontal = (market.models.Item.styles.field.name,)
+    list_display = (clothes.models.Item.name.field.name,)
+    filter_horizontal = (clothes.models.Item.styles.field.name,)
 
 
 @admin.register(market.models.Style)
@@ -41,8 +43,8 @@ class StyleAdmin(admin.ModelAdmin[market.models.Style]):
     readonly_fields = (market.models.Style.slug.field.name,)
 
 
-@admin.register(market.models.Collection)
-class CollectionAdmin(admin.ModelAdmin[market.models.Collection]):
+@admin.register(clothes.models.Collection)
+class CollectionAdmin(admin.ModelAdmin[clothes.models.Collection]):
     """
     Collection admin for realise Collection in admin panel
     """
@@ -80,25 +82,43 @@ class CategoryExtendedAdmin(admin.ModelAdmin[market.models.CategoryExtended]):
 
 
 class OrderPictureInline(
-    admin.StackedInline[market.models.OrderPicture, market.models.OrderCustom]
+    admin.StackedInline[
+        custom.models.OrderCustomPicture, custom.models.OrderCustom
+    ]
 ):
     """
     Allows picture to be added to order`s admin panel
     """
 
-    model = market.models.OrderPicture
+    model = custom.models.OrderCustomPicture
 
 
-@admin.register(market.models.OrderCustom)
-class OrderCustomAdmin(admin.ModelAdmin[market.models.OrderCustom]):
+@admin.register(custom.models.OrderCustom)
+class OrderCustomAdmin(admin.ModelAdmin[custom.models.OrderCustom]):
     """
     Admin model order table
     """
 
     list_display = (
-        market.models.OrderCustom.user.field.name,
-        market.models.OrderCustom.header.field.name,
-        market.models.OrderCustom.max_price.field.name,
+        custom.models.OrderCustom.user.field.name,
+        custom.models.OrderCustom.header.field.name,
+        custom.models.OrderCustom.max_price.field.name,
     )
     inlines = (OrderPictureInline,)
-    list_editable = (market.models.OrderCustom.header.field.name,)
+    list_editable = (custom.models.OrderCustom.header.field.name,)
+
+
+@admin.register(clothes.models.OrderClothes)
+class OrderClothesAdmin(admin.ModelAdmin[clothes.models.OrderClothes]):
+    """
+    Admin model order table
+    """
+
+    list_display = (
+        clothes.models.OrderClothes.user.field.name,
+        clothes.models.OrderClothes.designer.field.name,
+        clothes.models.OrderClothes.sum.field.name,
+        clothes.models.OrderClothes.item.field.name,
+        clothes.models.OrderClothes.status.field.name,
+        clothes.models.OrderClothes.edited.field.name,
+    )
