@@ -114,7 +114,7 @@ class Collection(core.models.CreatedEdited):
 
 
 @cleanup.select
-class Item(core.models.CreatedEdited):
+class Item(core.models.MainImageMixin, core.models.CreatedEdited):
     """
     Item models
 
@@ -133,6 +133,13 @@ class Item(core.models.CreatedEdited):
 
     objects = clothes.managers.ItemManager()
 
+    item_genders = (
+        ('male', _('Мужской')),
+        ('female', _('Женский')),
+        ('unisex', _('Унисекс')),
+        ('childish', _('Детский')),
+    )
+
     name = models.CharField(
         verbose_name=_('Название товара'),
         help_text=_(
@@ -148,11 +155,12 @@ class Item(core.models.CreatedEdited):
         on_delete=models.CASCADE,
     )
 
-    main_image = models.ImageField(
-        verbose_name=_('основная картинка товара'),
-        upload_to=utils.functions.get_item_main_image_location,
-        null=True,
-        blank=True,
+    gender = models.CharField(
+        verbose_name=_('пол'),
+        help_text=_('Кто будет носить эту вещь?'),
+        choices=item_genders,
+        default=item_genders[2][0],
+        max_length=15,
     )
 
     cost = models.IntegerField(
