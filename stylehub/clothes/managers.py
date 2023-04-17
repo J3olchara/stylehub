@@ -30,11 +30,11 @@ class ItemManager(models.Manager[Any]):
 
     def unpopular(self) -> models.QuerySet[Any]:
         """returns random items with unpopular designers"""
-        qs = (
-            self.get_queryset()
-            .filter(designer__in=auth.models.User.designers.unpopular().all())
-            .order_by('?')
+        qs = self.get_queryset().filter(
+            designer__in=auth.models.User.designers.unpopular().all()
         )
+        # print(auth.models.User.designers.unpopular().all())
+        # print(qs.all())
         return qs
 
 

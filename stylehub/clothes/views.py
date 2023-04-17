@@ -32,9 +32,9 @@ class Main(generic.TemplateView):
         context['collections'] = clothes.models.Collection.objects.top()[
             :5
         ].all()
-        context['unpopular'] = clothes.models.Item.objects.unpopular()[
-            :20
-        ].all()
+        context['unpopular'] = (
+            clothes.models.Item.objects.unpopular().order_by('?')[:20].all()
+        )
         return context
 
 
@@ -43,7 +43,7 @@ class PopularCollections(generic.ListView[clothes.models.Collection]):
 
     paginate_by = 10
     template_name = 'clothes/collections.html'
-    object_list = clothes.models.Collection.objects.top()[
+    queryset = clothes.models.Collection.objects.top()[
         : paginate_by * 15
     ].all()
     context_object_name = 'collectionsp'
@@ -54,8 +54,8 @@ class PopularDesigners(generic.ListView[auth.models.User]):
 
     paginate_by = 20
     template_name = 'clothes/designers.html'
-    object_list = auth.models.User.designers.top()[: paginate_by * 15].all()
-    context_object_name = 'collectionsp'
+    queryset = auth.models.User.designers.top()[: paginate_by * 15].all()
+    context_object_name = 'designersp'
 
 
 class UnpopularItems(generic.ListView[clothes.models.Item]):
@@ -65,10 +65,12 @@ class UnpopularItems(generic.ListView[clothes.models.Item]):
 
     paginate_by = 40
     template_name = 'clothes/items.html'
-    object_list = clothes.models.Item.objects.unpopular()[
-        : paginate_by * 15
-    ].all()
-    context_object_name = 'collectionsp'
+    queryset = (
+        clothes.models.Item.objects.unpopular()
+        .order_by('?')[: paginate_by * 15]
+        .all()
+    )
+    context_object_name = 'itemsp'
 
 
 class Wear(generic.DetailView[clothes.models.Item]):

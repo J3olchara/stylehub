@@ -5,6 +5,7 @@ write your model manager tests here
 """
 from django.test import override_settings
 
+import auth.models
 import clothes.models
 from auth.tests.base import AuthSetup
 from market.tests.base import MarketSetUp
@@ -53,3 +54,27 @@ class TestCollectionManager(MarketSetUp, AuthSetup):
                 self.user
             )
             self.assertIn(self.collection1, collections)
+
+    def test_unpopular(self):
+        """tests auth.models.Item.unpopular"""
+        designer = auth.models.User.designers.create_user(
+            username='123u213h12j312h3h213',
+            email='dsahadw312j3j213jhjf@gmail.com',
+            password='12fwejfjkje12',
+        )
+        item = clothes.models.Item.objects.create(
+            name='item_name1231',
+            designer=designer,
+            cost=99999,
+            category=self.category_extended1,
+            collection=self.collection1,
+            bought=9,
+        )
+        with override_settings(POPULAR_DESIGNER_BUYS=10):
+            self.assertIn(item, clothes.models.Item.objects.unpopular().all())
+
+            item.bought = 10
+            item.save()
+            self.assertNotIn(
+                item, clothes.models.Item.objects.unpopular().all()
+            )

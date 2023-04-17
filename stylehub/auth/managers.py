@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as UserManagerOld
 from django.db.models import QuerySet, aggregates
+from django.db.models.functions import Coalesce
 
 
 class UserManager(UserManagerOld[AbstractUser]):
@@ -103,7 +104,9 @@ class DesignerManager(UserManager):
         """returns new queryset of designer users"""
         item: Any = apps.get_model('clothes', 'Item')
         return self.get_queryset().annotate(
-            buys=aggregates.Sum(f'item_designer__{item.bought.field.name}'),
+            buys=Coalesce(
+                aggregates.Sum(f'item_designer__{item.bought.field.name}'), 0
+            ),
         )
 
     def top(self) -> QuerySet[Any]:
@@ -112,9 +115,8 @@ class DesignerManager(UserManager):
 
     def unpopular(self) -> QuerySet[AbstractUser]:
         """returns new queryset of unpopular designer users"""
-        qs = (
+        return (
             self.with_buys()
             .filter(buys__lt=settings.POPULAR_DESIGNER_BUYS)
             .order_by('buys')
         )
-        return qs
