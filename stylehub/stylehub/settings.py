@@ -19,7 +19,7 @@ if not load_dotenv(BASE_DIR.parent / 'environs' / '.env'):
 def get_env_bool(var_name: str) -> bool:
     """converts string variable from env to bool"""
     var = os.getenv(var_name)
-    if not var:
+    if var is None:
         return False
     return var.lower() in ('y', 'yes', 't', 'true', '1')
 
@@ -129,6 +129,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Auth
+
+AUTHENTICATION_BACKENDS = ['stylehub.backends.LoginBackend']
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/auth/login/'
+LOGOUT_REDIRECT_URL = '/auth/login/'
+
 
 # Internationalization
 
@@ -163,3 +171,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 POPULAR_COLLECTION_BUYS = int(os.environ['POPULAR_COLLECTION_BUYS'])
 POPULAR_DESIGNER_BUYS = int(os.environ['POPULAR_DESIGNER_BUYS'])
+NEW_USER_IS_ACTIVE = get_env_bool('NEW_USER_IS_ACTIVE')
+ACTIVATION_URL_EXPIRE_TIME = os.environ['ACTIVATION_URL_EXPIRE_TIME']
+FAILED_AUTHS_TO_DEACTIVATE = int(os.getenv('FAILED_AUTHS_TO_DEACTIVATE', '10'))

@@ -157,3 +157,14 @@ class DesignerManager(UserManager):
             .filter(buys__lt=settings.POPULAR_DESIGNER_BUYS)
             .order_by('buys')
         )
+
+
+class InactiveUserManager(UserManager[AbstractUser]):
+    """extends base qs to select related profile"""
+
+    def get_queryset(self) -> Any:
+        return (
+            super()
+            .get_queryset()
+            .select_related('profile')
+        )

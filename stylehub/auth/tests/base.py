@@ -17,3 +17,4 @@ class AuthSetup(TestCase):
             email='setup_test_email@gmail.com',
             password=self.user_password,
         )
+        self.token = auth.models.ActivationToken.objects.create(user=self.user)

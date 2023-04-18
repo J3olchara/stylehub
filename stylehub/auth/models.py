@@ -1,15 +1,22 @@
 """models for auth"""
 from typing import Any, Optional, Sequence, Union
+from datetime import datetime
+import uuid
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.expressions import Combinable
 from django.utils.translation import gettext_lazy as _
 from django_cleanup import cleanup
+from django.conf import settings
+from django.urls import reverse
+from django.template.defaultfilters import strip_tags
+from pytz import timezone, utc
 
 import auth.managers
 import clothes.models
 import market.models
+import auth.utils
 
 
 class User(AbstractUser):
@@ -24,6 +31,8 @@ class User(AbstractUser):
     objects = auth.managers.UserManager()
 
     designers = auth.managers.DesignerManager()
+
+    inactive = auth.managers.InactiveUserManager()
 
     gender_choices = (
         ('', _('Не указан')),
@@ -108,6 +117,21 @@ class User(AbstractUser):
         self.save()
         return DesignerProfile.objects.create(user=self)
 
+    def normalize_email(self) -> str:
+        """
+        Normalizes email address
+        Cuts out email tags and leads it to canonical name
+        """
+        name, domain = strip_tags(self.email).lower().split('@')
+        domain = domain.replace('ya.ru', 'yandex.ru')
+        if domain == 'gmail.com':
+            name = name.replace('.', '')
+        elif domain == 'yandex.ru':
+            name = name.replace('.', '-')
+        name = name.split('+', maxsplit=1)[0]
+        self.normalized_email = '@'.join([name, domain])
+        return self.normalized_email
+
 
 @cleanup.select
 class DesignerProfile(models.Model):
@@ -158,3 +182,50 @@ class DesignerProfile(models.Model):
 
         verbose_name = _('дизайнер')
         verbose_name_plural = _('дизайнеры')
+
+
+class ActivationToken(models.Model):
+    """
+    Activation token model.
+    Stores activation tokens that allows new accounts to be activated.
+    user: int FK -> User. User that attached to token.
+    token: uuid.UUID. Unique token.
+    expire: datetime. Token expiration datetime
+    """
+
+    user: Union[User, Any] = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_('Пользователь'),
+    )
+
+    token: Union[uuid.UUID, Any] = models.UUIDField(
+        verbose_name=_('Ключ активации'), default=uuid.uuid4
+    )
+
+    created: Union[datetime, Any] = models.DateTimeField(
+        verbose_name=_('Дата и время создания'),
+        auto_now_add=True,
+    )
+
+    expire: Union[datetime, Any] = models.DateTimeField(
+        verbose_name=_('Дата и время истечения'),
+        default=auth.utils.get_token_expire,
+    )
+
+    def get_url(self, site: str) -> Any:
+        """returns activation url"""
+        return site + reverse(
+            'authorisation:signup_confirm',
+            kwargs={'user_id': self.user.id, 'token': self.token},
+        )
+
+    def expired(self) -> bool:
+        """Checks if the token has expired"""
+        tz = timezone(settings.TIME_ZONE)
+        expire = self.expire.replace(tzinfo=utc).astimezone(tz)
+        exp = expire < datetime.now(tz=tz)
+        if exp:
+            self.delete()
+        return exp
+
