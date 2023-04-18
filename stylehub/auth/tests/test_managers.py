@@ -3,7 +3,7 @@ tests for auth managers
 
 write your function tests here
 """
-from django.test import override_settings
+from django.test import TestCase, override_settings
 
 import auth.models
 import clothes.models
@@ -47,9 +47,10 @@ class TestDesigner(MarketSetUp, AuthSetup):
                 auth.models.User.designers.unpopular().get(id=designer.id)
 
 
-class TestDesignersManager(AuthSetup):
+class TestDesignersManager(TestCase):
     """Test designers managers tests"""
 
+    @override_settings(DESIGNERS_ON_CUSTOM_MAIN_PAGE=2)
     def test_best_designers_on_custom_evaluation(self):
         """test best_designers_on_custom_evaluation method"""
         self.tearDown()
@@ -88,3 +89,9 @@ class TestDesignersManager(AuthSetup):
         )
         lenght = len(designers)
         self.assertEqual(designers[lenght - 1], designer2)
+        with override_settings(DESIGNERS_ON_CUSTOM_MAIN_PAGE=1):
+            new_designers = (
+                auth.models.User.designers.best_designers_on_custom_evaluation()
+            )
+            self.assertEqual(len(new_designers), 1)
+            self.assertEqual(new_designers[0], designer1)

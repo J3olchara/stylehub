@@ -4,7 +4,7 @@ from django.urls import reverse
 import auth.models
 
 
-class TestEbdpoints(TestCase):
+class TestEndpoints(TestCase):
     def test_custom_home(self):
         user_password = 'kljdfjlksdlkjdljkfjkhfioioiopqwiop'
         desiner_user_password = 'lkfdklknmnbxcvxcmzxc'
