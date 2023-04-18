@@ -9,6 +9,7 @@ from django.contrib import admin
 urlpatterns: Any = [
     django.urls.path('admin/', admin.site.urls),
     django.urls.path('', django.urls.include('home.urls')),
+    django.urls.path('api/', django.urls.include('api.urls')),
     django.urls.path('clothes/', django.urls.include('clothes.urls')),
 ]
 

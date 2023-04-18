@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'market.apps.MarketConfig',
     'stats.apps.StatsConfig',
+    'api.apps.ApiConfig',
     'django_cleanup.apps.CleanupConfig',
     'sorl.thumbnail',
 ]
