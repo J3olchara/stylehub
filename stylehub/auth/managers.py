@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.auth.models import UserManager as UserManagerOld
 from django.db import models
-from django.db.models import QuerySet, aggregates
+from django.db.models import Avg, QuerySet, aggregates
 from django.db.models.functions import Coalesce
 
 
@@ -156,4 +156,14 @@ class DesignerManager(UserManager):
             self.with_buys()
             .filter(buys__lt=settings.POPULAR_DESIGNER_BUYS)
             .order_by('buys')
+        )
+
+    def best_custom_evaluations(self) -> QuerySet[Any]:
+        """Gets the best 20 designeres on avg theirs evaluations"""
+        return (
+            self.model.designers.filter(is_designer=True)
+            .annotate(average_evaluation=Avg('custom_evaluations__rating'))
+            .order_by(
+                '-average_evaluation',
+            )[: settings.DESIGNERS_ON_CUSTOM_MAIN_PAGE]
         )
