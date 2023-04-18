@@ -3,12 +3,8 @@ clothes forms tests
 
 write your form tests here
 """
-import os
-import shutil
-
-from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.urls import reverse
 
 import clothes.forms
@@ -16,7 +12,6 @@ import clothes.models
 from market.tests.base import MarketSetUp
 
 
-@override_settings(MEDIA_ROOT=settings.BASE_DIR / 'test_media')
 class FilesSetup(TestCase):
     """setups image files for testing"""
 
@@ -29,18 +24,6 @@ class FilesSetup(TestCase):
         self.image2 = SimpleUploadedFile('test1.jpg', content_image)
         self.image3 = SimpleUploadedFile('test1.jpg', content_image)
         return super().setUp()
-
-    def tearDown(self) -> None:
-        for filename in os.listdir(settings.MEDIA_ROOT):
-            file_path = os.path.join(settings.MEDIA_ROOT, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print(f'Failed to delete {file_path}. Reason: {e}')
-        return super().tearDown()
 
 
 class TestItem(FilesSetup, MarketSetUp):
