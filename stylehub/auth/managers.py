@@ -158,12 +158,12 @@ class DesignerManager(UserManager):
             .order_by('buys')
         )
 
-    def best_designers_on_custom_evaluation(self) -> QuerySet[AbstractUser]:
+    def best_custom_evaluations(self) -> QuerySet[Any]:
         """Gets the best 20 designeres on avg theirs evaluations"""
         return (
             self.model.designers.filter(is_designer=True)
             .annotate(average_evaluation=Avg('custom_evaluations__rating'))
-            .order_by('-average_evaluation')[
-                : settings.DESIGNERS_ON_CUSTOM_MAIN_PAGE
-            ]
+            .order_by(
+                '-average_evaluation',
+            )[: settings.DESIGNERS_ON_CUSTOM_MAIN_PAGE]
         )

@@ -84,14 +84,12 @@ class TestDesignersManager(TestCase):
             user=user, order=order_custom, rating=4
         )
 
-        designers = (
-            auth.models.User.designers.best_designers_on_custom_evaluation()
-        )
+        designers = auth.models.User.designers.best_custom_evaluations()
         lenght = len(designers)
         self.assertEqual(designers[lenght - 1], designer2)
         with override_settings(DESIGNERS_ON_CUSTOM_MAIN_PAGE=1):
             new_designers = (
-                auth.models.User.designers.best_designers_on_custom_evaluation()
+                auth.models.User.designers.best_custom_evaluations()
             )
             self.assertEqual(len(new_designers), 1)
             self.assertEqual(new_designers[0], designer1)

@@ -1,3 +1,4 @@
+"""Test endpoints on custom app"""
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -5,7 +6,10 @@ import auth.models
 
 
 class TestEndpoints(TestCase):
+    """Tests endpoints of all views in custom app"""
+
     def test_custom_home(self):
+        """test custom:home"""
         user_password = 'kljdfjlksdlkjdljkfjkhfioioiopqwiop'
         desiner_user_password = 'lkfdklknmnbxcvxcmzxc'
         user = auth.models.User.objects.create_user(

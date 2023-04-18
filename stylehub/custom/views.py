@@ -19,4 +19,4 @@ class Main(mixins.LoginRequiredMixin, generic.ListView[Any]):
         """Returns queryset"""
         if self.request.user.is_designer:
             return custom.models.OrderCustom.objects.get_free_orders()
-        return auth.models.User.designers.best_designers_on_custom_evaluation()
+        return auth.models.User.designers.best_custom_evaluations()

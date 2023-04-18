@@ -9,6 +9,6 @@ urlpatterns = [
     django.urls.path(
         '',
         custom.views.Main.as_view(),
-        name='main',
+        name='home',
     ),
 ]
