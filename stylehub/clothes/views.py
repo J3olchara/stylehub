@@ -7,12 +7,7 @@ from typing import Any, Dict
 
 from django.contrib.auth import mixins
 from django.db.models import QuerySet
-from django.http import (
-    Http404,
-    HttpRequest,
-    HttpResponse,
-    HttpResponseRedirect,
-)
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -230,7 +225,7 @@ class CreateSomething(
             form.save(files=gallery)
         else:
             form.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return redirect(self.get_success_url())
 
     def get_success_url(self) -> str:
         """returns success url"""

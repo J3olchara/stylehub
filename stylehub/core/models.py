@@ -118,7 +118,7 @@ class MainImageMixin(models.Model):
 
     @property
     def get_url(self) -> str:
-        """returns url like 'media/uploads/...'"""
+        """returns url like 'uploads/...'"""
         return f'{self.image.url}'
 
     def __str__(self) -> str:

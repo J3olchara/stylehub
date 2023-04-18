@@ -245,7 +245,6 @@ class ItemPicture(core.models.MainImageMixin):
     """
 
     objects = clothes.managers.ItemPictureManager()
-
     item = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,
