@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='item',
-            name='main_image',
+            name='image',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.image', verbose_name='основная картинка товара'),
         ),
     ]

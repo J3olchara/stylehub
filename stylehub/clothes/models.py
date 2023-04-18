@@ -9,7 +9,6 @@ import auth.models
 import clothes.managers
 import core.models
 import market.models
-import utils.functions
 
 
 @cleanup.select
@@ -60,7 +59,8 @@ class OrderClothes(market.models.Order):
         verbose_name_plural = _('заказы одежды')
 
 
-class Collection(core.models.CreatedEdited):
+@cleanup.select
+class Collection(core.models.MainImageMixin, core.models.CreatedEdited):
     """
     category model for items collection
     describes item base collection: Haute Couture for example
@@ -120,7 +120,7 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
 
     name: char[50]. Item name.
     designer: ForeignKey to auth.models.designer
-    main_image: ImageField - image to describe main idea of item
+    image: ImageField - image to describe main idea of item
     cost: PositiveBigIntegerField - describe how many this item cost
     text: TextField - item description
     category: ForeignKey to market.models.Category
@@ -161,6 +161,8 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
         choices=item_genders,
         default=item_genders[2][0],
         max_length=15,
+        blank=False,
+        null=False,
     )
 
     cost = models.IntegerField(
@@ -235,19 +237,14 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
 
 
 @cleanup.select
-class ItemPicture(models.Model):
+class ItemPicture(core.models.MainImageMixin):
     """
     models realise pictures gallery for item
     picture: ImageField one of many item picture
     item: ManyToManyField shows for what item this picture
     """
 
-    picture = models.ImageField(
-        verbose_name='изображение',
-        help_text='изображение для галерии товара',
-        upload_to=utils.functions.get_item_images_upload_location,
-    )
-
+    objects = clothes.managers.ItemPictureManager()
     item = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,

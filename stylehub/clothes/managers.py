@@ -1,10 +1,11 @@
 """Managers for market models"""
 
-from typing import Any, Union
+from typing import Any, List, Union
 
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
+from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 from django.db.models import Case, Value, When, aggregates
 
@@ -48,7 +49,7 @@ class CollectionManager(models.Manager[Any]):
         image: Any = apps.get_model('clothes', 'ItemPicture')
         prefetch_images = models.Prefetch(
             'images',
-            queryset=image.objects.all().only(image.picture.field.name),
+            queryset=image.objects.all().only(image.image.field.name),
         )
         item_queryset = (
             item.objects.filter(is_published=True)
@@ -110,3 +111,12 @@ class OrderClothesManager(models.Manager[Any]):
                 f'-{self.model.edited.field.name}',
             )
         )
+
+
+class ItemPictureManager(models.Manager[Any]):
+    """Manager for ItemPicture in clothes app"""
+
+    def create_many(self, images: List[UploadedFile], item: Any) -> List[Any]:
+        """creates many than one objects simple"""
+        objs = [self.model(image=image, item=item) for image in images]
+        return self.bulk_create(objs)

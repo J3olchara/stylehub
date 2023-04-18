@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='item',
-            name='main_image',
+            name='image',
             field=models.ImageField(help_text='Загрузите фото', max_length=255, null=True, upload_to=utils.functions.get_item_main_image_location, verbose_name='фото'),
         ),
     ]

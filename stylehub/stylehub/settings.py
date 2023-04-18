@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'stats.apps.StatsConfig',
     'django_cleanup.apps.CleanupConfig',
     'sorl.thumbnail',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -154,6 +155,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static_dev']
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+# Auth/Login pages
+
+LOGIN_URL = 'admin/'
 
 # Default primary key field type
 

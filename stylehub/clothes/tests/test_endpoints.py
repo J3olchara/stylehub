@@ -6,6 +6,7 @@ write youth here
 """
 from django.test import Client
 from django.urls import reverse
+from parameterized import parameterized
 
 from market.tests.base import MarketSetUp
 
@@ -78,67 +79,77 @@ class TestEndpoints(MarketSetUp):
             'Дизайнер не может редактировать свой профиль',
         )
 
+    def endpoint(self, template_name, **kwargs):
+        """tests clothes:recommend page endpoint"""
+        path = reverse(template_name, kwargs=kwargs)
+        self.assertEqual(self.client.get(path).status_code, 200)
+
+    def auth_endpoint(self, template_name, **kwargs):
+        """tests any auth needed endpoints"""
+        path = reverse(template_name, kwargs=kwargs)
+
+        self.assertEqual(self.client.get(path).status_code, 302)
+
+        self.client.login(
+            username=self.user.username, password=self.user_password
+        )
+        self.assertEqual(self.client.get(path).status_code, 200)
+
+    def designer_endpoint(self, template_name, **kwargs):
+        """tests endpoint that can view only designer"""
+        path = reverse(template_name, kwargs=kwargs)
+
+        self.assertEqual(self.client.get(path).status_code, 404)
+
+        self.client.login(
+            username=self.user.username, password=self.user_password
+        )
+        self.assertEqual(self.client.get(path).status_code, 404)
+
+        self.client.login(
+            username=self.designer_user.username,
+            password=self.designer_password,
+        )
+        self.assertEqual(self.client.get(path).status_code, 200)
+
     def test_recommend_endpoint(self):
         """tests clothes:recommend page endpoint"""
-        path = reverse('clothes:recommend')
-        client = Client()
-        resp = client.get(path)
-        self.assertEqual(resp.status_code, 200)
+        self.endpoint('clothes:recommend')
 
     def test_main_endpoint(self):
         """tests clothes:main page endpoint"""
-        path = reverse('clothes:main')
-        client = Client()
-        resp = client.get(path)
-        self.assertEqual(resp.status_code, 200)
+        self.endpoint('clothes:main')
 
     def test_collections_endpoint(self):
         """tests clothes:collections page endpoint"""
-        path = reverse('clothes:collections')
-        client = Client()
-        resp = client.get(path)
-        self.assertEqual(resp.status_code, 200)
+        self.endpoint('clothes:collections')
 
     def test_designers_endpoint(self):
         """tests clothes:designers page endpoint"""
-        path = reverse('clothes:designers')
-        client = Client()
-        resp = client.get(path)
-        self.assertEqual(resp.status_code, 200)
+        self.endpoint('clothes:designers')
 
     def test_unpopular_endpoint(self):
         """tests clothes:unpopular page endpoint"""
-        path = reverse('clothes:unpopular')
-        client = Client()
-        resp = client.get(path)
-        self.assertEqual(resp.status_code, 200)
+        self.endpoint('clothes:unpopular')
 
     def test_orders_endpoint(self):
         """tests clothes orders endpoint"""
-        path = reverse('clothes:orders')
-        client = Client()
-        not_auth_resp = client.get(path)
-        self.assertEqual(not_auth_resp.status_code, 302)
-        client.login(username=self.user.username, password=self.user_password)
-        auth_resp = client.get(path)
-        self.assertEqual(auth_resp.status_code, 200)
+        self.auth_endpoint('clothes:orders')
 
     def test_lovely_endpoint(self):
         """tests lovely designers endpoint"""
-        path = reverse('clothes:lovely_designers')
-        client = Client()
-        not_auth_resp = client.get(path)
-        self.assertEqual(not_auth_resp.status_code, 302)
-        client.login(username=self.user.username, password=self.user_password)
-        auth_resp = client.get(path)
-        self.assertEqual(auth_resp.status_code, 200)
+        self.auth_endpoint('clothes:lovely_designers')
 
     def test_saved_endpoint(self):
         """tests lovely designers endpoint"""
-        path = reverse('clothes:saved_items')
-        client = Client()
-        not_auth_resp = client.get(path)
-        self.assertEqual(not_auth_resp.status_code, 302)
-        client.login(username=self.user.username, password=self.user_password)
-        auth_resp = client.get(path)
-        self.assertEqual(auth_resp.status_code, 200)
+        self.auth_endpoint('clothes:saved_items')
+
+    @parameterized.expand(
+        (
+            'collection',
+            'item',
+        )
+    )
+    def test_create_endpoint(self, form):
+        """tests creation clothes page"""
+        self.designer_endpoint('clothes:create', form=form)
