@@ -3,6 +3,8 @@ clothes forms tests
 
 write your form tests here
 """
+import shutil
+
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
@@ -20,9 +22,11 @@ class FilesSetup(TestCase):
             b'GIF87a\x01\x00\x01\x00\x80\x01\x00\x00\x00\x00ccc,\x00\x00'
             b'\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00'
         )
+        start
         self.image1 = SimpleUploadedFile('test1.jpg', content_image)
         self.image2 = SimpleUploadedFile('test1.jpg', content_image)
         self.image3 = SimpleUploadedFile('test1.jpg', content_image)
+        shutil.cop
         return super().setUp()
 
 
