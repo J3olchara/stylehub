@@ -1,7 +1,8 @@
 Django==3.2.15
-python-dotenv==0.21.1
-django-cleanup~=7.0.0
-sorl-thumbnail~=12.9.0
-pillow~=9.4.0
 django-ckeditor~=6.5.1
+django-cleanup~=7.0.0
+python-dotenv==0.21.1
+django_extensions=3.2.1
 django-modeltranslation~=0.18.9
+pillow~=9.4.0
+sorl-thumbnail~=12.9.0

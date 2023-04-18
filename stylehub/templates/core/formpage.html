@@ -1,5 +1,25 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block content %}
-	{{ form.as_p }}
+	<form method="post" class="form-floating" enctype="multipart/form-data" action="">
+		{% csrf_token %}
+    {{ form.errors }}
+		{% for field in form.visible_fields %}
+        <div class="form-group">
+          {% for error in field.errors %}
+            <div class="alert alert-danger">
+              {{ error|escape|striptags }}
+            </div>
+          {% endfor %}
+          <label for="{{ field.auto_id }}">{{ field.label }}</label>
+          {{ field }}
+          <small id="{{ field.auto_id }}" class="form-text text-muted">{{ field.help_text }}</small>
+        </div>
+		{% endfor %}
+    {% for field in form.hidden_fields %}
+      {{ field }}
+    {% endfor %}
+		<button class="btn btn-primary" type="submit">{% trans 'Отправить' %}</button>
+	</form>
 {% endblock %}

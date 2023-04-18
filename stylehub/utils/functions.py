@@ -17,11 +17,14 @@ def get_item_images_upload_location(instance: Any, filename: str) -> str:
 
 def get_item_main_image_location(instance: Any, filename: str) -> str:
     """
-    Returns directory to upload file from item model(main_image)
+    Returns directory to upload file from item model(image)
     """
     path = 'uploads/items'
-    designer = str(instance.designer.id)
-    name = 'main_image' + str(instance.id) + f'.{filename.split(".")[-1]}'
+    if hasattr(instance, 'designer'):
+        designer = str(instance.designer.id)
+    else:
+        designer = str(instance.item.designer.id)
+    name = 'image' + str(instance.id) + f'.{filename.split(".")[-1]}'
     return str(settings.MEDIA_ROOT / path / designer / name)
 
 

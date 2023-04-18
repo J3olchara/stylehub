@@ -16,7 +16,7 @@
            alt="Card image cap">
     </div>
     <div class="card-footer border-0 d-flex flex-column justify-content-between">
-      <h3 class="product-title"><a href="" class="text-decoration-none link-dark">{{ item.name }}</a></h3>
+      <h3 class="product-title"><a href="{% url 'clothes:wear' pk=item.id %}" class="text-decoration-none link-dark">{{ item.name }}</a></h3>
       <p class="product-price text-end">{{ item.cost }}₽</p>
     </div>
   </div>

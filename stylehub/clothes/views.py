@@ -6,15 +6,21 @@ write your clothes shop views here
 from typing import Any, Dict
 
 from django.contrib.auth import mixins
-from django.conf import settings
 from django.db.models import QuerySet
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import (
+    Http404,
+    HttpRequest,
+    HttpResponse,
+    HttpResponseRedirect,
+)
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
 import auth.forms
+import auth.mixins
 import auth.models
+import clothes.forms
 import clothes.models
 
 
@@ -189,34 +195,45 @@ class Lovely(mixins.LoginRequiredMixin, generic.ListView[auth.models.User]):
         return auth.models.User.objects.get_lovely_designers(user)
 
 
-class CreateSomething(mixins.LoginRequiredMixin, generic.FormView[Any]):
+class CreateSomething(
+    auth.mixins.DesignerRequiredMixin, generic.CreateView[Any, Any]
+):
+    """view to create some designer models"""
+
     template_name = 'core/formpage.html'
     forms = {
-        'collection': clothes.forms.CollectionForm,
-        'item': clothes.forms.ItemForm,
+        'collection': clothes.forms.CollectionCreateForm,
+        'item': clothes.forms.ItemCreateForm,
     }
-    login_url = settings.LOGIN_URL
 
     def get_form_class(self) -> Any:
+        """getting form class by froms variable"""
         requested_form = self.kwargs.get('form')
         form = self.forms.get(requested_form)
         if form:
             return form
         raise Http404()
 
-    def get_form(self, form_class: Any = None) -> Any:
-        form = super().get_form(form_class)
-        form.designer = self.request.user
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        """custom return kwargs to return designer object for form"""
+        kwargs = super().get_form_kwargs()
+        kwargs['designer'] = self.request.user
+        return kwargs
 
-
-    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        return super().post(request, *args, **kwargs)
-
-    def form_valid(self, form: Any) -> HttpResponse:
-        form.save()
-        return super().form_valid(form)
+    def form_valid(
+        self,
+        form: Any,
+    ) -> Any:
+        """custom form_valid to save item gallery"""
+        gallery = self.request.FILES.getlist('gallery')
+        if gallery:
+            form.save(files=gallery)
+        else:
+            form.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self) -> str:
+        """returns success url"""
         return self.request.path
 
 

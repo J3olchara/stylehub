@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'stats.apps.StatsConfig',
     'django_cleanup.apps.CleanupConfig',
     'sorl.thumbnail',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
