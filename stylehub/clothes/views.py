@@ -104,7 +104,7 @@ class Designer(generic.ListView[clothes.models.Collection]):
     def get_queryset(self) -> QuerySet[Any]:
         """Returns queryset for listview"""
         designer_id = self.kwargs.get('pk')
-        designer = auth.models.DesignerProfile.objects.get(pk=designer_id)
+        designer = auth.models.DesignerProfile.objects.get(id=designer_id)
         return (
             clothes.models.Collection.objects.with_items()
             .filter(designer=designer.user)
@@ -235,7 +235,7 @@ class CreateSomething(
 class Saved(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
     """gives saved user items"""
 
-    template_name = 'clothes/saved.html'
+    template_name = 'clothes/liked.html'
     context_object_name = 'items'
     login_url = 'admin/'
 

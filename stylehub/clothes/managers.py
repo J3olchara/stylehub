@@ -23,9 +23,6 @@ class ItemManager(models.Manager[Any]):
         )
         return self.get_queryset().prefetch_related(prefetch_evals)
 
-    def get_like_status(self) -> models.QuerySet[Any]:
-        """item with liked value for current user"""
-
     def pref_styles(self) -> models.QuerySet[Any]:
         """returns new queryset with prefetched item styles"""
         style: Any = apps.get_model('market', 'Style')
@@ -38,7 +35,6 @@ class ItemManager(models.Manager[Any]):
         qs = self.get_queryset().filter(
             designer__in=auth.models.User.designers.unpopular().all()
         )
-
         return qs
 
 

@@ -28,13 +28,13 @@ a, button, p, span, h1, h2, h3, h4, h5, h6 {
 
 .active-link {
     color: rgb(64, 64, 64);
-    border-bottom-color: grey;
+    border-bottom: grey solid 2px;
 }
 
 .gender {
     position: absolute;
-    top: 15px;
-    left: 20px;
+    top: 12px;
+    left: 15px;
     color: #ffffff;
     padding: 2px 8px;
     font-size: 0.85rem;
@@ -56,7 +56,7 @@ a, button, p, span, h1, h2, h3, h4, h5, h6 {
 .heart svg {
     position: absolute;
     top: 15px;
-    right: 20px;
+    right: 15px;
     transition: 0.3s;
     fill: white;
     stroke: black;
@@ -70,7 +70,7 @@ a, button, p, span, h1, h2, h3, h4, h5, h6 {
 .heart-fill svg {
     position: absolute;
     top: 15px;
-    right: 20px;
+    right: 15px;
     fill: red;
     stroke: red;
 }

@@ -102,7 +102,7 @@ class TestEndpoints(EndpointTests, MarketSetUp):
 
     def test_saved_endpoint(self):
         """tests lovely designers endpoint"""
-        self.auth_endpoint('clothes:saved_items')
+        self.auth_endpoint('clothes:liked_items')
 
     @parameterized.expand(
         (

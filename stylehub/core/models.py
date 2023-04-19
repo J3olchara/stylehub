@@ -96,7 +96,7 @@ class MainImageMixin(models.Model):
         help_text='Загрузите фото',
         upload_to=utils.functions.get_item_main_image_location,
         max_length=255,
-        null=True,
+        default='default/default.png',
     )
 
     def get_image_px(
@@ -119,7 +119,7 @@ class MainImageMixin(models.Model):
     @property
     def get_url(self) -> str:
         """returns url like 'uploads/...'"""
-        return f'{self.image.url}'
+        return self.image.url
 
     def __str__(self) -> str:
         return str(self.image.url)

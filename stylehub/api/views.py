@@ -1,3 +1,4 @@
+"""APP api views"""
 from typing import Any
 
 from django.http import HttpRequest, HttpResponse
@@ -9,7 +10,10 @@ import clothes.models
 class ToggleLiked(View):
     """toggle item from user`s liked"""
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def get(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponse:
+        """toggle item from user`s 'liked'"""
         item = clothes.models.Item.objects.get(id=kwargs.get('item_id'))
         user = request.user
         if item not in user.saved.all():

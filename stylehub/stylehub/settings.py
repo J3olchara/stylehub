@@ -105,6 +105,7 @@ TEMPLATES: List[Dict[str, Any]] = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'stylehub.context_processors.user_items_processor',
             ],
         },
     },

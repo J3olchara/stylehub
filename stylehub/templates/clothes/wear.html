@@ -1,5 +1,25 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-	<h1>{{ item.name }}</h1>
+  <h1 class="text-center mb-4">{{ item.name }}</h1>
+  <article class="d-flex">
+    <div class="col-4">
+      <img src="{{ item.get_url }}" alt="{{ item.name }}" width="400px">
+    </div>
+    <div class="col-8">
+      <p>Цена: <span class="ms-2">{{ item.cost }}₽</span></p>
+      <p>Пол: {{ item.get_gender_display }}</p>
+      <p>Дизайнер: <a href="{% url 'clothes:designer' pk=item.designer.id %}">{{ item.designer }}</a></p>
+      <p>Стиль:
+        {% for style in item.styles.all %}
+          {{ style }}&nbsp;&nbsp;&nbsp;
+        {% endfor %}
+      </p>
+      <p>Коллекции:
+        {% for collection in item.collections.all %}
+          {{ collection }}&nbsp;&nbsp;&nbsp;
+        {% endfor %}
+      </p>
+    </div>
+  </article>
 {% endblock %}
