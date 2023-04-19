@@ -34,9 +34,17 @@ class BaseDesignerForm(forms.ModelForm[Any]):
     ):
         super().__init__(*args, **kwargs)
         designer_field = self.fields.get('designer')
+        styles_field = self.fields.get('styles')
+
         designer_field.widget = forms.widgets.HiddenInput()
         if designer is not None:
             designer_field.initial = designer
+
+        styles_field.choices = get_choices(
+            market.models.Style.objects.all().only('id', 'name'),
+            'id',
+            'name',
+        )
 
 
 class CollectionCreateForm(BaseDesignerForm):

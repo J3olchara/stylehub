@@ -250,7 +250,7 @@ class ItemPicture(core.models.MainImageMixin):
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
-        related_name='images',
+        related_name='gallery',
     )
 
     class Meta:

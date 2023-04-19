@@ -94,7 +94,7 @@ class MainImageMixin(models.Model):
     image: 'models.ImageField' = models.ImageField(
         verbose_name='обложка',
         help_text='Загрузите фото',
-        upload_to=utils.functions.get_item_main_image_location,
+        upload_to=utils.functions.get_image_upload_location,
         max_length=255,
         null=True,
     )
@@ -109,6 +109,21 @@ class MainImageMixin(models.Model):
         quality: integer. quality of the new image
         """
         return get_thumbnail(self.image, px, crop=crop, quality=quality)
+
+    def crop_item_img(self):
+        """
+        crops the picture for item card
+        """
+        return self.get_image_px(px='325x150', quality=100)
+
+    def get_image_1500_400(self) -> Any:
+        """
+        crops the picture
+        px: string. format of the new image (1200x400, 1200)
+        crop: string. crop centering
+        quality: integer. quality of the new image
+        """
+        return self.get_image_px(px='1500x400', quality=100)
 
     def image_tmb(self) -> Union[SafeString, Any]:
         """returns HTML picture for Item"""
