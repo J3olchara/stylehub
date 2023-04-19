@@ -21,4 +21,4 @@ class ToggleLiked(View):
         else:
             user.saved.remove(item)
         user.save()
-        return HttpResponse("ok")
+        return HttpResponse('ok')
