@@ -1,79 +1,110 @@
 from datetime import timedelta
 
-from django.urls import reverse
-from django.test import Client
 import mock
+from django.test import Client, override_settings
+from django.urls import reverse
 
-import auth.tests.base
-import auth.models
 import auth.forms
+import auth.models
+import auth.tests.base
 
 
 class SignUpTests(auth.tests.base.AuthSetup):
-
-    @mock.patch('authorisation.auth.models.datetime')
-    def test_activation_false(self, mocked_datetime):
-        path = reverse(
-            'authorisation:signup_confirm',
-            kwargs={'token': self.token.token, 'user_id': self.user.id},
+    """tests signup features"""
+    def get_user_and_token_for_activation(self):
+        user = auth.models.User.objects.create_user(
+            username='fsfgsegfesefefssefef',
+            email='3efesafesa@gmail.com',
+            password='142kjjkgrsgeew3gesrg'
         )
-        mocked_datetime.now.return_value = self.token.expire + timedelta(
+        token = auth.models.ActivationToken.objects.create(user=user)
+        return user, token
+
+    @mock.patch('auth.models.datetime')
+    @override_settings(NEW_USER_IS_ACTIVE=False)
+    def test_activation_false(self, mocked_datetime):
+        user, token = self.get_user_and_token_for_activation()
+        path = reverse(
+            'auth:signup_confirm',
+            kwargs={'token': token.token, 'user_id': user.id},
+        )
+        mocked_datetime.now.return_value = token.expire + timedelta(
             minutes=1
         )
         resp = Client().get(path)
-        self.user = auth.models.User.inactive.get(id=self.user.id)
-        self.assertIn('alerts', resp.context)
+        user = auth.models.User.objects.get(id=user.id)
+        self.assertIn(
+            'alerts', resp.context,
+            msg='Пользователь не получает ошибок активации'
+        )
         self.assertEqual(
             'danger',
             resp.context['alerts'][0]['type'],
-            resp.context['alerts'][0]['text'],
+            msg='Пользователь не получает красных ошибок активации'
         )
-        self.assertTrue(not self.user.is_active, self.user.is_active)
+        self.assertTrue(
+            not user.is_active,
+            msg=(
+                'Пользователь активируется, '
+                'независимо от переменной NEW_USER_IS_ACTIVE'
+            )
+        )
 
-    @mock.patch('authorisation.auth.models.datetime')
+    @mock.patch('auth.models.datetime')
+    @override_settings(NEW_USER_IS_ACTIVE=False)
     def test_activation_true(self, mocked_datetime):
+        user, token = self.get_user_and_token_for_activation()
         path = reverse(
-            'authorisation:signup_confirm',
-            kwargs={'token': self.token.token, 'user_id': self.user.id},
+            'auth:signup_confirm',
+            kwargs={'token': token.token, 'user_id': user.id},
         )
-        mocked_datetime.now.return_value = self.token.expire - timedelta(
+        mocked_datetime.now.return_value = token.expire - timedelta(
             minutes=1
         )
         resp = Client().get(path)
-        self.user = auth.models.User.objects.get(id=self.user.id)
-        self.assertIn('alerts', resp.context)
+        user = auth.models.User.objects.get(id=user.id)
+        self.assertIn(
+            'alerts', resp.context,
+            'Пользователь не получает уведомления об успешной активации'
+        )
         self.assertEqual(
             'success',
             resp.context['alerts'][0]['type'],
-            resp.context['alerts'][0]['text'],
+            'Пользователь не получает зеленые уведомления'
         )
-        self.assertTrue(self.user.is_active)
+        self.assertTrue(
+            user.is_active,
+            msg=(
+                'Пользователь активируется, '
+                'независимо от переменной NEW_USER_IS_ACTIVE'
+            )
+        )
 
-    # def test_env_activation_users(self):
-    #     path = reverse('authorisation:signup')
-    #     client = Client()
-    #     with override_settings(NEW_USERS_ACTIVATED=False):
-    #         client.post(
-    #             path,
-    #             data={
-    #                 'username': 'fake_username',
-    #                 'password1': 'fake_password',
-    #                 'password2': 'fake_password',
-    #                 'email': 'email@yandex.ru',
-    #             },
-    #         )
-    #         user = auth.models.User.inactive.get(username='fake_username')
-    #         self.assertTrue(not user.is_active)
-    #     with override_settings(NEW_USERS_ACTIVATED=True):
-    #         resp = client.post(
-    #             path,
-    #             data={
-    #                 'username': 'fake_username1',
-    #                 'password1': 'fake_password1',
-    #                 'password2': 'fake_password1',
-    #                 'email': 'love_danila_eremin@seniorgoogle.com',
-    #             },
-    #         )
-    #         self.assertRedirects(resp, reverse('authorisation:signup_done'))
-    #         user = auth.models.User.objects.get(username='fake_username1')
-    #         self.assertTrue(user.is_active)
+    def test_env_activation_users(self):
+        path = reverse('auth:signup')
+        client = Client()
+        with override_settings(NEW_USER_IS_ACTIVE=False):
+            client.post(
+                path,
+                data={
+                    'username': 'fake_username',
+                    'password1': 'fake_password',
+                    'password2': 'fake_password',
+                    'email': 'email@yandex.ru',
+                },
+            )
+            user = auth.models.User.inactive.get(username='fake_username')
+            self.assertTrue(not user.is_active)
+        with override_settings(NEW_USER_IS_ACTIVE=True):
+            resp = client.post(
+                path,
+                data={
+                    'username': 'fake_username1',
+                    'password1': 'fake_password1',
+                    'password2': 'fake_password1',
+                    'email': 'love_danila_eremin@seniorgoogle.com',
+                },
+            )
+            self.assertRedirects(resp, path)
+            user = auth.models.User.objects.get(username='fake_username1')
+            self.assertTrue(user.is_active)

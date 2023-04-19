@@ -4,7 +4,7 @@ import django.urls
 import auth.forms as auth_forms
 import auth.views as auth_views
 
-app_name = 'authorisation'
+app_name = 'auth'
 
 urlpatterns = [
     django.urls.path(
@@ -15,14 +15,14 @@ urlpatterns = [
     django.urls.path(
         'logout/',
         default_views.LogoutView.as_view(
-            template_name='homepage/index.html',
+            template_name='home/index.html',
         ),
         name='logout',
     ),
     django.urls.path(
         'password_change/',
         default_views.PasswordChangeView.as_view(
-            template_name='authorisation/password_change.html',
+            template_name='auth/password_change.html',
             form_class=auth_forms.PasswordChangeForm,
         ),
         name='password_change',
@@ -35,7 +35,7 @@ urlpatterns = [
     django.urls.path(
         'password_reset/',
         default_views.PasswordResetView.as_view(
-            template_name='authorisation/password_reset.html',
+            template_name='auth/password_reset.html',
             form_class=auth_forms.PasswordResetForm,
         ),
         name='password_reset',
@@ -48,7 +48,7 @@ urlpatterns = [
     django.urls.path(
         'reset/<uidb64>/<token>/',
         default_views.PasswordResetConfirmView.as_view(
-            template_name='authorisation/password_change.html',
+            template_name='auth/password_change.html',
             form_class=auth_forms.PasswordResetConfirmForm,
         ),
         name='password_reset_confirm',

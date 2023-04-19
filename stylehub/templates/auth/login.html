@@ -28,12 +28,12 @@
 
     {% if field.name == 'remember_me' %}
 	    </div>
-      <a class="forgot-password text-decoration-none" href="{% url 'authorisation:password_reset' %}">{% trans 'Forgot password?' %}</a>
+      <a class="forgot-password text-decoration-none" href="{% url 'auth:password_reset' %}">{% trans 'Forgot password?' %}</a>
     </div>
     {% endif %}
 
   {% endfor %}
-	<a class="text-decoration-none" href="{% url 'authorisation:signup' %}">{% trans 'Вы еще не зарегистрировались?' %}</a>
+	<a class="text-decoration-none" href="{% url 'auth:signup' %}">{% trans 'Вы еще не зарегистрировались?' %}</a>
   <button type="submit" class="btn btn-primary btn-lg btn-block w-100">{% trans 'Вход' %}</button>
 
 </form>

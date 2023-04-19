@@ -98,7 +98,7 @@ class CustomPasswordResetComplete(default_views.PasswordResetCompleteView):
         return context
 
 
-class SignUp(generic.FormView):  # type: ignore[type-arg]
+class SignUp(generic.FormView[auth.forms.SignUpForm]):
     """
     Returns signup form
     Allows guest sign up on the site
@@ -156,12 +156,13 @@ class SignUpConfirm(generic.TemplateView):
 
     template_name = 'auth/done.html'
 
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+    def get_context_data(self, user_id: int, token: str, **kwargs: Any) -> Dict[str, Any]:
         context = super(SignUpConfirm, self).get_context_data(**kwargs)
+        print(auth.models.ActivationToken.objects.filter(token=token))
         token = get_object_or_404(
             auth.models.ActivationToken.objects,
-            user=self.kwargs.get('user_id'),
-            token=self.kwargs.get('token'),
+            user=user_id,
+            token=token,
         )
         if not token.expired():
             token.user.is_active = True

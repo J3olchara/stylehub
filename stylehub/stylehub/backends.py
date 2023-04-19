@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
-from auth.models import ActivationToken, User
+from auth.models import ActivationToken, User, AbstractUser
 
 
 class LoginBackend(ModelBackend):
@@ -16,7 +16,7 @@ class LoginBackend(ModelBackend):
         username: Optional[str] = None,
         password: Optional[str] = None,
         **kwargs: Any,
-    ) -> Optional[User]:
+    ) -> Optional[AbstractUser]:
         user_model = User
         user: Optional[User]
         user = self.try_get(user_model, username=username)
@@ -27,10 +27,7 @@ class LoginBackend(ModelBackend):
                 return user
             else:
                 user.failed_attemps += 1
-                if (
-                    user.failed_attemps
-                    >= settings.FAILED_AUTHS_TO_DEACTIVATE
-                ):
+                if user.failed_attemps >= settings.FAILED_AUTHS_TO_DEACTIVATE:
                     self.send_freeze_mail(user)
                     user.is_active = False
                     user.save()
@@ -38,9 +35,7 @@ class LoginBackend(ModelBackend):
         return None
 
     @staticmethod
-    def try_get(
-        user_model: Type[User], **kwargs: Any
-    ) -> Optional[User]:
+    def try_get(user_model: Type[User], **kwargs: Any) -> Optional[AbstractUser]:
         try:
             user = user_model.objects.get(**kwargs)
             return user

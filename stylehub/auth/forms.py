@@ -1,5 +1,5 @@
 """ Forms witch related to users/designer (auth app) """
-from typing import Any, Dict, Union, Optional
+from typing import Any, Dict, Optional, Union
 
 import django.contrib.auth.forms as default_forms
 import django.contrib.auth.models as default_models
@@ -174,7 +174,7 @@ class PasswordResetConfirmForm(default_forms.SetPasswordForm):
         self.fields['new_password2'].widget = widget
 
 
-class SignUpForm(default_forms.UserCreationForm):  # type: ignore[type-arg]
+class SignUpForm(default_forms.UserCreationForm[auth.models.User]):
     """
     Sign up form. Create new users.
 
@@ -203,7 +203,7 @@ class SignUpForm(default_forms.UserCreationForm):  # type: ignore[type-arg]
     def save(self, commit: bool = True) -> auth.models.ActivationToken:
         """set extra fields to user."""
         instance = super(SignUpForm, self).save(commit=commit)
-        instance.is_active = settings.NEW_USERS_ACTIVATED
+        instance.is_active = settings.NEW_USER_IS_ACTIVE
         token = auth.models.ActivationToken.objects.create(
             user=instance,
         )

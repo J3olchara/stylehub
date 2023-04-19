@@ -33,6 +33,8 @@ ALLOWED_HOSTS = os.getenv('DJANGO_HOSTS', '').split()
 
 AUTH_USER_MODEL = 'user_auth.User'
 
+SITE_EMAIL = 'help@stylehub.com'
+
 
 # Application definition
 
@@ -135,7 +137,7 @@ AUTHENTICATION_BACKENDS = ['stylehub.backends.LoginBackend']
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login/'
-LOGOUT_REDIRECT_URL = '/auth/login/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Internationalization
