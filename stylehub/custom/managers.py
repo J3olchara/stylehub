@@ -8,7 +8,7 @@ class OrdersManager(models.Manager[Any]):
     """Manager for OrderCustom model"""
 
     def get_free_orders(self) -> models.QuerySet[Any]:
-        """Returns CustomOrders withoit designers"""
+        """Returns CustomOrders without designers"""
         return (
             self.get_queryset()
             .filter(designer__isnull=True)

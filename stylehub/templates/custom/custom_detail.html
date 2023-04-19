@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+  <p> {{ order.header }} </p>
+  {% if not oder.designer %}
+    <a href=''>
+      <button>Взять заказ</button>
+    </a>
+  {% endif %}
+{% endblock  %}
