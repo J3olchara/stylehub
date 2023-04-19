@@ -8,27 +8,12 @@ from django.test import Client
 from django.urls import reverse
 from parameterized import parameterized
 
+from core.tests.base import EndpointTests
 from market.tests.base import MarketSetUp
 
 
-class TestEndpoints(MarketSetUp):
+class TestEndpoints(EndpointTests, MarketSetUp):
     """Tests endpoints of all views in market app"""
-
-    def test_wear_endpoint(self):
-        """tests clothes:wear page endpoint"""
-        path = reverse('clothes:wear', kwargs={'pk': self.item1.id})
-        client = Client()
-        resp = client.get(path)
-        self.assertEqual(resp.status_code, 200)
-
-    def test_collection_detail_endpoint(self):
-        """tests clothes:collection_detail page endpoint"""
-        path = reverse(
-            'clothes:collection', kwargs={'pk': self.collection1.id}
-        )
-        client = Client()
-        resp = client.get(path)
-        self.assertEqual(resp.status_code, 200)
 
     def test_designer_detail_endpoint(self):
         """Test designer:pk page endpoint"""
@@ -79,38 +64,13 @@ class TestEndpoints(MarketSetUp):
             'Дизайнер не может редактировать свой профиль',
         )
 
-    def endpoint(self, template_name, **kwargs):
-        """tests clothes:recommend page endpoint"""
-        path = reverse(template_name, kwargs=kwargs)
-        self.assertEqual(self.client.get(path).status_code, 200)
+    def test_wear_endpoint(self):
+        """tests clothes:wear page endpoint"""
+        self.endpoint('clothes:wear', pk=self.item1.id)
 
-    def auth_endpoint(self, template_name, **kwargs):
-        """tests any auth needed endpoints"""
-        path = reverse(template_name, kwargs=kwargs)
-
-        self.assertEqual(self.client.get(path).status_code, 302)
-
-        self.client.login(
-            username=self.user.username, password=self.user_password
-        )
-        self.assertEqual(self.client.get(path).status_code, 200)
-
-    def designer_endpoint(self, template_name, **kwargs):
-        """tests endpoint that can view only designer"""
-        path = reverse(template_name, kwargs=kwargs)
-
-        self.assertEqual(self.client.get(path).status_code, 404)
-
-        self.client.login(
-            username=self.user.username, password=self.user_password
-        )
-        self.assertEqual(self.client.get(path).status_code, 404)
-
-        self.client.login(
-            username=self.designer_user.username,
-            password=self.designer_password,
-        )
-        self.assertEqual(self.client.get(path).status_code, 200)
+    def test_collection_detail_endpoint(self):
+        """tests clothes:collection_detail page endpoint"""
+        self.endpoint('clothes:collection', pk=self.collection1.id)
 
     def test_recommend_endpoint(self):
         """tests clothes:recommend page endpoint"""

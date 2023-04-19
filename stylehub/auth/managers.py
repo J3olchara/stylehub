@@ -22,6 +22,7 @@ class UserManager(UserManagerOld[AbstractUser]):
         username: str,
         email: Optional[str] = None,
         password: Optional[str] = None,
+        override_active: Optional[bool] = False,
         **extra_fields: Any,
     ) -> AbstractUser:
         """
@@ -29,6 +30,8 @@ class UserManager(UserManagerOld[AbstractUser]):
 
         creates cart for user
         """
+        if not override_active:
+            extra_fields['is_active'] = settings.NEW_USER_IS_ACTIVE
         cart: Any = apps.get_model('market', 'Cart')
         user = super().create_user(username, email, password, **extra_fields)
         cart.objects.create(user=user)
@@ -52,10 +55,6 @@ class UserManager(UserManagerOld[AbstractUser]):
         cart: Any = apps.get_model('market', 'Cart')
         cart.objects.create(user=superuser)
         return superuser
-
-    def get_queryset(self) -> QuerySet[AbstractUser]:
-        """show only active users"""
-        return super().get_queryset().filter(is_active=True)
 
     def get_lovely_designers(
         self, user: Union[AbstractUser, AnonymousUser]
@@ -94,7 +93,52 @@ class UserManager(UserManagerOld[AbstractUser]):
         )
 
 
-class DesignerManager(UserManager):
+class ActiveUsersManager(UserManager):
+    """manager for active users"""
+
+    def create_user(
+        self,
+        username: str,
+        email: Optional[str] = None,
+        password: Optional[str] = None,
+        override_active: Optional[bool] = False,
+        **extra_fields: Any,
+    ) -> AbstractUser:
+        return super().create_user(
+            username, email, password, override_active=True, **extra_fields
+        )
+
+    def get_queryset(self) -> QuerySet[AbstractUser]:
+        """show only active users"""
+        return super().get_queryset().filter(is_active=True)
+
+
+class InactiveUserManager(UserManager):
+    """extends base qs to filter inactive users"""
+
+    def create_user(
+        self,
+        username: str,
+        email: Optional[str] = None,
+        password: Optional[str] = None,
+        override_active: Optional[bool] = False,
+        **extra_fields: Any,
+    ) -> AbstractUser:
+        return super().create_user(
+            username,
+            email,
+            password,
+            override_active=True,
+            is_active=False,
+            **extra_fields,
+        )
+
+    def get_queryset(self) -> Any:
+        """returns obly inactive users"""
+        return super().get_queryset().filter(is_active=False)
+
+
+class DesignerManager(ActiveUsersManager):
     """manager to work with designers"""
 
     def create_superuser(
@@ -118,6 +162,7 @@ class DesignerManager(UserManager):
         username: str,
         email: Optional[str] = None,
         password: Optional[str] = None,
+        override_active: Optional[bool] = False,
         **extra_fields: Any,
     ) -> AbstractUser:
         """
