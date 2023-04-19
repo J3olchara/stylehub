@@ -14,7 +14,7 @@
 > - all functions are type hinted and all modules too
 > - we have custom authentication backend
 > - project is not ended, we had little time to create this very good
-> - we want to create service for designers which customizing clothes
+> - we want to create service for designers who customizing clothes
 > - we want to localize site and add some technical features
 
 # How to run it on windows

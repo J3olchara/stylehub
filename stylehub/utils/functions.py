@@ -33,7 +33,7 @@ def get_image_upload_location(instance: Any, filename: str) -> str:
     else:
         return path
     path = path % (designer_id, collection_id)
-    file_type = filename.split(".")[-1]
+    file_type = filename.split('.')[-1]
     name = f'{uuid4()}.{file_type}'
     return str(path + name)
 
@@ -45,6 +45,6 @@ def get_message_image_upload_location(
     Returns directory to upload file from ItemPicture(image)
     """
     path = get_file_location()[instance.__class__]
-    file_type = filename.split(".")[-1]
+    file_type = filename.split('.')[-1]
     name = f'{uuid4()}.{file_type}'
     return str(path + name)
