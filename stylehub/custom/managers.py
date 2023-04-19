@@ -11,6 +11,6 @@ class OrdersManager(models.Manager[Any]):
         """Returns CustomOrders without designers"""
         return (
             self.get_queryset()
-            .filter(designer__isnull=True)
+            .filter(designer__isnull=True, is_published=True)
             .order_by(f'-{self.model.created.field.name}')
         )

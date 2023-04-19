@@ -2,8 +2,8 @@
 {% if not user.is_designer %}
 	<p>20 лучших дизайнеров</p>
 	{% for item in queryset %}
-		{{ item.username }}
-		{{ item.average_evaluation }}
+		<p> {{ item.username }} </p>
+		<p> {{ item.average_evaluation }} </p>
 	{% endfor %}
 	{% else %}
 	{% for item in queryset %}

@@ -1,4 +1,6 @@
 """Market models"""
+from typing import Any
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_cleanup import cleanup
@@ -32,7 +34,7 @@ class OrderCustom(market.models.Order):
         related_name='order_custom_user',
     )
 
-    designer = models.ForeignKey(
+    designer: Any = models.ForeignKey(
         verbose_name='исполнитель',
         to='user_auth.User',
         on_delete=models.SET_NULL,
@@ -61,6 +63,14 @@ class OrderCustom(market.models.Order):
         ),
         blank=True,
         null=True,
+    )
+
+    is_published = models.BooleanField(
+        verbose_name=_('опубликован ли заказ'),
+        help_text=_(
+            'Нужно ли публиковать ваш заказ, чтобы его видели дизайнеры?'
+        ),
+        default=True,
     )
 
     class Meta:

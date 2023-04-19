@@ -205,9 +205,19 @@ class DesignerManager(ActiveUsersManager):
 
     def best_custom_evaluations(self) -> QuerySet[Any]:
         """Gets the best 20 designeres on avg theirs evaluations"""
+        orders = apps.get_model('custom', 'OrderCustom')
+        prefetched_orders = models.Prefetch(
+            'order_custom_designer',
+            queryset=orders.objects.filter(is_published=True),
+        )
         return (
-            self.model.designers.filter(is_designer=True)
-            .annotate(average_evaluation=Avg('custom_evaluations__rating'))
+            self.model.objects.filter(is_designer=True)
+            .prefetch_related(prefetched_orders)
+            .annotate(
+                average_evaluation=Avg(
+                    'order_custom_designer__evaluations__rating'
+                )
+            )
             .order_by(
                 '-average_evaluation',
             )[: settings.DESIGNERS_ON_CUSTOM_MAIN_PAGE]
