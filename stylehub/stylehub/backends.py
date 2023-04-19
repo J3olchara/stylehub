@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
-from auth.models import ActivationToken, User, AbstractUser
+from auth.models import AbstractUser, ActivationToken, User
 
 
 class LoginBackend(ModelBackend):
@@ -35,7 +35,9 @@ class LoginBackend(ModelBackend):
         return None
 
     @staticmethod
-    def try_get(user_model: Type[User], **kwargs: Any) -> Optional[AbstractUser]:
+    def try_get(
+        user_model: Type[User], **kwargs: Any
+    ) -> Optional[AbstractUser]:
         try:
             user = user_model.objects.get(**kwargs)
             return user

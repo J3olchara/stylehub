@@ -33,10 +33,7 @@ class UserManager(UserManagerOld[AbstractUser]):
         if not override_active:
             extra_fields['is_active'] = settings.NEW_USER_IS_ACTIVE
         cart: Any = apps.get_model('market', 'Cart')
-        user = super().create_user(
-            username, email, password,
-            **extra_fields
-        )
+        user = super().create_user(username, email, password, **extra_fields)
         cart.objects.create(user=user)
         return user
 
@@ -98,6 +95,7 @@ class UserManager(UserManagerOld[AbstractUser]):
 
 class ActiveUsersManager(UserManager):
     """manager for active users"""
+
     def create_user(
         self,
         username: str,
@@ -106,11 +104,7 @@ class ActiveUsersManager(UserManager):
         **extra_fields: Any,
     ) -> AbstractUser:
         return super(ActiveUsersManager, self).create_user(
-            username,
-            email,
-            password,
-            override_active=True,
-            **extra_fields
+            username, email, password, override_active=True, **extra_fields
         )
 
     def get_queryset(self) -> QuerySet[AbstractUser]:
@@ -120,6 +114,7 @@ class ActiveUsersManager(UserManager):
 
 class InactiveUserManager(UserManager):
     """extends base qs to filter inactive users"""
+
     def create_user(
         self,
         username: str,
@@ -133,7 +128,7 @@ class InactiveUserManager(UserManager):
             password,
             override_active=True,
             is_active=False,
-            **extra_fields
+            **extra_fields,
         )
 
     def get_queryset(self) -> Any:

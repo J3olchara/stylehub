@@ -156,9 +156,10 @@ class SignUpConfirm(generic.TemplateView):
 
     template_name = 'auth/done.html'
 
-    def get_context_data(self, user_id: int, token: str, **kwargs: Any) -> Dict[str, Any]:
+    def get_context_data(
+        self, user_id: int, token: str, **kwargs: Any
+    ) -> Dict[str, Any]:
         context = super(SignUpConfirm, self).get_context_data(**kwargs)
-        print(auth.models.ActivationToken.objects.filter(token=token))
         token = get_object_or_404(
             auth.models.ActivationToken.objects,
             user=user_id,

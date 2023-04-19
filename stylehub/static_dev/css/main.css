@@ -88,13 +88,16 @@ a, button, p, span, h1, h2, h3, h4, h5, h6 {
     stroke: black;
     stroke-width: 4px;
 }
-.card {
+.card-item {
     height: 450px;
 }
-.card-footer {
+.card-item-footer {
     height: 128px;
 }
-.card-img {
+.card-item-img {
     height: 322px;
     overflow: hidden;
+}
+.change-language-form {
+    margin-left: 30px;
 }

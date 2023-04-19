@@ -11,11 +11,12 @@ import auth.tests.base
 
 class SignUpTests(auth.tests.base.AuthSetup):
     """tests signup features"""
+
     def get_user_and_token_for_activation(self):
         user = auth.models.User.objects.create_user(
             username='fsfgsegfesefefssefef',
             email='3efesafesa@gmail.com',
-            password='142kjjkgrsgeew3gesrg'
+            password='142kjjkgrsgeew3gesrg',
         )
         token = auth.models.ActivationToken.objects.create(user=user)
         return user, token
@@ -28,26 +29,25 @@ class SignUpTests(auth.tests.base.AuthSetup):
             'auth:signup_confirm',
             kwargs={'token': token.token, 'user_id': user.id},
         )
-        mocked_datetime.now.return_value = token.expire + timedelta(
-            minutes=1
-        )
+        mocked_datetime.now.return_value = token.expire + timedelta(minutes=1)
         resp = Client().get(path)
         user = auth.models.User.objects.get(id=user.id)
         self.assertIn(
-            'alerts', resp.context,
-            msg='Пользователь не получает ошибок активации'
+            'alerts',
+            resp.context,
+            msg='Пользователь не получает ошибок активации',
         )
         self.assertEqual(
             'danger',
             resp.context['alerts'][0]['type'],
-            msg='Пользователь не получает красных ошибок активации'
+            msg='Пользователь не получает красных ошибок активации',
         )
         self.assertTrue(
             not user.is_active,
             msg=(
                 'Пользователь активируется, '
                 'независимо от переменной NEW_USER_IS_ACTIVE'
-            )
+            ),
         )
 
     @mock.patch('auth.models.datetime')
@@ -58,26 +58,25 @@ class SignUpTests(auth.tests.base.AuthSetup):
             'auth:signup_confirm',
             kwargs={'token': token.token, 'user_id': user.id},
         )
-        mocked_datetime.now.return_value = token.expire - timedelta(
-            minutes=1
-        )
+        mocked_datetime.now.return_value = token.expire - timedelta(minutes=1)
         resp = Client().get(path)
         user = auth.models.User.objects.get(id=user.id)
         self.assertIn(
-            'alerts', resp.context,
-            'Пользователь не получает уведомления об успешной активации'
+            'alerts',
+            resp.context,
+            'Пользователь не получает уведомления об успешной активации',
         )
         self.assertEqual(
             'success',
             resp.context['alerts'][0]['type'],
-            'Пользователь не получает зеленые уведомления'
+            'Пользователь не получает зеленые уведомления',
         )
         self.assertTrue(
             user.is_active,
             msg=(
                 'Пользователь активируется, '
                 'независимо от переменной NEW_USER_IS_ACTIVE'
-            )
+            ),
         )
 
     def test_env_activation_users(self):
@@ -105,6 +104,6 @@ class SignUpTests(auth.tests.base.AuthSetup):
                     'email': 'love_danila_eremin@seniorgoogle.com',
                 },
             )
-            self.assertRedirects(resp, path)
+            self.assertRedirects(resp, reverse('auth:signup_done'))
             user = auth.models.User.objects.get(username='fake_username1')
             self.assertTrue(user.is_active)

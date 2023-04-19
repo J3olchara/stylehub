@@ -106,8 +106,7 @@ class User(AbstractUser):
     )
 
     failed_attemps = models.IntegerField(
-        verbose_name=_('Неудачных попыток входа'),
-        default=0
+        verbose_name=_('Неудачных попыток входа'), default=0
     )
 
     def clean(self) -> None:

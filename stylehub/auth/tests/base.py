@@ -15,4 +15,5 @@ class AuthSetup(TestCase):
         self.user = auth.models.User.active.create_user(
             username='fsfsfesefsfesfesfe',
             email='fsefsffesseffes@gmail.com',
+            password=self.user_password
         )
