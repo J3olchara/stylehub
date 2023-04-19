@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<h1>designers</h1>
+	{% for designer in designers %}
+		<a href="{% url 'clothes:designer' pk=designer.id %}">{{ designer.name }}</a>
+	{% endfor %}
+	<h1>collections</h1>
+	{% for collection in collections %}
+    {% if collection.items.count %}
+		  {% include 'includes/collection_card.html' %}
+    {% endif %}
+	{% endfor %}
+	<h1>unpopular</h1>
+  <div class="item-table d-flex flex-row flex-wrap justify-content-center">
+    {% for item in unpopular %}
+      {% include 'includes/card.html' %}
+    {% endfor %}
+  </div>
+{% endblock %}

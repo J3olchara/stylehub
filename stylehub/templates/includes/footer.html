@@ -1,0 +1,48 @@
+{% load static i18n %}
+<footer class="container-fluid border-top">
+  <div class="row row-cols-1 row-cols-sm-2 justify-content-between
+          justify-content-md-around row-cols-md-5 pt-5 pb-2 px-5 my-3">
+    <div class="col mb-3 me-5 footer-logo">
+      <a href="/" class="d-flex align-items-start mb-3 link-body-emphasis text-decoration-none">
+        <img src="{% static 'logo/logo.svg' %}" alt="Логотип" width="225" height="170">
+      </a>
+    </div>
+
+    <div class="col mb-3">
+      <h5>StyleHub</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="/" class="nav-link p-0 text-body-secondary">{% trans 'Главная' %}</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Дизайнеры' %}</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Каталог' %}</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Новое' %}</a></li>
+      </ul>
+    </div>
+
+    <div class="col mb-3">
+      <h5>CustomHub</h5>
+      <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a href="/stylehub" class="nav-link p-0 text-body-secondary size">{% trans 'Главная' %}</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Кастомеры' %}</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Каталог' %}</a>
+          </li>
+      </ul>
+    </div>
+
+    <div class="col mb-3">
+      <h5>Общее</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Профиль' %}</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Обратная связь' %}</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Корзина' %}</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'FAQs' %}</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'О нас' %}</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="text-body-secondary text-center">© Все права защищены StyleHub {% now 'd.m.Y' %}</p>
+</footer>

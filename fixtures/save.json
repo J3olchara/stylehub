@@ -1,0 +1,1562 @@
+[
+{
+    "model": "user_auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$6BAnAPPBAZWtxQLzhACC7O$Xa3d35AJl0GbBQONiMSPSX9WO0kXbTrpti9ueZYNDPw=",
+        "last_login": "2023-04-19T19:02:30.901Z",
+        "is_superuser": true,
+        "username": "senya",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2023-04-16T13:57:04.660Z",
+        "gender": "",
+        "email": "senya.borodulin@mail.ru",
+        "last_category": null,
+        "is_designer": false,
+        "failed_attemps": 0,
+        "groups": [],
+        "user_permissions": [],
+        "last_styles": [],
+        "saved": [],
+        "lovely": []
+    }
+},
+{
+    "model": "user_auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$PdC8FNs3RpMtfoKdApueDB$3lIqRg6/TuGwaNvk4DB+UcXUREfr6hYy9Pmx668w+PI=",
+        "last_login": "2023-04-19T19:03:12.337Z",
+        "is_superuser": false,
+        "username": "Torch",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-04-19T18:03:04.426Z",
+        "gender": "",
+        "email": "help@torch.com",
+        "last_category": null,
+        "is_designer": true,
+        "failed_attemps": 0,
+        "groups": [],
+        "user_permissions": [],
+        "last_styles": [],
+        "saved": [],
+        "lovely": []
+    }
+},
+{
+    "model": "user_auth.designerprofile",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "avatar": "",
+        "background": "",
+        "text": null,
+        "balance": 0
+    }
+},
+{
+    "model": "clothes.orderclothes",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-19T19:57:38.453Z",
+        "edited": "2023-04-19T19:57:38.454Z",
+        "status": "wait",
+        "user": 2,
+        "designer": 2,
+        "sum": 5300,
+        "item": 2
+    }
+},
+{
+    "model": "clothes.orderclothes",
+    "pk": 2,
+    "fields": {
+        "created": "2023-04-19T19:57:41.748Z",
+        "edited": "2023-04-19T19:57:41.748Z",
+        "status": "wait",
+        "user": 2,
+        "designer": 2,
+        "sum": 5300,
+        "item": 2
+    }
+},
+{
+    "model": "clothes.collection",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-16T14:32:12.602Z",
+        "edited": "2023-04-16T14:34:03.289Z",
+        "image": "",
+        "name": "Надристал дединсайдиков",
+        "text": "Коллекция редан",
+        "designer": 1,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.collection",
+    "pk": 2,
+    "fields": {
+        "created": "2023-04-19T18:09:37.177Z",
+        "edited": "2023-04-19T19:57:41.637Z",
+        "image": "uploads/collections/2/None/c98ef8a3-bbca-4d49-bae4-36a686dbb1c1.jpg",
+        "name": "Gray life",
+        "text": "Депрессивная коллекция в серых тонах",
+        "designer": 2,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.collection",
+    "pk": 3,
+    "fields": {
+        "created": "2023-04-19T18:37:18.213Z",
+        "edited": "2023-04-19T18:44:16.694Z",
+        "image": "uploads/collections/2/None/cbefae69-69de-4eb8-b61c-3df1c6db4cbd.jpg",
+        "name": "Boiling blood",
+        "text": "Коллекция в красных оттенках",
+        "designer": 2,
+        "styles": [
+            82
+        ]
+    }
+},
+{
+    "model": "clothes.item",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-19T18:13:13.225Z",
+        "edited": "2023-04-19T18:13:13.225Z",
+        "image": "uploads/collections/2/2/b55c8b60-2a04-4c4b-b858-d8711df2ed75.jpg",
+        "name": "Crucifixion",
+        "designer": 2,
+        "gender": "unisex",
+        "cost": 4900,
+        "text": "Толстовка чёрного цвета с капюшоном. Выполнена в стиле старых дизайнов. На груди принт нашего друга Искандера с его видением картины «Распятие Христа». Под принтом и на рукавах нашивки с красным трайблом - работа нашего любимого штатного художника.\r\n\r\nКрой: заниженные плечи, свободный крой, манжеты в рубчик.\r\n\r\nСостав: 80% хлопок, 20% полиэстер.\r\n\r\nСтирать очень деликатно, и на изнанку.\r\n\r\nРазмерная сетка / стирка, уход: https://vk.cc/5Ncr6v\r\n\r\nCТИРКА И УХОД\r\n\r\nСтирать с изнаночной стороны при температуре не более 40 градусов с одеждой схожих цветов без использования отбеливателей\r\nИзделия с начесом гладить на режиме \"хлопок\" с лицевой стороны\r\nПри глажке с лицевой и изнаночной стороны, не задевать, не гладить принт!",
+        "category": 12,
+        "collection": 2,
+        "bought": 0,
+        "is_published": true,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.item",
+    "pk": 2,
+    "fields": {
+        "created": "2023-04-19T18:32:14.950Z",
+        "edited": "2023-04-19T19:57:41.485Z",
+        "image": "uploads/collections/2/2/74092cc9-f6b3-4933-a45a-dba2074c60af.jpg",
+        "name": "Gothic",
+        "designer": 2,
+        "gender": "unisex",
+        "cost": 5300,
+        "text": "",
+        "category": 12,
+        "collection": 2,
+        "bought": 2,
+        "is_published": true,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.item",
+    "pk": 3,
+    "fields": {
+        "created": "2023-04-19T18:34:49.440Z",
+        "edited": "2023-04-19T18:34:49.440Z",
+        "image": "uploads/collections/2/2/7b3f3034-3c75-41cb-b598-8636a87062e3.jpg",
+        "name": "Remorse",
+        "designer": 2,
+        "gender": "unisex",
+        "cost": 4200,
+        "text": "Свитер \"Remorse\"\r\n\r\nКрой: круглый вырез горловины, заниженная линия плеча и длинные широкие рукава.\r\n\r\nСостав: меринисовая шерсть 50% акрил 50%\r\n\r\nС любыми возникшими вопросами можно обратиться к нашему менеджеру: https://vk.cc/9sD17T\r\n\r\nРекомендации по стирке на свитара:\r\nСтирка бережная до 30 градусов\r\nБез химчистки!\r\nСушка на горизонтальной плоскости бережная\r\nБез утюга",
+        "category": 4,
+        "collection": 2,
+        "bought": 0,
+        "is_published": true,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.item",
+    "pk": 4,
+    "fields": {
+        "created": "2023-04-19T18:44:16.573Z",
+        "edited": "2023-04-19T18:44:16.573Z",
+        "image": "uploads/collections/2/3/b8f94423-8f6c-4f6f-be89-849f57ff3aa0.jpg",
+        "name": "BloodyRaven",
+        "designer": 2,
+        "gender": "unisex",
+        "cost": 4800,
+        "text": "Свитер \"BloodyRaven\"\r\n\r\nКрой: круглый вырез горловины, заниженная линия плеча и длинные широкие рукава.\r\n\r\nСостав: меринисовая шерсть 50% акрил 50%\r\n\r\nС любыми возникшими вопросами можно обратиться к нашему менеджеру: https://vk.cc/9sD17T\r\n\r\nРекомендации по стирке на свитара:\r\nСтирка бережная до 30 градусов\r\nБез химчистки!\r\nСушка на горизонтальной плоскости бережная\r\nБез утюга",
+        "category": 4,
+        "collection": 3,
+        "bought": 0,
+        "is_published": true,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.item",
+    "pk": 5,
+    "fields": {
+        "created": "2023-04-19T19:05:14.485Z",
+        "edited": "2023-04-19T19:05:14.485Z",
+        "image": "uploads/collections/2/2/70fe4886-bc9a-48ac-8db5-e1547ce02db5.jpg",
+        "name": "RibsScarf",
+        "designer": 2,
+        "gender": "unisex",
+        "cost": 2400,
+        "text": "Шарф \"RibsScarf\"\r\n\r\nРазмер:\r\nдлина 180см\r\nширина 40см\r\n\r\nСостав:\r\nмеринисовая шерсть 50%\r\nакрил 50%\r\n\r\nС любыми возникшими вопросами можно обратиться к нашему менеджеру: https://vk.cc/9sD17T\r\n\r\nРазмерная сетка / стирка, уход : https://vk.cc/5Ncr6v",
+        "category": 13,
+        "collection": 2,
+        "bought": 0,
+        "is_published": true,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.item",
+    "pk": 6,
+    "fields": {
+        "created": "2023-04-19T19:09:26.869Z",
+        "edited": "2023-04-19T19:09:26.869Z",
+        "image": "uploads/collections/2/2/c5eb6fe6-62ea-4e51-965a-74821a6ba0ad.jpg",
+        "name": "Glass",
+        "designer": 2,
+        "gender": "unisex",
+        "cost": 4800,
+        "text": "Чёрно-серое зип-худи с принтами на груди и вышивками спереди и на спине.\r\n\r\nКрой: заниженные плечи, свободный крой, манжеты.\r\n\r\nСостав: 80% хлопок, 20% полиэстер",
+        "category": 12,
+        "collection": 2,
+        "bought": 0,
+        "is_published": true,
+        "styles": [
+            83
+        ]
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 1,
+    "fields": {
+        "image": "uploads/collections/2/2/3bf378b8-65ce-41ff-990b-8a25cb193f0e.jpg",
+        "item": 1
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 2,
+    "fields": {
+        "image": "uploads/collections/2/2/c5d64ef9-5ed1-4470-8755-13ebed24bf79.jpg",
+        "item": 1
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 3,
+    "fields": {
+        "image": "uploads/collections/2/2/75a019a1-9a13-4fb2-ad1c-0db8c7680db2.jpg",
+        "item": 1
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 4,
+    "fields": {
+        "image": "uploads/collections/2/2/0383efa8-cdc8-47d2-bf89-5ff881ecf888.jpg",
+        "item": 2
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 5,
+    "fields": {
+        "image": "uploads/collections/2/2/fc30f216-1c0a-479b-be55-69c1f93f231d.jpg",
+        "item": 2
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 6,
+    "fields": {
+        "image": "uploads/collections/2/2/1d5b0fab-90c9-4b84-85d7-1ccfd9f0a264.jpg",
+        "item": 2
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 7,
+    "fields": {
+        "image": "uploads/collections/2/2/14e18542-24e8-4f0e-9db8-17a1222c2116.jpg",
+        "item": 2
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 8,
+    "fields": {
+        "image": "uploads/collections/2/2/699cc097-b544-4282-9797-f5447d991b59.jpg",
+        "item": 3
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 9,
+    "fields": {
+        "image": "uploads/collections/2/2/cb677b2c-b277-4e63-a1ad-9d024d38c974.jpg",
+        "item": 3
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 10,
+    "fields": {
+        "image": "uploads/collections/2/2/4246ef0d-aad6-4f49-bb08-4213112eef7c.jpg",
+        "item": 3
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 11,
+    "fields": {
+        "image": "uploads/collections/2/2/badf8657-a417-432a-8af8-559a7a2ddd4d.jpg",
+        "item": 3
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 12,
+    "fields": {
+        "image": "uploads/collections/2/2/fe29494a-5174-45d0-a55c-60bcd3bb94c2.jpg",
+        "item": 3
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 13,
+    "fields": {
+        "image": "uploads/collections/2/3/0bdc8409-2a7c-4581-83a7-6199132ef3b3.jpg",
+        "item": 4
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 14,
+    "fields": {
+        "image": "uploads/collections/2/3/f6c19c76-e0d7-44bc-b813-a8804bfcd511.jpg",
+        "item": 4
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 15,
+    "fields": {
+        "image": "uploads/collections/2/3/6911e165-dec6-4edc-8384-ab4a5034d711.jpg",
+        "item": 4
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 16,
+    "fields": {
+        "image": "uploads/collections/2/3/94497a98-992b-412d-997e-cfc967a8f5dc.jpg",
+        "item": 4
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 17,
+    "fields": {
+        "image": "uploads/collections/2/3/eeb1190d-dc66-4a08-a1b8-ca613bb0e465.jpg",
+        "item": 4
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 18,
+    "fields": {
+        "image": "uploads/collections/2/2/f6bda96e-457f-42e4-a961-962271534102.jpg",
+        "item": 5
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 19,
+    "fields": {
+        "image": "uploads/collections/2/2/9557d4df-aa25-44dd-84e7-921f550c29b8.jpg",
+        "item": 5
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 20,
+    "fields": {
+        "image": "uploads/collections/2/2/a89e4e34-5e91-4d21-83be-777e98e0a472.jpg",
+        "item": 5
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 21,
+    "fields": {
+        "image": "uploads/collections/2/2/6faaa7cd-ab22-42ff-8be3-995a0e3e1cc7.jpg",
+        "item": 5
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 22,
+    "fields": {
+        "image": "uploads/collections/2/2/227ab48e-08e3-4978-b4e9-d391d840918e.jpg",
+        "item": 5
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 23,
+    "fields": {
+        "image": "uploads/collections/2/2/9e5e05b7-3ebd-4fd0-b6e9-8abfb5df6814.jpg",
+        "item": 6
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 24,
+    "fields": {
+        "image": "uploads/collections/2/2/1b109e09-ceca-4307-8883-2601d3c378a6.jpg",
+        "item": 6
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 25,
+    "fields": {
+        "image": "uploads/collections/2/2/13a261dc-1a78-46cc-8706-77c69b09fbe2.jpg",
+        "item": 6
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 26,
+    "fields": {
+        "image": "uploads/collections/2/2/ede928d8-923c-4154-8ecf-d154a200ef2d.jpg",
+        "item": 6
+    }
+},
+{
+    "model": "clothes.itempicture",
+    "pk": 27,
+    "fields": {
+        "image": "uploads/collections/2/2/366be70a-c094-4069-b37c-5133ba16668b.jpg",
+        "item": 6
+    }
+},
+{
+    "model": "market.style",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-16T13:58:19.561Z",
+        "edited": "2023-04-16T13:58:19.561Z",
+        "name": "Английский",
+        "slug": "ahглийckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 2,
+    "fields": {
+        "created": "2023-04-16T13:58:23.592Z",
+        "edited": "2023-04-16T13:58:23.592Z",
+        "name": "Авангард",
+        "slug": "abahгapд",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 3,
+    "fields": {
+        "created": "2023-04-16T13:58:28.521Z",
+        "edited": "2023-04-16T13:58:28.521Z",
+        "name": "Авиатор",
+        "slug": "abиatop",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 4,
+    "fields": {
+        "created": "2023-04-16T13:58:32.346Z",
+        "edited": "2023-04-16T13:58:32.346Z",
+        "name": "Азиатский",
+        "slug": "aзиatckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 5,
+    "fields": {
+        "created": "2023-04-16T13:58:37.077Z",
+        "edited": "2023-04-16T13:58:37.077Z",
+        "name": "Академический",
+        "slug": "akaдemичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 6,
+    "fields": {
+        "created": "2023-04-16T13:58:43.045Z",
+        "edited": "2023-04-16T13:58:43.045Z",
+        "name": "Анимализм",
+        "slug": "ahиmaлизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 7,
+    "fields": {
+        "created": "2023-04-16T13:58:56.505Z",
+        "edited": "2023-04-16T13:58:56.505Z",
+        "name": "Аристократический",
+        "slug": "apиctokpatичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 8,
+    "fields": {
+        "created": "2023-04-16T13:59:28.561Z",
+        "edited": "2023-04-16T13:59:28.561Z",
+        "name": "Арт-деко",
+        "slug": "aptдeko",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 9,
+    "fields": {
+        "created": "2023-04-16T13:59:32.367Z",
+        "edited": "2023-04-16T13:59:32.367Z",
+        "name": "Балетный",
+        "slug": "бaлethый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 10,
+    "fields": {
+        "created": "2023-04-16T13:59:35.580Z",
+        "edited": "2023-04-16T13:59:35.580Z",
+        "name": "Бельевой",
+        "slug": "бeльeboй",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 11,
+    "fields": {
+        "created": "2023-04-16T13:59:38.472Z",
+        "edited": "2023-04-16T13:59:38.472Z",
+        "name": "Бохо",
+        "slug": "бoxo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 12,
+    "fields": {
+        "created": "2023-04-16T13:59:43.922Z",
+        "edited": "2023-04-16T13:59:43.922Z",
+        "name": "Бэби-долл",
+        "slug": "бэбидoлл",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 13,
+    "fields": {
+        "created": "2023-04-16T13:59:48.422Z",
+        "edited": "2023-04-16T13:59:48.422Z",
+        "name": "Вамп",
+        "slug": "bamп",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 14,
+    "fields": {
+        "created": "2023-04-16T13:59:51.709Z",
+        "edited": "2023-04-16T13:59:51.709Z",
+        "name": "Вестерн",
+        "slug": "becteph",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 15,
+    "fields": {
+        "created": "2023-04-16T13:59:55.481Z",
+        "edited": "2023-04-16T13:59:55.481Z",
+        "name": "Винтаж",
+        "slug": "bиhtaж",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 16,
+    "fields": {
+        "created": "2023-04-16T13:59:59.432Z",
+        "edited": "2023-04-16T13:59:59.432Z",
+        "name": "Восточный",
+        "slug": "boctoчhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 17,
+    "fields": {
+        "created": "2023-04-16T14:00:04.140Z",
+        "edited": "2023-04-16T14:00:04.140Z",
+        "name": "Гангстерский",
+        "slug": "гahгctepckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 18,
+    "fields": {
+        "created": "2023-04-16T14:00:07.043Z",
+        "edited": "2023-04-16T14:00:07.043Z",
+        "name": "Гарсон",
+        "slug": "гapcoh",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 19,
+    "fields": {
+        "created": "2023-04-16T14:00:09.922Z",
+        "edited": "2023-04-16T14:00:09.922Z",
+        "name": "Гаучо",
+        "slug": "гaучo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 20,
+    "fields": {
+        "created": "2023-04-16T14:00:13.537Z",
+        "edited": "2023-04-16T14:00:13.537Z",
+        "name": "Голливудский",
+        "slug": "гoллиbудckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 21,
+    "fields": {
+        "created": "2023-04-16T14:00:16.485Z",
+        "edited": "2023-04-16T14:00:16.485Z",
+        "name": "Гламурный",
+        "slug": "глamуphый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 22,
+    "fields": {
+        "created": "2023-04-16T14:00:19.648Z",
+        "edited": "2023-04-16T14:00:19.648Z",
+        "name": "Глэм-рок",
+        "slug": "глэmpok",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 23,
+    "fields": {
+        "created": "2023-04-16T14:00:23.860Z",
+        "edited": "2023-04-16T14:00:23.860Z",
+        "name": "Городской шик",
+        "slug": "гopoдckoйшиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 24,
+    "fields": {
+        "created": "2023-04-16T14:00:27.328Z",
+        "edited": "2023-04-16T14:00:27.328Z",
+        "name": "Готический",
+        "slug": "гotичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 25,
+    "fields": {
+        "created": "2023-04-16T14:00:30.608Z",
+        "edited": "2023-04-16T14:00:30.608Z",
+        "name": "Гранж",
+        "slug": "гpahж",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 26,
+    "fields": {
+        "created": "2023-04-16T14:00:33.702Z",
+        "edited": "2023-04-16T14:00:33.703Z",
+        "name": "Граффити",
+        "slug": "гpaффиtи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 27,
+    "fields": {
+        "created": "2023-04-16T14:00:36.921Z",
+        "edited": "2023-04-16T14:00:36.921Z",
+        "name": "Деловой",
+        "slug": "дeлoboй",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 28,
+    "fields": {
+        "created": "2023-04-16T14:00:40.351Z",
+        "edited": "2023-04-16T14:00:40.351Z",
+        "name": "Денди",
+        "slug": "дehди",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 29,
+    "fields": {
+        "created": "2023-04-16T14:00:43.187Z",
+        "edited": "2023-04-16T14:00:43.187Z",
+        "name": "Дерби",
+        "slug": "дepби",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 30,
+    "fields": {
+        "created": "2023-04-16T14:00:47.017Z",
+        "edited": "2023-04-16T14:00:47.017Z",
+        "name": "Джинсовый",
+        "slug": "джиhcobый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 31,
+    "fields": {
+        "created": "2023-04-16T14:00:50.989Z",
+        "edited": "2023-04-16T14:00:50.989Z",
+        "name": "Джипси",
+        "slug": "джипcи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 32,
+    "fields": {
+        "created": "2023-04-16T14:00:53.556Z",
+        "edited": "2023-04-16T14:00:53.556Z",
+        "name": "Диско",
+        "slug": "диcko",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 33,
+    "fields": {
+        "created": "2023-04-16T14:00:56.351Z",
+        "edited": "2023-04-16T14:00:56.351Z",
+        "name": "Зут",
+        "slug": "зуt",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 34,
+    "fields": {
+        "created": "2023-04-16T14:00:59.317Z",
+        "edited": "2023-04-16T14:00:59.317Z",
+        "name": "Кантри",
+        "slug": "kahtpи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 35,
+    "fields": {
+        "created": "2023-04-16T14:01:20.274Z",
+        "edited": "2023-04-16T14:01:20.274Z",
+        "name": "Колониальный",
+        "slug": "koлohиaльhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 36,
+    "fields": {
+        "created": "2023-04-16T14:01:23.085Z",
+        "edited": "2023-04-16T14:01:23.085Z",
+        "name": "Коко Шанель",
+        "slug": "kokoшaheль",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 37,
+    "fields": {
+        "created": "2023-04-16T14:01:26.082Z",
+        "edited": "2023-04-16T14:01:26.082Z",
+        "name": "Колор блок",
+        "slug": "koлopблok",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 38,
+    "fields": {
+        "created": "2023-04-16T14:01:28.737Z",
+        "edited": "2023-04-16T14:01:28.737Z",
+        "name": "Концептуализм",
+        "slug": "kohцeпtуaлизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 39,
+    "fields": {
+        "created": "2023-04-16T14:01:31.674Z",
+        "edited": "2023-04-16T14:01:31.674Z",
+        "name": "Клубный",
+        "slug": "kлубhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 40,
+    "fields": {
+        "created": "2023-04-16T14:01:36.641Z",
+        "edited": "2023-04-16T14:01:36.641Z",
+        "name": "Конструктивизм",
+        "slug": "kohctpуktиbизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 41,
+    "fields": {
+        "created": "2023-04-16T14:01:39.723Z",
+        "edited": "2023-04-16T14:01:39.723Z",
+        "name": "Космический",
+        "slug": "kocmичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 42,
+    "fields": {
+        "created": "2023-04-16T14:01:42.439Z",
+        "edited": "2023-04-16T14:01:42.439Z",
+        "name": "Кэжуал",
+        "slug": "kэжуaл",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 43,
+    "fields": {
+        "created": "2023-04-16T14:01:46.717Z",
+        "edited": "2023-04-16T14:01:46.717Z",
+        "name": "Лагом",
+        "slug": "лaгom",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 44,
+    "fields": {
+        "created": "2023-04-16T14:01:49.946Z",
+        "edited": "2023-04-16T14:01:49.946Z",
+        "name": "Ламберджек",
+        "slug": "лamбepджek",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 45,
+    "fields": {
+        "created": "2023-04-16T14:01:53.301Z",
+        "edited": "2023-04-16T14:01:53.301Z",
+        "name": "Милитари",
+        "slug": "mилиtapи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 46,
+    "fields": {
+        "created": "2023-04-16T14:01:56.666Z",
+        "edited": "2023-04-16T14:01:56.666Z",
+        "name": "Минимализм",
+        "slug": "mиhиmaлизm",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 47,
+    "fields": {
+        "created": "2023-04-16T14:01:59.582Z",
+        "edited": "2023-04-16T14:01:59.582Z",
+        "name": "Морской",
+        "slug": "mopckoй",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 48,
+    "fields": {
+        "created": "2023-04-16T14:02:03.730Z",
+        "edited": "2023-04-16T14:02:03.730Z",
+        "name": "Мори",
+        "slug": "mopи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 49,
+    "fields": {
+        "created": "2023-04-16T14:02:06.852Z",
+        "edited": "2023-04-16T14:02:06.852Z",
+        "name": "Натуральный",
+        "slug": "hatуpaльhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 50,
+    "fields": {
+        "created": "2023-04-16T14:02:09.981Z",
+        "edited": "2023-04-16T14:02:09.981Z",
+        "name": "Нормкор",
+        "slug": "hopmkop",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 51,
+    "fields": {
+        "created": "2023-04-16T14:02:13.510Z",
+        "edited": "2023-04-16T14:02:13.510Z",
+        "name": "Нью-лук",
+        "slug": "hьюлуk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 52,
+    "fields": {
+        "created": "2023-04-16T14:02:15.952Z",
+        "edited": "2023-04-16T14:02:15.952Z",
+        "name": "Неофолк",
+        "slug": "heoфoлk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 53,
+    "fields": {
+        "created": "2023-04-16T14:02:18.410Z",
+        "edited": "2023-04-16T14:02:18.410Z",
+        "name": "Оверсайз",
+        "slug": "obepcaйз",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 54,
+    "fields": {
+        "created": "2023-04-16T14:02:20.831Z",
+        "edited": "2023-04-16T14:02:20.831Z",
+        "name": "Панк",
+        "slug": "пahk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 55,
+    "fields": {
+        "created": "2023-04-16T14:02:23.228Z",
+        "edited": "2023-04-16T14:02:23.228Z",
+        "name": "Пин-ап",
+        "slug": "пиhaп",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 56,
+    "fields": {
+        "created": "2023-04-16T14:02:27.325Z",
+        "edited": "2023-04-16T14:02:27.325Z",
+        "name": "Преппи",
+        "slug": "пpeппи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 57,
+    "fields": {
+        "created": "2023-04-16T14:02:30.888Z",
+        "edited": "2023-04-16T14:02:30.888Z",
+        "name": "Парижский шик",
+        "slug": "пapижckийшиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 58,
+    "fields": {
+        "created": "2023-04-16T14:02:34.002Z",
+        "edited": "2023-04-16T14:02:34.002Z",
+        "name": "Пэчворк",
+        "slug": "пэчbopk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 59,
+    "fields": {
+        "created": "2023-04-16T14:02:37.071Z",
+        "edited": "2023-04-16T14:02:37.072Z",
+        "name": "Ретро",
+        "slug": "petpo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 60,
+    "fields": {
+        "created": "2023-04-16T14:02:39.697Z",
+        "edited": "2023-04-16T14:02:39.697Z",
+        "name": "Романтический",
+        "slug": "pomahtичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 61,
+    "fields": {
+        "created": "2023-04-16T14:02:42.775Z",
+        "edited": "2023-04-16T14:02:42.775Z",
+        "name": "Рокабилли",
+        "slug": "pokaбилли",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 62,
+    "fields": {
+        "created": "2023-04-16T14:02:45.476Z",
+        "edited": "2023-04-16T14:02:45.476Z",
+        "name": "Рустик",
+        "slug": "pуctиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 63,
+    "fields": {
+        "created": "2023-04-16T14:02:47.976Z",
+        "edited": "2023-04-16T14:02:47.976Z",
+        "name": "Сафари",
+        "slug": "caфapи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 64,
+    "fields": {
+        "created": "2023-04-16T14:02:51.170Z",
+        "edited": "2023-04-16T14:02:51.170Z",
+        "name": "Свэг",
+        "slug": "cbэг",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 65,
+    "fields": {
+        "created": "2023-04-16T14:02:54.385Z",
+        "edited": "2023-04-16T14:02:54.385Z",
+        "name": "Скандинавский",
+        "slug": "ckahдиhabckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 66,
+    "fields": {
+        "created": "2023-04-16T14:02:57.135Z",
+        "edited": "2023-04-16T14:02:57.135Z",
+        "name": "Спортивный",
+        "slug": "cпoptиbhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 67,
+    "fields": {
+        "created": "2023-04-16T14:02:59.845Z",
+        "edited": "2023-04-16T14:02:59.845Z",
+        "name": "Тедди-герлз",
+        "slug": "teддигepлз",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 68,
+    "fields": {
+        "created": "2023-04-16T14:03:02.511Z",
+        "edited": "2023-04-16T14:03:02.511Z",
+        "name": "Теквир",
+        "slug": "tekbиp",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 69,
+    "fields": {
+        "created": "2023-04-16T14:03:04.829Z",
+        "edited": "2023-04-16T14:03:04.829Z",
+        "name": "Трэш",
+        "slug": "tpэш",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 70,
+    "fields": {
+        "created": "2023-04-16T14:03:07.336Z",
+        "edited": "2023-04-16T14:03:07.336Z",
+        "name": "Уличный",
+        "slug": "уличhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 71,
+    "fields": {
+        "created": "2023-04-16T14:03:09.837Z",
+        "edited": "2023-04-16T14:03:09.838Z",
+        "name": "Фьюжн",
+        "slug": "фьюжh",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 72,
+    "fields": {
+        "created": "2023-04-16T14:03:12.293Z",
+        "edited": "2023-04-16T14:03:12.293Z",
+        "name": "Хиппи",
+        "slug": "xиппи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 73,
+    "fields": {
+        "created": "2023-04-16T14:03:15.016Z",
+        "edited": "2023-04-16T14:03:15.016Z",
+        "name": "Шебби-шик",
+        "slug": "шeббишиk",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 74,
+    "fields": {
+        "created": "2023-04-16T14:03:17.762Z",
+        "edited": "2023-04-16T14:03:17.762Z",
+        "name": "Эко",
+        "slug": "эko",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 75,
+    "fields": {
+        "created": "2023-04-16T14:03:20.121Z",
+        "edited": "2023-04-16T14:03:20.121Z",
+        "name": "Экстравагантный",
+        "slug": "эkctpabaгahthый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 76,
+    "fields": {
+        "created": "2023-04-16T14:03:22.548Z",
+        "edited": "2023-04-16T14:03:22.548Z",
+        "name": "Эмо",
+        "slug": "эmo",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 77,
+    "fields": {
+        "created": "2023-04-16T14:03:25.635Z",
+        "edited": "2023-04-16T14:03:25.635Z",
+        "name": "Эротический",
+        "slug": "эpotичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 78,
+    "fields": {
+        "created": "2023-04-16T14:03:28.078Z",
+        "edited": "2023-04-16T14:03:28.078Z",
+        "name": "Этажный",
+        "slug": "эtaжhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 79,
+    "fields": {
+        "created": "2023-04-16T14:03:30.484Z",
+        "edited": "2023-04-16T14:03:30.484Z",
+        "name": "Эклектика",
+        "slug": "эkлektиka",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 80,
+    "fields": {
+        "created": "2023-04-16T14:03:32.892Z",
+        "edited": "2023-04-16T14:03:32.892Z",
+        "name": "Этнический",
+        "slug": "эthичeckий",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 81,
+    "fields": {
+        "created": "2023-04-16T14:03:35.878Z",
+        "edited": "2023-04-16T14:03:35.878Z",
+        "name": "Яппи",
+        "slug": "яппи",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 82,
+    "fields": {
+        "created": "2023-04-16T14:30:47.536Z",
+        "edited": "2023-04-16T14:30:47.536Z",
+        "name": "Альтернативный",
+        "slug": "aльtephatиbhый",
+        "text": ""
+    }
+},
+{
+    "model": "market.style",
+    "pk": 83,
+    "fields": {
+        "created": "2023-04-16T14:31:20.351Z",
+        "edited": "2023-04-16T14:31:20.351Z",
+        "name": "Dead inside",
+        "slug": "deadinside",
+        "text": ""
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-16T14:25:34.486Z",
+        "edited": "2023-04-16T14:25:34.486Z",
+        "name": "Пальто",
+        "slug": "пaльto",
+        "category_base": 1
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 2,
+    "fields": {
+        "created": "2023-04-16T14:25:51.053Z",
+        "edited": "2023-04-16T14:25:51.053Z",
+        "name": "Рубашка",
+        "slug": "pубaшka",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 3,
+    "fields": {
+        "created": "2023-04-16T14:26:40.079Z",
+        "edited": "2023-04-16T14:26:40.079Z",
+        "name": "брюки",
+        "slug": "бpюkи",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 4,
+    "fields": {
+        "created": "2023-04-16T14:28:50.355Z",
+        "edited": "2023-04-16T14:28:50.355Z",
+        "name": "Свитер",
+        "slug": "cbиtep",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 5,
+    "fields": {
+        "created": "2023-04-16T14:29:01.185Z",
+        "edited": "2023-04-16T14:29:01.185Z",
+        "name": "Джинсы",
+        "slug": "джиhcы",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 6,
+    "fields": {
+        "created": "2023-04-16T14:29:06.888Z",
+        "edited": "2023-04-16T14:29:06.888Z",
+        "name": "Футболка",
+        "slug": "фуtбoлka",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 7,
+    "fields": {
+        "created": "2023-04-16T14:29:13.428Z",
+        "edited": "2023-04-16T14:29:13.428Z",
+        "name": "Лонгслив",
+        "slug": "лohгcлиb",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 8,
+    "fields": {
+        "created": "2023-04-16T14:29:18.357Z",
+        "edited": "2023-04-16T14:29:18.357Z",
+        "name": "Пуловер",
+        "slug": "пулobep",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 9,
+    "fields": {
+        "created": "2023-04-16T14:29:38.721Z",
+        "edited": "2023-04-16T14:29:38.721Z",
+        "name": "Плащ",
+        "slug": "плaщ",
+        "category_base": 1
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 10,
+    "fields": {
+        "created": "2023-04-16T14:29:43.676Z",
+        "edited": "2023-04-16T14:29:43.676Z",
+        "name": "Куртка",
+        "slug": "kуptka",
+        "category_base": 1
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 11,
+    "fields": {
+        "created": "2023-04-16T14:33:21.042Z",
+        "edited": "2023-04-16T14:33:21.042Z",
+        "name": "Стринги",
+        "slug": "ctpиhги",
+        "category_base": 2
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 12,
+    "fields": {
+        "created": "2023-04-19T18:11:34.459Z",
+        "edited": "2023-04-19T18:11:34.459Z",
+        "name": "Худи",
+        "slug": "xуди",
+        "category_base": 1
+    }
+},
+{
+    "model": "market.categoryextended",
+    "pk": 13,
+    "fields": {
+        "created": "2023-04-19T19:02:53.254Z",
+        "edited": "2023-04-19T19:02:53.254Z",
+        "name": "Шарф",
+        "slug": "шapф",
+        "category_base": 1
+    }
+},
+{
+    "model": "market.categorybase",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-16T14:22:05.085Z",
+        "edited": "2023-04-16T14:22:05.085Z",
+        "name": "Верхняя одежда",
+        "slug": "bepxhяяoдeждa"
+    }
+},
+{
+    "model": "market.categorybase",
+    "pk": 2,
+    "fields": {
+        "created": "2023-04-16T14:22:16.310Z",
+        "edited": "2023-04-16T14:22:16.310Z",
+        "name": "Нательное бельё",
+        "slug": "hateльhoeбeльё"
+    }
+},
+{
+    "model": "market.cart",
+    "pk": 1,
+    "fields": {
+        "created": "2023-04-16T13:57:05.093Z",
+        "edited": "2023-04-16T13:57:05.093Z",
+        "user": 1,
+        "items": []
+    }
+}
+]

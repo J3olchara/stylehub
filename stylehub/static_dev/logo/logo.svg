@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 450">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        letter-spacing: 0em;
+      }
+
+      .cls-2, .cls-4 {
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-4 {
+        font-family: FiraMono-Medium, 'Fira Mono Medium';
+        font-size: 159.08px;
+        font-weight: 500;
+      }
+
+      .cls-6 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <text/>
+  <text class="cls-4" transform="translate(30 203.9) scale(.95 1)"><tspan x="0" y="0">ST</tspan><tspan class="cls-6" x="190.89" y="0">Y</tspan><tspan class="cls-5" x="285.54" y="0">L</tspan><tspan x="376.69" y="0">E</tspan></text>
+  <text class="cls-4" transform="translate(213.67 341.75) scale(.95 1)"><tspan x="0" y="0">H</tspan><tspan class="cls-3" x="95.45" y="0">U</tspan><tspan x="189.3" y="0">B</tspan></text>
+  <text/>
+  <rect x="103.89" y="109.6" width="22.08" height="17.67" rx="2.3" ry="2.3" transform="translate(103.02 -46.17) rotate(40)"/>
+  <rect class="cls-1" x="106.74" y="112.07" width="17.03" height="13.45" rx="2.2" ry="2.2" transform="translate(103.32 -46.29) rotate(40)"/>
+  <path d="m120.54,121.34l-11.38-9.55c-.27-.23-.69-.18-.94.11l-1.05,1.25c-.24.29-.22.71.06.94l11.38,9.55c.27.23.69.18.94-.11l1.05-1.25c.24-.29.22-.71-.06-.94Z"/>
+  <circle class="cls-2" cx="100.5" cy="106.5" r="1.75"/>
+  <circle class="cls-2" cx="93.5" cy="102.5" r="1.75"/>
+</svg>

@@ -1,0 +1,69 @@
+{% load static i18n %}
+<header class="mb-4">
+  <div
+          class="container-fluid px-4 d-flex flex-wrap
+          align-items-center justify-content-between
+          justify-content-xl-around py-1 border-bottom">
+    <div class="col-lg-1 mb-2 mb-md-0">
+      <a href="{% url 'clothes:home' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
+        <img src="{% static 'logo/logo.svg' %}" alt="Логотип" class="header-logo" width="100" height="100">
+      </a>
+    </div>
+    <div class="d-md-flex col-5 justify-content-end d-none">
+      <ul class="nav col-md-auto mb-2 justify-content-start gap-lg-4 gap-xl-5 mb-md-0 mx-lg-4">
+        {% with request.resolver_match.view_name as view_name %}
+{#          <li class="dropdown show">#}
+{#            <a href="#"#}
+{#               class="btn nav-link px-2 dropdown-toggle{% if view_name == '' %} active-link{% endif %}"#}
+{#               id="dropdownMenuButton" data-bs-toggle="dropdown"#}
+{#               aria-haspopup="true" aria-expanded="false">{% trans 'Каталог' %}</a>#}
+{#            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
+{#              <a class="dropdown-item" href="#">{% trans 'худи' %}</a>#}
+{#              <a class="dropdown-item" href="#">{% trans 'футболки' %}</a>#}
+{#              <a class="dropdown-item" href="#">{% trans 'ещё что-нибудь' %}</a>#}
+{#            </div>#}
+{#          </li>#}
+          <li class="mx-lg-4">
+            <a href="{% url 'custom:home' %}" class="nav-link px-2{% if view_name == 'home:home' %} active-link{% endif %}">CustomHub</a>
+          </li>
+          <li class="mx-lg-4">
+            <a href="{% url 'clothes:recommend' %}" class="nav-link px-2{% if view_name == 'home:home' %} active-link{% endif %}">{% trans 'Рекомендуем' %}</a>
+          </li>
+          <li class="mx-lg-4">
+            <a href="{% url 'auth:logout' %}" class="nav-link px-2{% if view_name == 'auth:logout' %} active-link{% endif %}">{% trans 'выйти' %}</a>
+          </li>
+          {% if user.is_designer %}
+          <li class="mx-lg-4">
+            <a href="{% url 'clothes:create' form='collection' %}" class="nav-link px-2{% if view_name == 'clothes:create' %} active-link{% endif %}">{% trans 'Создать коллекцию' %}</a>
+          </li>
+          <li class="mx-lg-4">
+            <a href="{% url 'clothes:create' form='item' %}" class="nav-link px-2{% if view_name == 'clothes:create' %} active-link{% endif %}">{% trans 'Создать вещь' %}</a>
+          </li>
+          {% endif %}
+        {% endwith %}
+      </ul>
+    </div>
+
+    <div class="text-end">
+      {% if user.is_authenticated %}
+        <span class="hearted px-3">
+          <a href="#" class="text-decoration-none">
+            <svg fill="#000000" width="22px" height="22px" viewBox="-2 0 36 36" version="1.1"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.256 12.16q0.544 2.080 2.080 3.616l13.664 14.144 13.664-14.144q1.536-1.536 2.080-3.616t0-4.128-2.080-3.584-3.584-2.080-4.16 0-3.584 2.080l-2.336 2.816-2.336-2.816q-1.536-1.536-3.584-2.080t-4.128 0-3.616 2.080-2.080 3.584 0 4.128z"></path>
+            </svg>
+          </a>
+        </span>
+        <span class="profile px-3">
+          <a href=""><img src="{% static 'img/profile.svg' %}" alt=""></a>
+        </span>
+      {% else %}
+        <a href="{% url 'auth:login' %}" class="btn btn-outline-dark me-2">{% trans 'Войти' %}</a>
+        <a href="{% url 'auth:signup' %}" class="btn btn-dark">{% trans 'Зарегистрироваться' %}</a>
+      {% endif %}
+    </div>
+  </div>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</header>
