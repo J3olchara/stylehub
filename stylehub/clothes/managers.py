@@ -18,10 +18,16 @@ class ItemManager(models.Manager[Any]):
     def get_details(self) -> models.QuerySet[Any]:
         """item with evaluations :return"""
         evaluations: Any = apps.get_model('clothes', 'Evaluation')
+        item_picture: Any = apps.get_model('clothes', 'ItemPicture')
         prefetch_evals = models.Prefetch(
             'evaluations', evaluations.objects.all()
         )
-        return self.get_queryset().prefetch_related(prefetch_evals)
+        prefetch_gallery = models.Prefetch(
+            'gallery', item_picture.objects.all()
+        )
+        return self.get_queryset().prefetch_related(
+            prefetch_evals, prefetch_gallery
+        )
 
     def pref_styles(self) -> models.QuerySet[Any]:
         """returns new queryset with prefetched item styles"""
@@ -91,6 +97,7 @@ class CollectionManager(models.Manager[Any]):
         return (
             self.with_items()
             .annotate(buys=aggregates.Sum(f'items__{item.bought.field.name}'))
+            .filter(buys__gte=settings.POPULAR_COLLECTION_BUYS)
             .order_by('-buys')
         )
 

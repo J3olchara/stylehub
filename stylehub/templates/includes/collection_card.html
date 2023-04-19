@@ -1,0 +1,9 @@
+<div class="collection-container shadow-lg my-lg-5"
+     style="{% if collection.image %} background-image: {{ collection.image.get_url }};{% endif %}">
+  <h1>{{ collection.name }}</h1>
+  <span class="collection-block">
+  {% for item in collection.items.all %}
+    {% include 'includes/card.html' %}
+  {% endfor %}
+  </span>
+</div>

@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import core.models
+import market.managers
 
 
 class Style(core.models.BaseCreature):
@@ -19,6 +20,8 @@ class Style(core.models.BaseCreature):
     edited: datetime. Editing datetime.
     text: string. style describing.
     """
+
+    objects = market.managers.StyleManager()
 
     text: Union[str, 'models.TextField[Any, Any]'] = models.TextField(
         verbose_name='описание стиля',
@@ -49,6 +52,8 @@ class CategoryExtended(core.models.BaseCreature):
     created: datetime. Creation datetime.
     edited: datetime. Editing datetime.
     """
+
+    objects = market.managers.CategoryExtendedManager()
 
     category_base = models.ForeignKey(
         verbose_name='базовая категория вещи',

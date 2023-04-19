@@ -9,7 +9,7 @@ from django.contrib.auth import mixins
 from django.db.models import QuerySet
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 import auth.forms
@@ -82,6 +82,20 @@ class Wear(generic.DetailView[clothes.models.Item]):
     template_name = 'clothes/wear.html'
     context_object_name = 'item'
     queryset = clothes.models.Item.objects.get_details()
+
+
+class BuyWear(generic.TemplateView):
+    """gives an item information"""
+
+    def get(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponse:
+        """returns redirect to wear page"""
+        pk = int(kwargs.get('pk'))
+        path = reverse('clothes:wear', kwargs={'pk': pk})
+        item = clothes.models.Item.objects.get(pk=pk)
+        item.buy(request.user)
+        return redirect(path)
 
 
 class Collection(generic.DetailView[clothes.models.Collection]):

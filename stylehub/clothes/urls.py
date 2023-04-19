@@ -13,7 +13,7 @@ urlpatterns = [
     django.urls.path(
         '',
         clothes.views.Main.as_view(),
-        name='main',
+        name='home',
     ),
     django.urls.path(
         'collections/',
@@ -32,6 +32,9 @@ urlpatterns = [
     ),
     django.urls.path(
         'wear/<int:pk>/', clothes.views.Wear.as_view(), name='wear'
+    ),
+    django.urls.path(
+        'wear/<int:pk>/buy', clothes.views.BuyWear.as_view(), name='wear_buy'
     ),
     django.urls.path(
         'collection/<int:pk>/',

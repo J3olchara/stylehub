@@ -1,3 +1,4 @@
+{% extends 'core/base.html' %}
 {% block content %}
 {% if not user.is_designer %}
 	<p>20 лучших дизайнеров</p>
@@ -11,4 +12,4 @@
 	{% endfor %}
 	<button> Создать </button>	
 	{% endif %}
-{% endblock  %}
+{% endblock %}

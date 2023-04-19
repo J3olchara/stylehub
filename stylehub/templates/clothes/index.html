@@ -7,10 +7,14 @@
 	{% endfor %}
 	<h1>collections</h1>
 	{% for collection in collections %}
-		<a href="{% url 'clothes:collection' pk=collection.id %}">{{ collection.name }}</a>
+    {% if collection.items.count %}
+		  {% include 'includes/collection_card.html' %}
+    {% endif %}
 	{% endfor %}
 	<h1>unpopular</h1>
-	{% for item in unpopular %}
-		{% include 'includes/card.html' %}
-	{% endfor %}
+  <div class="item-table d-flex flex-row flex-wrap justify-content-center">
+    {% for item in unpopular %}
+      {% include 'includes/card.html' %}
+    {% endfor %}
+  </div>
 {% endblock %}
