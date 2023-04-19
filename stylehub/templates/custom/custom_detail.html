@@ -9,9 +9,6 @@
       <button>Взять заказ</button>
     </a>
   {% else %}
-    <a href={% url 'api:delete_order_custom' pk=order.id %}>
-      <button>Удалить заказ</button>
-    </a>
     <a href={% url 'api:update_order_custom_status' pk=order.id %}>
         <button>Обновить статус</button>
     </a>

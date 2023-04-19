@@ -21,7 +21,10 @@ class DeleteOrderCustom(auth.mixins.DesignerRequiredMixin, View):
         order = get_object_or_404(
             custom.models.OrderCustom, pk=self.kwargs.get('pk')
         )
-        if self.request.user == order.user:
+        if (
+            self.request.user == order.user
+            and order.status == custom.models.OrderCustom.statuses[0][0]
+        ):
             order.is_published = False
             order.save()
         return redirect(reverse_lazy('custom:home'))
