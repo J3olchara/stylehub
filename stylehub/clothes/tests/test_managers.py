@@ -78,3 +78,37 @@ class TestCollectionManager(MarketSetUp, AuthSetup):
             self.assertNotIn(
                 item, clothes.models.Item.objects.unpopular().all()
             )
+
+    def test_get_user_orders(self):
+        """test order manager test_get_user_orders method"""
+        order_user_password = 'sghhgfdsdfsdfasdhgfdfsda'
+        order_designer_user_password = 'rfghjfsdfsbvncxvcxzvcbnvnbvcvbx'
+
+        order_user = auth.models.User.objects.create_user(
+            username='test_order_cloth_user',
+            email='test_order_cloth_user@gmail.com',
+            password=order_user_password,
+        )
+        order_designer_user = auth.models.User.objects.create_user(
+            username='test_order_cloth_designer_user',
+            email='test_order_cloth_designer_user@gmail.com',
+            password=order_designer_user_password,
+        )
+        order_designer_user.make_designer()
+
+        clothes.models.OrderClothes.objects.create(
+            user=order_user,
+            designer=order_designer_user,
+            item=self.item1,
+            sum=self.item1.cost,
+        )
+        clothes.models.OrderClothes.objects.create(
+            user=order_user,
+            designer=order_designer_user,
+            item=self.item2,
+            sum=self.item2.cost,
+        )
+        orders = clothes.models.OrderClothes.objects.get_user_orders(
+            order_user
+        )
+        self.assertEqual(len(orders), 2)

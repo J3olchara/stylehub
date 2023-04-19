@@ -50,8 +50,8 @@
           <a href=""><img src="{% static 'img/profile.svg' %}" alt=""></a>
         </span>
       {% else %}
-        <a href="/login" class="btn btn-outline-dark me-2">{% trans 'Войти' %}</a>
-        <a href="/signup" class="btn btn-dark">{% trans 'Зарегистрироваться' %}</a>
+        <a href="{% url 'auth:login' %}" class="btn btn-outline-dark me-2">{% trans 'Войти' %}</a>
+        <a href="{% url 'auth:signup' %}" class="btn btn-dark">{% trans 'Зарегистрироваться' %}</a>
       {% endif %}
     </div>
   </div>

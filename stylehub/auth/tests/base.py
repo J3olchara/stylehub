@@ -11,9 +11,9 @@ class AuthSetup(TestCase):
 
     def setUp(self) -> None:
         """auto vars for tests"""
-        self.user_password = 'Verysecret'
-        self.user = auth.models.User.objects.create_user(
-            username='setup_test_username',
-            email='setup_test_email@gmail.com',
+        self.user_password = 'fesfewsfaf324234fes'
+        self.user = auth.models.User.active.create_user(
+            username='fsfsfesefsfesfesfe',
+            email='fsefsffesseffes@gmail.com',
             password=self.user_password,
         )

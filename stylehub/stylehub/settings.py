@@ -1,8 +1,10 @@
 """StyleHub settings"""
 import os
 from pathlib import Path
+from typing import Any, Dict, List, Union
 
 import django_stubs_ext
+from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
 
 django_stubs_ext.monkeypatch()
@@ -19,12 +21,14 @@ if not load_dotenv(BASE_DIR.parent / 'environs' / '.env'):
 def get_env_bool(var_name: str) -> bool:
     """converts string variable from env to bool"""
     var = os.getenv(var_name)
-    if not var:
+    if var is None:
         return False
     return var.lower() in ('y', 'yes', 't', 'true', '1')
 
 
-# very important variables
+# --------------------------------------------------------------------
+# ------------------------Project Parameters Section------------------
+# --------------------------------------------------------------------
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'not_secret_key')
 
@@ -33,8 +37,12 @@ ALLOWED_HOSTS = os.getenv('DJANGO_HOSTS', '').split()
 
 AUTH_USER_MODEL = 'user_auth.User'
 
+SITE_EMAIL = 'help@stylehub.com'
 
-# Application definition
+
+# --------------------------------------------------------------------
+# ----------------------------Apps Section----------------------------
+# --------------------------------------------------------------------
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -53,7 +61,12 @@ INSTALLED_APPS = [
     'stats.apps.StatsConfig',
     'django_cleanup.apps.CleanupConfig',
     'sorl.thumbnail',
+    'django_extensions',
 ]
+
+# --------------------------------------------------------------------
+# --------------------------Middleware Section------------------------
+# --------------------------------------------------------------------
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,10 +85,18 @@ if DEBUG:
 
 ROOT_URLCONF = 'stylehub.urls'
 
-TEMPLATES = [
+# -----------------------------------------------------------------------
+# ---------------------------Templates Section---------------------------
+# -----------------------------------------------------------------------
+
+TEMPLATES_DIR = BASE_DIR / 'templates'
+
+TEMPLATES: List[Dict[str, Any]] = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            TEMPLATES_DIR,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,12 +109,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'stylehub.wsgi.application'
+WSGI_APPLICATION: str = 'stylehub.wsgi.application'
 
 
-# Database
+# -----------------------------------------------------------------------
+# ----------------------------Database Section---------------------------
+# -----------------------------------------------------------------------
 
-DATABASES = {
+DATABASES: Dict[str, Dict[str, Union[str, Path]]] = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
@@ -101,36 +124,53 @@ DATABASES = {
 }
 
 
-# Password validation
+# -----------------------------------------------------------------------
+# --------------------------USER AUTH Section----------------------------
+# -----------------------------------------------------------------------
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS: List[Dict[str, str]] = [
     {
         'NAME': (
-            'django.contrib.auth.password_validation'
-            '.UserAttributeSimilarityValidator'
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
         ),
     },
     {
         'NAME': (
-            'django.contrib.auth.password_validation.MinimumLengthValidator'
+            'django.contrib.auth.password_validation.' 'MinimumLengthValidator'
         ),
     },
     {
         'NAME': (
-            'django.contrib.auth.password_validation'
-            '.CommonPasswordValidator'
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator'
         ),
     },
     {
         'NAME': (
-            'django.contrib.auth.password_validation'
-            '.NumericPasswordValidator'
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator'
         ),
     },
 ]
 
+AUTHENTICATION_BACKENDS = ['stylehub.backends.LoginBackend']
 
-# Internationalization
+FAILED_AUTHS_TO_DEACTIVATE = int(os.getenv('FAILED_AUTHS_TO_DEACTIVATE', '10'))
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/auth/login/'
+LOGOUT_REDIRECT_URL = '/'
+
+NEW_USERS_ACTIVATED = DEBUG or get_env_bool('NEW_USERS_ACTIVATED')
+
+ACTIVATION_URL_EXPIRE_TIME = os.getenv(
+    'ACTIVATION_URL_EXPIRE_TIME', '00 12:00:00'
+)
+
+# -----------------------------------------------------------------------
+# -------------------------Client settings Section-----------------------
+# -----------------------------------------------------------------------
 
 LANGUAGE_CODE = 'ru-ru'
 
@@ -142,27 +182,59 @@ USE_L10N = True
 
 USE_TZ = True
 
+# -----------------------------------------------------------------------
+# ----------------------Static/Media Files Section-----------------------
+# -----------------------------------------------------------------------
 
-# Static files (CSS, JavaScript, Images)
+STATIC_URL: str = '/static/'
 
-STATIC_URL = '/static_dev/'
-STATICFILES_DIRS = [BASE_DIR / 'static_dev']
+STATICFILES_DIR_DEV = BASE_DIR / 'static_dev'
 
-# STATIC_ROOT = BASE_DIR / 'static_dev' с этим не работает
+STATICFILES_DIRS = [
+    STATICFILES_DIR_DEV,
+]
 
-# Media files path
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
-# Default primary key field type
+# --------------------------------------------------------------------
+# --------------------------locale Section----------------------------
+# --------------------------------------------------------------------
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOCALE = 'ru'
+LOCALE_FALLBACK = 'en'
+LOCALES = ('ru', 'en')
+LOCALES_PATH = BASE_DIR / 'locale'
+LOCALE_PATHS = (BASE_DIR / 'locale',)
 
-# project filter variables
+LANGUAGES = (
+    ('ru', _('Russian')),
+    ('en', _('English')),
+)
+
+# -----------------------------------------------------------------------
+# --------------------------------EMAIL----------------------------------
+# -----------------------------------------------------------------------
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_FILE_PATH = BASE_DIR / 'send_email'
+
+
+# -----------------------------------------------------------------------
+# --------------------------Project variables----------------------------
+# -----------------------------------------------------------------------
 
 POPULAR_COLLECTION_BUYS = int(os.environ['POPULAR_COLLECTION_BUYS'])
 POPULAR_DESIGNER_BUYS = int(os.environ['POPULAR_DESIGNER_BUYS'])
+NEW_USER_IS_ACTIVE = get_env_bool('NEW_USER_IS_ACTIVE')
 DESIGNERS_ON_CUSTOM_MAIN_PAGE = int(
     os.environ['DESIGNERS_ON_CUSTOM_MAIN_PAGE']
 )
+
+# -----------------------------------------------------------------------
+# ------------------------------Other Section----------------------------
+# -----------------------------------------------------------------------
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

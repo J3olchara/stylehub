@@ -1,12 +1,15 @@
 """ Forms witch related to users/designer (auth app) """
 from typing import Any, Dict, Union
 
+import django.contrib.auth.forms as default_forms
 from django import forms
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
-from auth.models import DesignerProfile, User
+import auth.models
 
 
-class UserForm(forms.ModelForm[User]):
+class UserForm(forms.ModelForm[auth.models.User]):
     """Form for change user info"""
 
     def __init__(
@@ -20,7 +23,7 @@ class UserForm(forms.ModelForm[User]):
     class Meta:
         """Meta class for modelform"""
 
-        model = User
+        model = auth.models.User
 
         fields = ('gender', 'email', 'username', 'first_name', 'last_name')
 
@@ -41,7 +44,7 @@ class UserForm(forms.ModelForm[User]):
         }
 
 
-class DesignerProfileForm(forms.ModelForm[DesignerProfile]):
+class DesignerProfileForm(forms.ModelForm[auth.models.DesignerProfile]):
     """Form for change Designer profile"""
 
     def __init__(
@@ -55,7 +58,7 @@ class DesignerProfileForm(forms.ModelForm[DesignerProfile]):
     class Meta:
         """Meta class for modelform"""
 
-        model = DesignerProfile
+        model = auth.models.DesignerProfile
 
         fields = ('avatar', 'background', 'text')
 
@@ -79,3 +82,142 @@ class DesignerProfileForm(forms.ModelForm[DesignerProfile]):
         if 'background' in files.keys():
             instance.background = files['background']
         instance.save()
+
+
+class LoginForm(default_forms.AuthenticationForm):
+    """
+    Login form to Login page
+
+    username: str.
+    password: str.
+    remember_me: bool. Remember user.
+    """
+
+    remember_me = forms.BooleanField(
+        label=_('Запомнить меня'),
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'form-check-input mb-4',
+            }
+        ),
+        required=False,
+    )
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control form-control-lg mb-2',
+                'placeholder': _('Username'),
+            }
+        )
+        self.fields['password'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control form-control-lg mb-3',
+                'placeholder': _('Password'),
+                'type': 'password',
+            }
+        )
+
+
+class PasswordChangeForm(default_forms.PasswordChangeForm):
+    """
+    Password reset form
+
+    old_password: str.
+    new_password1: str.
+    new_password2: str. Need to be equal to new_password1.
+    """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        widget = forms.TextInput(
+            attrs={
+                'class': 'form-control form-control-lg mb-2',
+                'type': 'password',
+            }
+        )
+        self.fields['old_password'].widget = widget
+        self.fields['new_password1'].widget = widget
+        self.fields['new_password2'].widget = widget
+
+
+class PasswordResetForm(default_forms.PasswordResetForm):
+    """form for password reset"""
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget = forms.TextInput(
+            attrs={
+                'class': 'form-control form-control-lg mb-2',
+                'type': 'email',
+            }
+        )
+
+
+class PasswordResetConfirmForm(default_forms.SetPasswordForm):
+    """
+    Password reset form. Allows user change his password if he forgot it.
+
+    new_password1: str.
+    new_password2: str. Need to be equal to new_password1.
+    """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        widget = forms.PasswordInput(
+            attrs={
+                'class': 'form-control form-control-lg mb-2',
+                'type': 'password',
+            }
+        )
+        self.fields['new_password1'].widget = widget
+        self.fields['new_password2'].widget = widget
+
+
+class SignUpForm(default_forms.UserCreationForm[auth.models.User]):
+    """
+    Sign up form. Create new users.
+
+    username: str. Unique
+    email: str. bicycle unique
+    new_password1: str.
+    new_password2: str. Need to be equal to new_password1.
+    """
+
+    email = forms.EmailField(
+        label=_('Ваш email'),
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'email',
+            }
+        ),
+    )
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
+
+    def save(self, commit: bool = True) -> Any:
+        """set extra fields to user."""
+        instance = super().save(commit=commit)
+        instance.is_active = settings.NEW_USER_IS_ACTIVE
+        token = auth.models.ActivationToken.objects.create(
+            user=instance,
+        )
+        instance.save()
+        return token
+
+    class Meta:
+        """signup form settings"""
+
+        model = auth.models.User
+        fields = [
+            model.email.field.name,
+            model.username.field.name,
+            f'{model.password.field.name}1',
+            f'{model.password.field.name}2',
+        ]

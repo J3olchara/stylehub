@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True, help_text='Когда объект был создан', verbose_name='дата и время создания')),
                 ('edited', models.DateTimeField(auto_now=True, help_text='Когда объект в последний раз редактировали', verbose_name='дата и время редактирования')),
                 ('name', models.CharField(help_text='Придумайте не длинное название, передающее основные черты товара', max_length=50, verbose_name='Название товара')),
-                ('main_image', models.ImageField(blank=True, null=True, upload_to=utils.functions.get_item_main_image_location, verbose_name='основная картинка товара')),
+                ('image', models.ImageField(blank=True, null=True, upload_to=utils.functions.get_item_main_image_location, verbose_name='основная картинка товара')),
                 ('cost', models.IntegerField(help_text='добавьте стоимость вашего товара', verbose_name='стоимость товара')),
                 ('text', models.TextField(blank=True, help_text='опишите ваш товар', null=True, verbose_name='описание товара')),
                 ('bought', models.IntegerField(default=0, help_text='сколько раз купили этот товар', verbose_name='куплено раз')),
