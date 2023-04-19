@@ -6,6 +6,6 @@ for (let i = 0; i < hearts.length; i++) {
     heart.addEventListener('click', async function (evt) {
         heart.classList.toggle('heart')
         heart.classList.toggle('heart-fill')
-        await fetch(`/api/toggle_liked?item_id=${heart.id}`)
+        await fetch(`/api/toggle_liked/${heart.id}`)
     })
 }
