@@ -11,6 +11,6 @@
 	{% endfor %}
 	<h1>unpopular</h1>
 	{% for item in unpopular %}
-		<a href="{% url 'clothes:wear' pk=item.id %}">{{ item.name }}</a>
+		{% include 'includes/card.html' %}
 	{% endfor %}
 {% endblock %}

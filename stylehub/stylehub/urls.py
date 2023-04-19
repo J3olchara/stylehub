@@ -11,6 +11,7 @@ urlpatterns: Any = [
     django.urls.path('', django.urls.include('home.urls')),
     django.urls.path('auth/', django.urls.include('auth.urls')),
     django.urls.path('clothes/', django.urls.include('clothes.urls')),
+    django.urls.path('custom/', django.urls.include('custom.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

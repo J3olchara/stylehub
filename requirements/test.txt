@@ -1,5 +1,5 @@
 Django==3.2.15
-python-dotenv==0.21.1
 django-debug-toolbar~=3.8.1
+python-dotenv==0.21.1
 parameterized~=0.8.1
 mock==5.0.2

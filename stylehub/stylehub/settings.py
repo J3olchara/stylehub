@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'stats.apps.StatsConfig',
     'django_cleanup.apps.CleanupConfig',
     'sorl.thumbnail',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -165,6 +166,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static_dev']
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
+# Auth/Login pages
+
+LOGIN_URL = 'admin/'
+
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -176,3 +181,6 @@ POPULAR_DESIGNER_BUYS = int(os.environ['POPULAR_DESIGNER_BUYS'])
 NEW_USER_IS_ACTIVE = get_env_bool('NEW_USER_IS_ACTIVE')
 ACTIVATION_URL_EXPIRE_TIME = os.environ['ACTIVATION_URL_EXPIRE_TIME']
 FAILED_AUTHS_TO_DEACTIVATE = int(os.getenv('FAILED_AUTHS_TO_DEACTIVATE', '10'))
+DESIGNERS_ON_CUSTOM_MAIN_PAGE = int(
+    os.environ['DESIGNERS_ON_CUSTOM_MAIN_PAGE']
+)
