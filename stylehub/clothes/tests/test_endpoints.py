@@ -8,8 +8,8 @@ from django.test import Client
 from django.urls import reverse
 from parameterized import parameterized
 
-from market.tests.base import MarketSetUp
 from core.tests.base import EndpointTests
+from market.tests.base import MarketSetUp
 
 
 class TestEndpoints(EndpointTests, MarketSetUp):

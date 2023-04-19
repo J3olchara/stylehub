@@ -1,3 +1,8 @@
+"""
+auth views
+
+views to user login/user create/user activate
+"""
 from typing import Any, Dict
 
 import django.contrib.auth.views as default_views
@@ -29,7 +34,7 @@ class CustomLoginView(default_views.LoginView):
         if not remember_me:
             self.request.session.set_expiry(0)
             self.request.session.modified = True
-        return super(CustomLoginView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class CustomChangePasswordDone(default_views.PasswordChangeDoneView):
@@ -41,9 +46,7 @@ class CustomChangePasswordDone(default_views.PasswordChangeDoneView):
     template_name = 'auth/done.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super(CustomChangePasswordDone, self).get_context_data(
-            **kwargs
-        )
+        context = super().get_context_data(**kwargs)
         context['alerts'] = [
             {'type': 'success', 'text': _('Пароль успешно изменён')}
         ]
@@ -59,9 +62,7 @@ class CustomPasswordResetDone(default_views.PasswordResetDoneView):
     template_name = 'auth/done.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super(CustomPasswordResetDone, self).get_context_data(
-            **kwargs
-        )
+        context = super().get_context_data(**kwargs)
         head = _('Письмо с инструкциями по восстановлению пароля отправлено')
         p1 = _(
             'Мы отправили вам инструкцию по установке нового '
@@ -89,9 +90,7 @@ class CustomPasswordResetComplete(default_views.PasswordResetCompleteView):
     template_name = 'auth/done.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super(CustomPasswordResetComplete, self).get_context_data(
-            **kwargs
-        )
+        context = super().get_context_data(**kwargs)
         context['alerts'] = [
             {'type': 'success', 'text': _('Пароль успешно изменён')}
         ]
@@ -109,6 +108,7 @@ class SignUp(generic.FormView[auth.forms.SignUpForm]):
     success_url = reverse_lazy('auth:signup_done')
 
     def form_valid(self, form: Any) -> HttpResponse:
+        """when form is valid"""
         token = form.save()
         url = token.get_url(f'http://{get_current_site(self.request)}')
         username = form.data['username']
@@ -126,7 +126,7 @@ class SignUp(generic.FormView[auth.forms.SignUpForm]):
             from_email=settings.SITE_EMAIL,
             recipient_list=[form.data['email']],
         )
-        return super(SignUp, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class SignUpDone(generic.TemplateView):
@@ -135,7 +135,7 @@ class SignUpDone(generic.TemplateView):
     template_name = 'auth/done.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super(SignUpDone, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['alerts'] = [
             {
                 'type': 'success',
@@ -156,10 +156,10 @@ class SignUpConfirm(generic.TemplateView):
 
     template_name = 'auth/done.html'
 
-    def get_context_data(
-        self, user_id: int, token: str, **kwargs: Any
-    ) -> Dict[str, Any]:
-        context = super(SignUpConfirm, self).get_context_data(**kwargs)
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        user_id = int(self.kwargs.get('user_id'))
+        token = self.kwargs.get('token')
+        context = super().get_context_data(**kwargs)
         token = get_object_or_404(
             auth.models.ActivationToken.objects,
             user=user_id,

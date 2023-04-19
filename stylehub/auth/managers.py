@@ -101,9 +101,10 @@ class ActiveUsersManager(UserManager):
         username: str,
         email: Optional[str] = None,
         password: Optional[str] = None,
+        override_active: Optional[bool] = False,
         **extra_fields: Any,
     ) -> AbstractUser:
-        return super(ActiveUsersManager, self).create_user(
+        return super().create_user(
             username, email, password, override_active=True, **extra_fields
         )
 
@@ -120,6 +121,7 @@ class InactiveUserManager(UserManager):
         username: str,
         email: Optional[str] = None,
         password: Optional[str] = None,
+        override_active: Optional[bool] = False,
         **extra_fields: Any,
     ) -> AbstractUser:
         return super().create_user(
@@ -132,6 +134,7 @@ class InactiveUserManager(UserManager):
         )
 
     def get_queryset(self) -> Any:
+        """returns obly inactive users"""
         return super().get_queryset().filter(is_active=False)
 
 
@@ -159,6 +162,7 @@ class DesignerManager(ActiveUsersManager):
         username: str,
         email: Optional[str] = None,
         password: Optional[str] = None,
+        override_active: Optional[bool] = False,
         **extra_fields: Any,
     ) -> AbstractUser:
         """

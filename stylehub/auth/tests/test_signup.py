@@ -1,3 +1,6 @@
+"""
+testing user signup
+"""
 from datetime import timedelta
 
 import mock
@@ -12,8 +15,10 @@ import auth.tests.base
 class SignUpTests(auth.tests.base.AuthSetup):
     """tests signup features"""
 
-    def get_user_and_token_for_activation(self):
-        user = auth.models.User.objects.create_user(
+    @staticmethod
+    def get_inactive_user_and_token():
+        """returns inactive user and his activation token"""
+        user = auth.models.User.inactive.create_user(
             username='fsfgsegfesefefssefef',
             email='3efesafesa@gmail.com',
             password='142kjjkgrsgeew3gesrg',
@@ -21,10 +26,11 @@ class SignUpTests(auth.tests.base.AuthSetup):
         token = auth.models.ActivationToken.objects.create(user=user)
         return user, token
 
-    @mock.patch('auth.models.datetime')
     @override_settings(NEW_USER_IS_ACTIVE=False)
+    @mock.patch('auth.models.datetime')
     def test_activation_false(self, mocked_datetime):
-        user, token = self.get_user_and_token_for_activation()
+        """tests that expired token cant be used"""
+        user, token = self.get_inactive_user_and_token()
         path = reverse(
             'auth:signup_confirm',
             kwargs={'token': token.token, 'user_id': user.id},
@@ -53,7 +59,8 @@ class SignUpTests(auth.tests.base.AuthSetup):
     @mock.patch('auth.models.datetime')
     @override_settings(NEW_USER_IS_ACTIVE=False)
     def test_activation_true(self, mocked_datetime):
-        user, token = self.get_user_and_token_for_activation()
+        """tests that user can activate new account"""
+        user, token = self.get_inactive_user_and_token()
         path = reverse(
             'auth:signup_confirm',
             kwargs={'token': token.token, 'user_id': user.id},
@@ -80,6 +87,7 @@ class SignUpTests(auth.tests.base.AuthSetup):
         )
 
     def test_env_activation_users(self):
+        """tests variable that changes is_active for new users"""
         path = reverse('auth:signup')
         client = Client()
         with override_settings(NEW_USER_IS_ACTIVE=False):

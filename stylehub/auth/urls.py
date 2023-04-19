@@ -1,3 +1,4 @@
+"""urls for auth app"""
 import django.contrib.auth.views as default_views
 import django.urls
 

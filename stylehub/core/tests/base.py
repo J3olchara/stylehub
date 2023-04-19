@@ -1,8 +1,8 @@
 """
 base classes for testing apps
 """
-from django.urls import reverse
 from django.test import TestCase
+from django.urls import reverse
 
 import auth.models
 
@@ -27,6 +27,7 @@ class EndpointTests(TestCase):
         )
 
         self.designer1 = self.designer_user.make_designer()
+        return super().setUp()
 
     def endpoint(self, template_name, **kwargs):
         """tests clothes:recommend page endpoint"""

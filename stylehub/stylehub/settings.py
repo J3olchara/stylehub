@@ -1,11 +1,11 @@
 """StyleHub settings"""
 import os
 from pathlib import Path
-from typing import Dict, List, Any, Union
+from typing import Any, Dict, List, Union
 
 import django_stubs_ext
-from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
 
 django_stubs_ext.monkeypatch()
 

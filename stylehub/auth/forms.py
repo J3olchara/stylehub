@@ -1,8 +1,7 @@
 """ Forms witch related to users/designer (auth app) """
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Union
 
 import django.contrib.auth.forms as default_forms
-import django.contrib.auth.models as default_models
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -105,7 +104,7 @@ class LoginForm(default_forms.AuthenticationForm):
     )
 
     def __init__(self, *args: Any, **kwargs: Any):
-        super(LoginForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['username'].widget = forms.TextInput(
             attrs={
                 'class': 'form-control form-control-lg mb-2',
@@ -131,7 +130,7 @@ class PasswordChangeForm(default_forms.PasswordChangeForm):
     """
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         widget = forms.TextInput(
             attrs={
                 'class': 'form-control form-control-lg mb-2',
@@ -144,8 +143,10 @@ class PasswordChangeForm(default_forms.PasswordChangeForm):
 
 
 class PasswordResetForm(default_forms.PasswordResetForm):
+    """form for password reset"""
+
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['email'].widget = forms.TextInput(
             attrs={
                 'class': 'form-control form-control-lg mb-2',
@@ -163,7 +164,7 @@ class PasswordResetConfirmForm(default_forms.SetPasswordForm):
     """
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super(PasswordResetConfirmForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         widget = forms.PasswordInput(
             attrs={
                 'class': 'form-control form-control-lg mb-2',
@@ -195,14 +196,14 @@ class SignUpForm(default_forms.UserCreationForm[auth.models.User]):
     )
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super(SignUpForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
 
-    def save(self, commit: bool = True) -> auth.models.ActivationToken:
+    def save(self, commit: bool = True) -> Any:
         """set extra fields to user."""
-        instance = super(SignUpForm, self).save(commit=commit)
+        instance = super().save(commit=commit)
         instance.is_active = settings.NEW_USER_IS_ACTIVE
         token = auth.models.ActivationToken.objects.create(
             user=instance,
@@ -211,6 +212,8 @@ class SignUpForm(default_forms.UserCreationForm[auth.models.User]):
         return token
 
     class Meta:
+        """signup form settings"""
+
         model = auth.models.User
         fields = [
             model.email.field.name,

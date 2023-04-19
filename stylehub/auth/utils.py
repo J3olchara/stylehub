@@ -1,3 +1,8 @@
+"""
+utils for auth app
+
+write your helpfully functions here
+"""
 from datetime import datetime, timedelta
 
 from django.conf import settings

@@ -6,6 +6,7 @@ from core.tests.base import EndpointTests
 
 class TestEndpoints(EndpointTests):
     """tests auth endpoints"""
+
     def test_signup_endpoint(self):
         """tests auth:signup endpoint"""
         self.endpoint('auth:signup')
