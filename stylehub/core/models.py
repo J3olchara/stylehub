@@ -88,11 +88,11 @@ class BaseCreature(CreatedEdited):
 class MainImageMixin(models.Model):
     """
     MainPhoto Model for Item
-    main_image: second-needed image for gallery
+    image: second-needed image for gallery
     """
 
-    main_image: 'models.ImageField' = models.ImageField(
-        verbose_name='фото',
+    image: 'models.ImageField' = models.ImageField(
+        verbose_name='обложка',
         help_text='Загрузите фото',
         upload_to=utils.functions.get_item_main_image_location,
         max_length=255,
@@ -108,21 +108,21 @@ class MainImageMixin(models.Model):
         crop: string. crop centering
         quality: integer. quality of the new image
         """
-        return get_thumbnail(self.main_image, px, crop=crop, quality=quality)
+        return get_thumbnail(self.image, px, crop=crop, quality=quality)
 
     def image_tmb(self) -> Union[SafeString, Any]:
         """returns HTML picture for Item"""
-        if self.main_image:
-            return mark_safe(f'<img src="{self.main_image.url}" width="50">')
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" width="50">')
         return mark_safe('Изображения нет')
 
     @property
     def get_url(self) -> str:
-        """returns url like 'media/uploads/...'"""
-        return f'{self.main_image.url}'
+        """returns url like 'uploads/...'"""
+        return f'{self.image.url}'
 
     def __str__(self) -> str:
-        return str(self.main_image.url)
+        return str(self.image.url)
 
     class Meta:
         """for meta information"""

@@ -108,7 +108,7 @@ class OrderPicture(models.Model):
     picture = models.ImageField(
         verbose_name='изображение',
         help_text='Изображение желаемого дизайна',
-        upload_to='media/uploads/order_pictures',
+        upload_to='uploads/order_pictures',
     )
 
     class Meta:

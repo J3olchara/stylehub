@@ -48,6 +48,15 @@ urlpatterns = [
         clothes.views.Recommend.as_view(),
         name='recommend',
     ),
+    django.urls.path(
+        'create/<str:form>/',
+        clothes.views.CreateSomething.as_view(),
+        name='create',
+    ),
+    django.urls.path('orders/', clothes.views.Orders.as_view(), name='orders'),
+    django.urls.path(
+        'lovely/', clothes.views.Lovely.as_view(), name='lovely_designers'
+    ),
     django.urls.path('orders/', clothes.views.Orders.as_view(), name='orders'),
     django.urls.path(
         'lovely/', clothes.views.Lovely.as_view(), name='lovely_designers'

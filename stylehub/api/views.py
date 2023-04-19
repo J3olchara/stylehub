@@ -2,7 +2,6 @@ from typing import Any
 
 from django.http import HttpRequest, HttpResponse
 from django.views import View
-from django.views.generic import RedirectView
 
 import clothes.models
 

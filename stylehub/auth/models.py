@@ -1,13 +1,20 @@
 """models for auth"""
+import uuid
+from datetime import datetime
 from typing import Any, Optional, Sequence, Union
 
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.expressions import Combinable
+from django.template.defaultfilters import strip_tags
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django_cleanup import cleanup
+from pytz import timezone, utc
 
 import auth.managers
+import auth.utils
 import clothes.models
 import market.models
 
@@ -24,6 +31,10 @@ class User(AbstractUser):
     objects = auth.managers.UserManager()
 
     designers = auth.managers.DesignerManager()
+
+    inactive = auth.managers.InactiveUserManager()
+
+    active = auth.managers.ActiveUsersManager()
 
     gender_choices = (
         ('', _('Не указан')),
@@ -94,8 +105,12 @@ class User(AbstractUser):
         related_name='lovely_designers',
     )
 
+    failed_attemps = models.IntegerField(
+        verbose_name=_('Неудачных попыток входа'), default=0
+    )
+
     def clean(self) -> None:
-        if self.last_styles.count() > 5:
+        if self.id and self.last_styles.count() > 5:
             to_remove = self.last_styles.order_by('?').last()
             self.last_styles.remove(self.last_styles.get(to_remove))
             self.save()
@@ -107,6 +122,21 @@ class User(AbstractUser):
         self.full_clean()
         self.save()
         return DesignerProfile.objects.create(user=self)
+
+    def normalize_email(self) -> str:
+        """
+        Normalizes email address
+        Cuts out email tags and leads it to canonical name
+        """
+        name, domain = strip_tags(self.email).lower().split('@')
+        domain = domain.replace('ya.ru', 'yandex.ru')
+        if domain == 'gmail.com':
+            name = name.replace('.', '')
+        elif domain == 'yandex.ru':
+            name = name.replace('.', '-')
+        name = name.split('+', maxsplit=1)[0]
+        self.normalized_email = '@'.join([name, domain])
+        return self.normalized_email
 
 
 @cleanup.select
@@ -158,3 +188,52 @@ class DesignerProfile(models.Model):
 
         verbose_name = _('дизайнер')
         verbose_name_plural = _('дизайнеры')
+
+
+class ActivationToken(models.Model):
+    """
+    Activation token model.
+    Stores activation tokens that allows new accounts to be activated.
+    user: int FK -> User. User that attached to token.
+    token: uuid.UUID. Unique token.
+    expire: datetime. Token expiration datetime
+    """
+
+    user: Union[User, Any] = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_('Пользователь'),
+    )
+
+    token: Union[uuid.UUID, Any] = models.UUIDField(
+        verbose_name=_('Ключ активации'), default=uuid.uuid4
+    )
+
+    created: Union[datetime, Any] = models.DateTimeField(
+        verbose_name=_('Дата и время создания'),
+        auto_now_add=True,
+    )
+
+    expire: Union[datetime, Any] = models.DateTimeField(
+        verbose_name=_('Дата и время истечения'),
+        default=auth.utils.get_token_expire,
+    )
+
+    def __str__(self) -> str:
+        return str(self.token)
+
+    def get_url(self, site: str) -> Any:
+        """returns activation url"""
+        return site + reverse(
+            'auth:signup_confirm',
+            kwargs={'user_id': self.user.id, 'token': self.token},
+        )
+
+    def expired(self) -> bool:
+        """Checks if the token has expired"""
+        tz = timezone(settings.TIME_ZONE)
+        expire = self.expire.replace(tzinfo=utc).astimezone(tz)
+        exp = expire < datetime.now(tz=tz)
+        if exp:
+            self.delete()
+        return exp

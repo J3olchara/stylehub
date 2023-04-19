@@ -13,7 +13,9 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 import auth.forms
+import auth.mixins
 import auth.models
+import clothes.forms
 import clothes.models
 
 
@@ -186,6 +188,48 @@ class Lovely(mixins.LoginRequiredMixin, generic.ListView[auth.models.User]):
         """Returns designers"""
         user = self.request.user
         return auth.models.User.objects.get_lovely_designers(user)
+
+
+class CreateSomething(
+    auth.mixins.DesignerRequiredMixin, generic.CreateView[Any, Any]
+):
+    """view to create some designer models"""
+
+    template_name = 'core/formpage.html'
+    forms = {
+        'collection': clothes.forms.CollectionCreateForm,
+        'item': clothes.forms.ItemCreateForm,
+    }
+
+    def get_form_class(self) -> Any:
+        """getting form class by froms variable"""
+        requested_form = self.kwargs.get('form')
+        form = self.forms.get(requested_form)
+        if form:
+            return form
+        raise Http404()
+
+    def get_form_kwargs(self) -> Dict[str, Any]:
+        """custom return kwargs to return designer object for form"""
+        kwargs = super().get_form_kwargs()
+        kwargs['designer'] = self.request.user
+        return kwargs
+
+    def form_valid(
+        self,
+        form: Any,
+    ) -> Any:
+        """custom form_valid to save item gallery"""
+        gallery = self.request.FILES.getlist('gallery')
+        if gallery:
+            form.save(files=gallery)
+        else:
+            form.save()
+        return redirect(self.get_success_url())
+
+    def get_success_url(self) -> str:
+        """returns success url"""
+        return self.request.path
 
 
 class Saved(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
