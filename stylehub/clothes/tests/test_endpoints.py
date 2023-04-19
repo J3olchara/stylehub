@@ -78,7 +78,7 @@ class TestEndpoints(EndpointTests, MarketSetUp):
 
     def test_main_endpoint(self):
         """tests clothes:main page endpoint"""
-        self.endpoint('clothes:main')
+        self.endpoint('clothes:home')
 
     def test_collections_endpoint(self):
         """tests clothes:collections page endpoint"""

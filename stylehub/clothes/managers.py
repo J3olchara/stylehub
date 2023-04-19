@@ -23,7 +23,7 @@ class ItemManager(models.Manager[Any]):
             'evaluations', evaluations.objects.all()
         )
         prefetch_gallery = models.Prefetch(
-            'gallery', item_picture.objects.all()
+            'images', item_picture.objects.all()
         )
         return self.get_queryset().prefetch_related(
             prefetch_evals, prefetch_gallery

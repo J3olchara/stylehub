@@ -236,6 +236,9 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
         verbose_name_plural = _('вещи')
 
 
+Item._meta.get_field('image').default = 'defaults/item.png'
+
+
 @cleanup.select
 class ItemPicture(core.models.MainImageMixin):
     """
@@ -250,7 +253,7 @@ class ItemPicture(core.models.MainImageMixin):
         on_delete=models.CASCADE,
         verbose_name='галерея изображений товара',
         help_text='добавьте как можно болеее информативные фотографии',
-        related_name='gallery',
+        related_name='images',
     )
 
     class Meta:

@@ -9,6 +9,14 @@
 
 ![image description](information/diagram.svg)
 
+# code features
+> - we are used mypy, pylint, isort, black and flake8 in code writing
+> - all functions are type hinted and all modules too
+> - we have custom authentication backend
+> - project is not ended, we had little time to create this very good
+> - we want to create service for designers which customizing clothes
+> - we want to localize site and add some technical features
+
 # How to run it on windows
 0. Download Python 3.10.0 https://www.python.org/downloads/release/python-3100/
 1. Clone this repo and prepare workplace

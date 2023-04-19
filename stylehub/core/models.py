@@ -110,7 +110,7 @@ class MainImageMixin(models.Model):
         """
         return get_thumbnail(self.image, px, crop=crop, quality=quality)
 
-    def crop_item_img(self):
+    def crop_item_img(self) -> Any:
         """
         crops the picture for item card
         """

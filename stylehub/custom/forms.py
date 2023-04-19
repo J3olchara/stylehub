@@ -7,10 +7,11 @@ from typing import Any, Optional
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from pinscrap.pinterest import PinterestImageScraper
 
 import auth.models
 import custom.models
+
+# from pinscrap.pinterest import PinterestImageScraper
 
 
 class OrderCustomStartCreateForm(forms.ModelForm[custom.models.OrderCustom]):
@@ -35,11 +36,11 @@ class OrderCustomStartCreateForm(forms.ModelForm[custom.models.OrderCustom]):
         if user is not None:
             user_field.initial = user
 
-    def get_choices(self):
-        if self.cleaned_data['header']:
-            pinterest = PinterestImageScraper()
-            urls = pinterest.get_image_urls(key=self.cleaned_data['header'])
-            print(urls)
+    # def get_choices(self):
+    #     if self.cleaned_data['header']:
+    #         pinterest = PinterestImageScraper()
+    #         urls = pinterest.get_image_urls(key=self.cleaned_data['header'])
+    #         print(urls)
 
     class Meta:
         """settings for OrderCustomForm"""

@@ -91,7 +91,7 @@ class BuyWear(generic.TemplateView):
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponse:
         """returns redirect to wear page"""
-        pk = int(kwargs.get('pk'))
+        pk = int(kwargs['pk'])
         path = reverse('clothes:wear', kwargs={'pk': pk})
         item = clothes.models.Item.objects.get(pk=pk)
         item.buy(request.user)
