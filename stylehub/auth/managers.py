@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.auth.models import UserManager as UserManagerOld
 from django.db import models
-from django.db.models import Avg, QuerySet, aggregates
+from django.db.models import Avg, Prefetch, QuerySet, aggregates
 from django.db.models.functions import Coalesce
 
 
@@ -203,8 +203,21 @@ class DesignerManager(ActiveUsersManager):
             .order_by('buys')
         )
 
+    def get_designer_with_collections(self, pk: int) -> AbstractUser:
+        """returns designer(user), model prefetching collections"""
+        return (
+            super()
+            .get_queryset()
+            .prefetch_related(
+                Prefetch(
+                    'item_designer__collection',
+                    queryset=super().get_queryset().filter(pk=pk),
+                )
+            )[0]
+        )
+
     def best_custom_evaluations(self) -> QuerySet[Any]:
-        """Gets the best 20 designeres on avg theirs evaluations"""
+        """returns the best 20 designeres on avg theirs evaluations"""
         return (
             self.model.designers.filter(is_designer=True)
             .annotate(average_evaluation=Avg('custom_evaluations__rating'))

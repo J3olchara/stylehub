@@ -236,12 +236,15 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
         verbose_name_plural = _('вещи')
 
 
+Item._meta.get_field('image').default = 'defaults/item.png'
+
+
 @cleanup.select
 class ItemPicture(core.models.MainImageMixin):
     """
     models realise pictures gallery for item
     picture: ImageField one of many item picture
-    item: ManyToManyField shows for what item this picture
+    item: ManyToOne shows for what item this picture
     """
 
     objects = clothes.managers.ItemPictureManager()

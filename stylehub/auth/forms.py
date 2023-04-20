@@ -19,6 +19,7 @@ class UserForm(forms.ModelForm[auth.models.User]):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
             field.field.widget.attrs['readonly'] = readonly
+            field.field.widget.attrs['class'] = 'form-control'
 
     class Meta:
         """Meta class for modelform"""
@@ -30,13 +31,13 @@ class UserForm(forms.ModelForm[auth.models.User]):
         labels = {
             'gender': 'Пол',
             'email': 'Электронная почта',
-            'username': 'никнейм',
+            'username': 'Никнейм',
             'first_name': 'Имя',
             'last_name': 'Фамилия',
         }
 
         widgets = {
-            'gender': forms.RadioSelect(),
+            'gender': forms.Select(),
             'email': forms.EmailInput(),
             'username': forms.TextInput(),
             'first_name': forms.TextInput(),
@@ -54,6 +55,7 @@ class DesignerProfileForm(forms.ModelForm[auth.models.DesignerProfile]):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
             field.field.widget.attrs['readonly'] = readonly
+            field.field.widget.attrs['class'] = 'form-control'
 
     class Meta:
         """Meta class for modelform"""

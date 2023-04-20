@@ -7,5 +7,5 @@ from django.urls import path, resolvers
 app_name = 'about'
 
 urlpatterns: List[resolvers.URLPattern] = [
-    path('', views.AboutUsView.as_view(), name='about'),
+    path('', views.AboutUsView.as_view(), name='home'),
 ]

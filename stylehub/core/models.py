@@ -96,7 +96,7 @@ class MainImageMixin(models.Model):
         help_text='Загрузите фото',
         upload_to=utils.functions.get_item_main_image_location,
         max_length=255,
-        default='default/default.png',
+        null=True,
     )
 
     def get_image_px(
