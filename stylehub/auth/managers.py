@@ -204,7 +204,7 @@ class DesignerManager(ActiveUsersManager):
         )
 
     def best_custom_evaluations(self) -> QuerySet[Any]:
-        """Gets the best 20 designeres on avg theirs evaluations"""
+        """returns the best 20 designeres on avg theirs evaluations"""
         return (
             self.model.designers.filter(is_designer=True)
             .annotate(average_evaluation=Avg('custom_evaluations__rating'))
