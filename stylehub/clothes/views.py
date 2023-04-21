@@ -118,13 +118,10 @@ class Designer(generic.ListView[clothes.models.Collection]):
     def get_queryset(self) -> QuerySet[Any]:
         """Returns queryset for listview"""
         designer_id = self.kwargs.get('pk')
-        designer = auth.models.User.designers.get_designer_with_collections(
-            designer_id
-        )
-        print('\t', (designer.item_designer.select_related('collection')))
+        designer = auth.models.DesignerProfile.objects.get(pk=designer_id)
         return (
             clothes.models.Collection.objects.with_items()
-            .filter(designer=designer)
+            .filter(designer=designer.user)
             .order_by(f'-{clothes.models.Collection.created.field.name}')
         )
 

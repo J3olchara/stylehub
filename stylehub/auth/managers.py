@@ -204,23 +204,6 @@ class DesignerManager(ActiveUsersManager):
             .order_by('buys')
         )
 
-    def get_designer_with_collections(self, pk: int) -> AbstractUser:
-        """returns designer(user), model prefetching collections"""
-        # print(clothes.models.Item.objects.prefetch_related('designer')[1].__dict__)
-        item: Any = apps.get_model('clothes', 'Item')
-        return (
-            super()
-            .get_queryset()
-            .select_related('designer_profile'
-            # .select_related(
-            # .prefetch_related(
-            #     Prefetch(
-            #         f'item_designer__{item.collection.field.name}',
-                #     queryset=clothes.models.Item.objects.filter(designer__designer_profile__id=pk),
-                # )
-            )[0]
-        )
-
     def best_custom_evaluations(self) -> QuerySet[Any]:
         """returns the best 20 designeres on avg theirs evaluations"""
         return (
