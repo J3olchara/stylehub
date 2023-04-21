@@ -5,7 +5,7 @@
           align-items-center justify-content-between
           justify-content-xl-around py-1 border-bottom">
     <div class="col-lg-1 mb-2 mb-md-0">
-      <a href="{% url 'clothes:home' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
+      <a href="{% url 'home:home' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
         <img src="{% static 'logo/logo.svg' %}" alt="Логотип" class="header-logo" width="100" height="100">
       </a>
     </div>
@@ -18,9 +18,8 @@
                id="dropdownMenuButton" data-bs-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">{% trans 'Каталог' %}</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">{% trans 'худи' %}</a>
-              <a class="dropdown-item" href="#">{% trans 'футболки' %}</a>
-              <a class="dropdown-item" href="#">{% trans 'ещё что-нибудь' %}</a>
+              <a class="dropdown-item" href="{% url 'clothes:home' %}">{% trans 'StyleHub' %}</a>
+              <a class="dropdown-item" href="{% url 'custom:home' %}">{% trans 'CustomHub' %}</a>
             </div>
           </li>
           <li class="mx-lg-4">
