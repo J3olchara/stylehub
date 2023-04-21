@@ -2,10 +2,7 @@
 - ![Main branch status](https://github.com/J3olchara/stylehub/actions/workflows/python-package.yml/badge.svg?branch=main) - main
 - ![Main branch status](https://github.com/J3olchara/stylehub/actions/workflows/python-package.yml/badge.svg?branch=develop) - develop
 
-
-# Unpopular designers project Stylehub
-
-# Database
+# Django model dependency
 
 ![image description](information/diagram.svg)
 
@@ -78,6 +75,7 @@ Then the application will start on http://localhost:8000
   > - if you want to make some tests you need to run:
   >
   > python3 -m pip3 install -r requirements/test.txt
+  > python3 -m pip3 install -r requirements/dev.txt
   > - if you want to develop some features you need to run:
   > 
   > python3 -m pip3 install -r requirements/dev.txt
@@ -93,9 +91,7 @@ Then the application will start on http://localhost:8000
 
 Prevent third parties from getting values of your .env variables
 
-4. Migrate database:
-  > python3 stylehub/manage.py makemigrations
-  > 
+4. Migrate database: 
   > python3 stylehub/manage.py migrate
 
 5. Create your admin account:
