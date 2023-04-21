@@ -4,7 +4,7 @@
 {% block content %}
   {% if designers %}
     <div class="head-view">
-      <h1 class="head-view-category">{% trans 'Популярные дизайнеры' %}</h1>
+	  <h1 class="head-view-category"><span>{% trans 'Популярные дизайнеры' %}</span><a href="{% url 'clothes:designers' %}" class="to-paginator">Более...</a></h1>
     </div>
     {% for designer in designers %}
       <a href="{% url 'clothes:designer' pk=designer.id %}">{{ designer.name }}</a>
@@ -15,7 +15,7 @@
   {% endif %}
   {% if collections %}
     <div class="head-view">
-      <h1 class="head-view-category">{% trans 'Популярные коллекции' %}</h1>
+	  <h1 class="head-view-category"><span>{% trans 'Популярные коллекции' %}</span><a href="{% url 'clothes:collections' %}" class="to-paginator">Более...</a></h1>
       <p class="head-view-category-detail">
         {% trans 'Эти коллекции больше всего понравились нашим пользователям, попробуйте эти вещи на себе!' %}
       </p>
@@ -27,7 +27,7 @@
     {% endfor %}
   {% endif %}
   <div class="head-view">
-	  <h1 class="head-view-category">{% trans 'Недооценённые работы' %}</h1>
+	  <h1 class="head-view-category"><span>{% trans 'Недооценённые работы' %}</span><a href="{% url 'clothes:unpopular' %}" class="to-paginator">Более...</a></h1>
     <p class="head-view-category-detail">
       {% trans 'Мы стараемся помочь каждому дизайнеру стать популярным, поэтому публикуем их работы здесь.' %}
     </p>

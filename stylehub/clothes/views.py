@@ -58,7 +58,6 @@ class PopularDesigners(generic.ListView[auth.models.User]):
     paginate_by = 20
     template_name = 'clothes/designers.html'
     queryset = auth.models.User.designers.top()[: paginate_by * 15].all()
-    context_object_name = 'designersp'
 
 
 class UnpopularItems(generic.ListView[clothes.models.Item]):
@@ -66,10 +65,11 @@ class UnpopularItems(generic.ListView[clothes.models.Item]):
     returns unpopular items paginator based on designer count of bought items
     """
 
-    paginate_by = 40
+    paginate_by = 20
     template_name = 'clothes/items.html'
     queryset = (
         clothes.models.Item.objects.unpopular()
+        .distinct()
         .order_by('?')[: paginate_by * 15]
         .all()
     )
