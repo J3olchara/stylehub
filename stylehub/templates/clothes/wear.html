@@ -6,76 +6,84 @@
 {% endblock %}
 
 {% block content %}
-<div class="item-content">
-  <div id="carouselExampleControls" class="item-gallery carousel slide" data-bs-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-bs-target="#{{ forloop.counter }}" data-bs-slide-to="0" class="active"></li>
-      {% for image in item.images.all %}
-        <li data-bs-target="#{{ forloop.counter }}" data-bs-slide-to="{{ forloop.counter }}"></li>
-      {% endfor %}
-    </ol>
-    <div class="carousel-inner">
-      {% with photo_px='500x400' %}
-        <div class="carousel-item active">
-          <img class="d-block w-100"
-               src="{% get_image_px image=item px=photo_px crop='center' quality=70 %}"
-               alt="">
-        </div>
+  <div class="item-content">
+    <div id="carouselExampleControls" class="item-gallery carousel slide" data-bs-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-bs-target="#{{ forloop.counter }}" data-bs-slide-to="0" class="active"></li>
         {% for image in item.images.all %}
-          <div class="carousel-item">
-            <img class="d-block w-100"
-                 src="{% get_image_px image=image px=photo_px crop='center' quality=70 %}"
-                 alt="First slide">
-          </div>
+          <li data-bs-target="#{{ forloop.counter }}" data-bs-slide-to="{{ forloop.counter }}"></li>
         {% endfor %}
-      {% endwith %}
+      </ol>
+      <div class="carousel-inner">
+        {% with photo_px='500x400' %}
+          <div class="carousel-item active">
+            <img class="d-block w-100"
+                 src="{% get_image_px image=item px=photo_px crop='center' quality=70 %}"
+                 alt="">
+          </div>
+          {% for image in item.images.all %}
+            <div class="carousel-item">
+              <img class="d-block w-100"
+                   src="{% get_image_px image=image px=photo_px crop='center' quality=70 %}"
+                   alt="First slide">
+            </div>
+          {% endfor %}
+        {% endwith %}
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+      </a>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only"></span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only"></span>
-    </a>
+    <div class="item-head">
+      <h1 class="item-name mb-3">
+        {{ item.name.capitalize }}
+      </h1>
+      <h2 class="designed-by">Designed by: <a class="text-decoration-none designer-url" href="{% url 'clothes:designer' pk=item.designer.designer_profile.id %}">{{ item.designer }}</a></h2>
+      <span class="item-category mb-4">{{ item.category.name.capitalize }}</span>
+      <span class="item-tags pt-0 my-4">{% comma_separated_styles item.styles.all %}</span>
+      <span class="item-tags pt-0 my-4">{{ item.collection }} Colection</span>
+      <p class="my-4"><span class="sz-20">Пол: </span>{{ item.get_gender_display }}</p>
+      <span class="align-items-baseline d-flex gap-5">
+        <a href="{% url 'clothes:wear_buy' pk=item.id %}" class="btn btn-dark btn-buy">{% trans 'Купить' %}</a>
+        <span class="me-3 cost">{{ item.cost }}₽</span>
+      </span>
+    </div>
+    <div class="item-description">{{ item.text|replace_newline|safe }}</div>
+    {#  <div class="evoluation-form container ms-2">#}
+    {#    {% if user.is_authenticated %}#}
+    {#      <form method="post">#}
+    {#        {% csrf_token %}#}
+    {#        {% for field in evaluation_form %}#}
+    {#          {{ field }}#}
+    {#          {{ field.label_tag }}#}
+    {#          <p class="range_label d-inline-block"></p>#}
+    {#          {% if field.help_text %}#}
+    {#            <p class='form-text'> {{ field.help_text }} </p>#}
+    {#          {% endif %}#}
+    {#          {% for error in field.errors %}#}
+    {#            <p class='text-danger'> {{ error|escape }} </p>#}
+    {#          {% endfor %}#}
+    {#        {% endfor %}#}
+    {#        <div class="d-inline-block w-75">#}
+    {#          <div class="d-flex justify-content-end gap-1">#}
+    {#            <button type="submit" class="btn btn-primary">Отправить</button>#}
+    {#            {% if evaluation %}#}
+    {#              <a class="btn btn-danger" href={% url 'rating:delete_evaluation' item_id=item.id %}>Удалить</a>#}
+    {#            {% endif %}#}
+    {#          </div>#}
+    {#        </div>#}
+    {#        <script src="{% static 'js/item_page.js' %}"></script>#}
+    {#      </form>#}
+    {#    {% else %}#}
+    {#      <p><a href="{% url "authorisation:login" %}">Авторизуйтесь</a>, чтобы оставить отзыв.</p>#}
+    {#    {% endif %}#}
+    {#    <p class="mt-3"> Среднее: {{ average }} </p>#}
+    {#    <p> Количество отзывов: {{ count }} </p>#}
+    {#  </div>#}
   </div>
-  <div class="item-head">
-    <h1 class="item-name">{{ item.name.capitalize }}</h1>
-    <span class="item-category">{{ item.category.name.capitalize }}</span>
-    <span class="item-tags">{% comma_separated_styles item.styles.all %}</span>
-    <div class="item-buy"><a class="item-buy-link" href="{% url 'clothes:wear_buy' pk=item.id %}">{% trans 'Купить' %}</a></div>
-  </div>
-  <div class="item-description">{{ item.text|safe }}</div>
-{#  <div class="evoluation-form container ms-2">#}
-{#    {% if user.is_authenticated %}#}
-{#      <form method="post">#}
-{#        {% csrf_token %}#}
-{#        {% for field in evaluation_form %}#}
-{#          {{ field }}#}
-{#          {{ field.label_tag }}#}
-{#          <p class="range_label d-inline-block"></p>#}
-{#          {% if field.help_text %}#}
-{#            <p class='form-text'> {{ field.help_text }} </p>#}
-{#          {% endif %}#}
-{#          {% for error in field.errors %}#}
-{#            <p class='text-danger'> {{ error|escape }} </p>#}
-{#          {% endfor %}#}
-{#        {% endfor %}#}
-{#        <div class="d-inline-block w-75">#}
-{#          <div class="d-flex justify-content-end gap-1">#}
-{#            <button type="submit" class="btn btn-primary">Отправить</button>#}
-{#            {% if evaluation %}#}
-{#              <a class="btn btn-danger" href={% url 'rating:delete_evaluation' item_id=item.id %}>Удалить</a>#}
-{#            {% endif %}#}
-{#          </div>#}
-{#        </div>#}
-{#        <script src="{% static 'js/item_page.js' %}"></script>#}
-{#      </form>#}
-{#    {% else %}#}
-{#      <p><a href="{% url "authorisation:login" %}">Авторизуйтесь</a>, чтобы оставить отзыв.</p>#}
-{#    {% endif %}#}
-{#    <p class="mt-3"> Среднее: {{ average }} </p>#}
-{#    <p> Количество отзывов: {{ count }} </p>#}
-{#  </div>#}
-</div>
 {% endblock %}
