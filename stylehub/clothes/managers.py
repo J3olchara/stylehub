@@ -41,7 +41,6 @@ class ItemManager(models.Manager[Any]):
         qs = self.get_queryset().filter(
             designer__in=auth.models.User.designers.unpopular().all()
         )
-
         return qs
 
 

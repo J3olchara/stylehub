@@ -207,7 +207,7 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
     )
 
     is_published = models.BooleanField(
-        verbose_name='Опубликован?',
+        verbose_name='опубликован?',
         default=True,
     )
 
@@ -244,7 +244,7 @@ class ItemPicture(core.models.MainImageMixin):
     """
     models realise pictures gallery for item
     picture: ImageField one of many item picture
-    item: ManyToManyField shows for what item this picture
+    item: ManyToOne shows for what item this picture
     """
 
     objects = clothes.managers.ItemPictureManager()

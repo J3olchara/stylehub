@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% load static i18n %}
+{% block content %}
+  <h1 class="text-center mb-4">{% trans 'Понравившиеся товары' %}</h1>
+  <div class="d-flex gap-4">
+  {% for item in items %}
+    {% include 'includes/card.html' %}
+  {% empty %}
+    <h5 class="text-center my-5">{% trans 'Вы пока не добавили ни одного товара' %}</h5>
+  {% endfor %}
+  </div>
+{% endblock %}
