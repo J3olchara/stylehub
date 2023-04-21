@@ -10,7 +10,6 @@ from django.db.models import Avg, Prefetch, QuerySet, aggregates
 from django.db.models.functions import Coalesce
 
 
-
 class UserManager(UserManagerOld[AbstractUser]):
     """
     User manager
