@@ -1,11 +1,14 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-	<h1>designers</h1>
-	{% for designer in designers %}
-		<a href="{% url 'clothes:designer' pk=designer.id %}">{{ designer.name }}</a>
-	{% endfor %}
-	<h1>collections</h1>
+	<h1 class="text-center mb-3">designers</h1>
+  <section class="container my-3 d-flex gap-4 row justify-content-start">
+    {% for designer in designers %}
+      <a href="{% url 'clothes:designer' pk=designer.id %}">{{ designer.first_name }}</a>
+      {% include 'includes/designer_card.html' %}
+    {% endfor %}
+  </section>
+	<h1 class="text-center mb-3">collections</h1>
 	{% for collection in collections %}
     {% if collection.items.count %}
 		  {% include 'includes/collection_card.html' %}

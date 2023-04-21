@@ -198,7 +198,7 @@ class Cart(core.models.CreatedEdited):
 
 class Evaluation(core.models.CreatedEdited):
     """
-    Evalution abstract model
+    Evaluation abstract model
 
     created: datetime. creation datetime
     edited: datetime. editing datetime
