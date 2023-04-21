@@ -12,7 +12,7 @@
 # code features
 > - we are used mypy, pylint, isort, black and flake8 in code writing
 > - all functions are type hinted and all modules too
-> - we have custom authentication backend
+> - we have custom authentication backend and context processors
 > - project is not ended, we had little time to create this very good
 > - we want to create service for designers who customizing clothes
 > - we want to localize site and add some technical features
@@ -20,7 +20,7 @@
 # How to run it on windows
 0. Download Python 3.10.0 https://www.python.org/downloads/release/python-3100/
 1. Clone this repo and prepare workplace
-> - git clone https://github.com/J3olchara/yandex-team
+> - git clone https://github.com/J3olchara/stylehub
 > - cd yandex-team
 > - python -m venv venv
 > - venv\scripts\activate

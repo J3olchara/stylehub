@@ -133,3 +133,11 @@ input[type=range]::-moz-range-thumb {
     border-radius: 12px/100%;
     cursor: pointer;
 }
+.designed-by {
+    font-size: 20px;
+    text-align: left;
+    color: rgba(95,95,95,0.8);
+}
+.designer-url {
+    color: rgba(55,55,55,0.8);
+}

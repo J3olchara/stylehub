@@ -40,18 +40,22 @@
       </a>
     </div>
     <div class="item-head">
-      <h1 class="item-name mb-3">{{ item.name.capitalize }}</h1>
+      <h1 class="item-name mb-3">
+        {{ item.name.capitalize }}
+      </h1>
+      <h2 class="designed-by">Designed by: <a class="text-decoration-none designer-url" href="{% url 'clothes:designer' pk=item.designer.designer_profile.id %}">{{ item.designer }}</a></h2>
       <span class="item-category mb-4">{{ item.category.name.capitalize }}</span>
-      <span class="item-tags pt-0 my-4"><span class="text-dark">Стиль: </span>{% comma_separated_styles item.styles.all %}</span>
-      <span class="item-tags pt-0 my-4"><span class="text-dark">Коллекция: </span>{{ item.collection }}</span>
-      <p class="my-4"><span class="sz-20">Дизайнер: </span><a href="{% url 'clothes:designer' pk=item.designer.designer_profile.id %}">{{ item.designer }}</a></p>
+      <span class="item-tags pt-0 my-4">{% comma_separated_styles item.styles.all %}</span>
+      <span class="item-tags pt-0 my-4">{{ item.collection }} Colection</span>
       <p class="my-4"><span class="sz-20">Пол: </span>{{ item.get_gender_display }}</p>
-      <span class="align-items-baseline d-flex">
-        <span class="me-3 cost">{{ item.cost }}₽</span>
+      <span class="align-items-baseline d-flex gap-5">
         <a href="{% url 'clothes:wear_buy' pk=item.id %}" class="btn btn-dark btn-buy">{% trans 'Купить' %}</a>
+        <span class="me-3 cost">{{ item.cost }}₽</span>
       </span>
     </div>
-    <div class="item-description">{{ item.text|safe }}</div>
+    {% if item.text %}
+        <div class="item-description">{{ item.text|replace_newline|safe }}</div>
+    {% endif %}
     {#  <div class="evoluation-form container ms-2">#}
     {#    {% if user.is_authenticated %}#}
     {#      <form method="post">#}
