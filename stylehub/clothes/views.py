@@ -249,7 +249,7 @@ class CreateSomething(
 class Saved(mixins.LoginRequiredMixin, generic.ListView[clothes.models.Item]):
     """gives saved user items"""
 
-    template_name = 'clothes/saved.html'
+    template_name = 'clothes/liked.html'
     context_object_name = 'items'
     login_url = 'admin/'
 

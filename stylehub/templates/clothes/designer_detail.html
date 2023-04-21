@@ -1,45 +1,45 @@
-<form enctype="multipart/form-data" method="post" class="form-example">
- {% csrf_token %}
- {% for field in user_form %}
-          {{ field }}
-          {{ field.label_tag }}
-          <p class="range_label d-inline-block"></p>
-          {% if field.help_text %}
-            <p class='form-text'> {{ field.help_text }} </p>
-          {% endif %}
-          {% for error in field.errors %}
-            <p class='text-danger'> {{ error|escape }} </p>
-          {% endfor %}
-        {% endfor %}
- {% for field in designer_form %}
-          {{ field }}
-          {{ field.label_tag }}
-          <p class="range_label d-inline-block"></p>
-          {% if field.help_text %}
-            <p class='form-text'> {{ field.help_text }} </p>
-          {% endif %}
-          {% for error in field.errors %}
-            <p class='text-danger'> {{ error|escape }} </p>
-          {% endfor %}
+{% extends 'core/base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <form enctype="multipart/form-data" method="post" class="form-example">
+    {% csrf_token %}
+    {% for field in user_form %}
+      <div class="py-2">
+        <span>{{ field.label_tag }}</span>
+        {{ field }}
+      <p class="range_label d-inline-block"></p>
+      {% for error in field.errors %}
+        <p class='text-danger'> {{ error|escape }} </p>
+      {% endfor %}
+      </div>
     {% endfor %}
- <button type="submit" class="btn btn-primary">Отправить</button>
- {% for collection in collections %}
-    <p> {{ collection.name }} </p>
- {% endfor %}
- {% if is_paginated %}
+    <p>Коллекции дизайнера:
+      {% for collection in collections %}
+        {{ collection.name }}&nbsp;&nbsp;&nbsp;
+      {% endfor %}
+    </p>
+    {% for field in designer_form %}
+      <div>
+        <span>{{ field.label_tag }}</span>
+        {{ field }}
+      </div>
+      <p class="range_label d-inline-block"></p>
+    {% endfor %}
+    {% if is_paginated %}
       <div class="pagination">
           <span class="page-links">
               {% if page_obj.has_previous %}
-                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
               {% endif %}
-              <span class="page-current">
+            <span class="page-current">
                   Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
               </span>
-              {% if page_obj.has_next %}
-                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-              {% endif %}
+            {% if page_obj.has_next %}
+              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
           </span>
       </div>
-  {% endif %}
-</form>
-  
+    {% endif %}
+  </form>
+{% endblock %}

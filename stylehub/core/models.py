@@ -32,7 +32,7 @@ class CreatedEdited(models.Model):
     )
 
     class Meta:
-        """settings for creatededited model"""
+        """settings for created-edited model"""
 
         abstract = True
 
@@ -134,7 +134,7 @@ class MainImageMixin(models.Model):
     @property
     def get_url(self) -> str:
         """returns url like 'uploads/...'"""
-        return f'{self.image.url}'
+        return self.image.url
 
     def __str__(self) -> str:
         return str(self.image.url)
