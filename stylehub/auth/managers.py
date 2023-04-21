@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser, AnonymousUser
 from django.contrib.auth.models import UserManager as UserManagerOld
 from django.db import models
-from django.db.models import Avg, Prefetch, QuerySet, aggregates
+from django.db.models import Avg, QuerySet, aggregates
 from django.db.models.functions import Coalesce
 
 
