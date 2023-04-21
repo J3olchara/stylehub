@@ -34,4 +34,4 @@ disable = [
     'W0613', 'W0212', 'W0611', 'R0902', 'W0201',
     'R0901', 'W0718'
 ]
-ignore = ['migrations', 'migrations']
+ignore = ['migrations', 'venv']

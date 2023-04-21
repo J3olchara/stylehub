@@ -80,7 +80,7 @@ class CollectionManager(models.Manager[Any]):
     ) -> models.query.QuerySet[Any]:
         """return popular items based on user last seen styles"""
         item: Any = apps.get_model('clothes', 'Item')
-        qs: models.query.QuerySet[Any] =  self.with_items()
+        qs: models.query.QuerySet[Any] = self.with_items()
         if user.is_authenticated and user.last_styles.count() >= 1:
             qs = qs.filter(styles__in=user.last_styles.all())
         return (
