@@ -126,3 +126,12 @@ li {
     display: block;
     color: #ff2133;
 }
+.head-view-category {
+    text-align: center;
+    width: 100%;
+}
+.head-view-category-detail {
+    font-family: Inter, sans-serif;
+    text-align: center;
+    color: rgba(215,201,217,0.85);
+}
