@@ -1,6 +1,6 @@
 {% load static i18n %}
 
-<div class="card rounded-1 position-relative col col-md-6 col-lg-4 col-xl-3">
+<div class="card rounded-1 position-relative col col-12 col-md-6 col-lg-4 col-xl-3">
   <div id="product-2" class="single-product">
     <div class="card-item-header border-0 bg-gradient px-0">
       <span class="gender {{ item.gender }}">{{ item.gender }}</span>
@@ -10,8 +10,8 @@
           <path d="M0.256 12.16q0.544 2.080 2.080 3.616l13.664 14.144 13.664-14.144q1.536-1.536 2.080-3.616t0-4.128-2.080-3.584-3.584-2.080-4.16 0-3.584 2.080l-2.336 2.816-2.336-2.816q-1.536-1.536-3.584-2.080t-4.128 0-3.616 2.080-2.080 3.584 0 4.128z"></path>
         </svg>
       </a>
-      <img class="card-item-img bg-gradient"
-           src="{% if item.main_image %}{{ item.get_url }}{% else %}{% static 'img/default.png' %}{% endif %}"
+      <img class="card-item-img bg-gradient" width="100%"
+           src="{% if item.image %}{{ item.get_url }}{% else %}{% static 'img/default.png' %}{% endif %}"
            alt="Card image cap">
     </div>
     <div class="card-item-footer border-0 d-flex flex-column justify-content-between mx-3">

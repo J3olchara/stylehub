@@ -11,10 +11,12 @@ body {
     grid-template-rows: auto 1fr auto;
 }
 
-a, button, p, span, h1, h2, h3, h4, h5, h6 {
+a, button, p, div, span, h1, h2, h3, h4, h5, h6 {
     font-family: "Fira Mono Medium", "Helvetica", sans-serif !important;
 }
-
+li {
+    list-style-type: none;
+}
 .footer-logo {
     margin-top: -25px;
 }
@@ -77,6 +79,8 @@ a, button, p, span, h1, h2, h3, h4, h5, h6 {
 
 .card {
     border: rgb(240, 240, 240) solid 1px;
+    display: inline-flex;
+    width: 300px;
 }
 
 .card-footer {
@@ -92,12 +96,40 @@ a, button, p, span, h1, h2, h3, h4, h5, h6 {
     height: 450px;
 }
 .card-item-footer {
-    height: 128px;
+    padding: 10px;
+    height: 125px;
 }
 .card-item-img {
-    height: 322px;
+    height: 325px;
     overflow: hidden;
 }
 .change-language-form {
     margin-left: 30px;
+}
+.collection-container {
+    width: 1300px;
+    height: 575px;
+    border-radius: 20px;
+    padding: 20px;
+    overflow-x: scroll;
+}
+.collection-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+.item-table {
+    row-gap: 50px;
+    column-gap: 100px;
+}
+.category-text {
+    display: block;
+    color: #ff2133;
+}
+.cost, .btn-buy {
+    font-size: 1.5rem!important;
+}
+.sz-20{
+    font-size: 20px;
 }

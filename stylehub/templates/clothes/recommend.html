@@ -1,5 +1,7 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-	{{ collections }}
+  {% for collection in collections %}
+    {% include 'includes/collection_card.html' %}
+  {% endfor %}
 {% endblock %}

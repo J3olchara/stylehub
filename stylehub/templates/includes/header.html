@@ -5,7 +5,7 @@
           align-items-center justify-content-between
           justify-content-xl-around py-1 border-bottom">
     <div class="col-lg-1 mb-2 mb-md-0">
-      <a href="{% url 'home:home' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
+      <a href="{% url 'clothes:home' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
         <img src="{% static 'logo/logo.svg' %}" alt="Логотип" class="header-logo" width="100" height="100">
       </a>
     </div>
@@ -24,21 +24,38 @@
             </div>
           </li>
           <li class="mx-lg-4">
-            <a href="/" class="nav-link link-dark px-2{% if view_name == '' %} active-link{% endif %}">CustomHub</a>
+            <a href="{% url 'custom:home' %}"
+               class="nav-link link-dark px-2{% if view_name == 'home:home' %} active-link{% endif %}">CustomHub</a>
           </li>
+          <li class="mx-lg-4">
+            <a href="{% url 'clothes:recommend' %}"
+               class="nav-link link-dark px-2{% if view_name == 'home:home' %} active-link{% endif %}">{% trans 'Рекомендуем' %}</a>
+          </li>
+          {% if user.is_registered %}
+            <li class="mx-lg-4">
+              <a href="{% url 'auth:logout' %}"
+                 class="nav-link link-dark px-2{% if view_name == 'auth:logout' %} active-link{% endif %}">{% trans 'выйти' %}</a>
+            </li>
+          {% endif %}
           <li class="mx-lg-4">
             <a href="{% url 'about:home' %}"
                class="nav-link link-dark px-2{% if view_name == 'about:about' %} active-link{% endif %}">{% trans 'О нас' %}</a>
           </li>
+          {% if user.is_designer %}
           <li class="mx-lg-4">
-            <a href="/"
-               class="nav-link link-dark px-2{% if view_name == '' %} active-link{% endif %}">{% trans 'FAQs' %}</a>
+            <a href="{% url 'clothes:create' form='collection' %}"
+               class="nav-link px-2{% if view_name == 'clothes:create' %} active-link{% endif %}">{% trans 'Создать коллекцию' %}</a>
           </li>
+          <li class="mx-lg-4">
+            <a href="{% url 'clothes:create' form='item' %}"
+               class="nav-link px-2{% if view_name == 'clothes:create' %} active-link{% endif %}">{% trans 'Создать вещь' %}</a>
+          </li>
+          {% endif %}
         {% endwith %}
       </ul>
     </div>
 
-    <div class="col-lg-3 text-end">
+    <div class="text-end">
       {% if user.is_authenticated %}
         <span class="hearted px-3">
           <a href="{% url 'clothes:liked_items' %}"
@@ -59,6 +76,5 @@
     </div>
   </div>
   <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </header>

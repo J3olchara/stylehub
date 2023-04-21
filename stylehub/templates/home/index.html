@@ -2,7 +2,7 @@
 {% load static i18n %}
 {% block content %}
   <h1 class="text-center mb-4">{% trans 'Главная' %}</h1>
-  <div class="d-flex gap-4">
+  <div class="d-flex gap-4 row justify-content-center">
     {% for item in items %}
       {% include 'includes/card.html' %}
     {% endfor %}
