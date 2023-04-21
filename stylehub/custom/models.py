@@ -25,7 +25,7 @@ class OrderCustom(market.models.Order):
     objects = custom.managers.OrdersManager()
 
     user = models.ForeignKey(
-        verbose_name='заказчик',
+        verbose_name=_('заказчик'),
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
@@ -33,7 +33,7 @@ class OrderCustom(market.models.Order):
     )
 
     designer = models.ForeignKey(
-        verbose_name='исполнитель',
+        verbose_name=_('исполнитель'),
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
@@ -82,8 +82,8 @@ class OrderCustomPicture(market.models.OrderPicture):
 
     order = models.ForeignKey(
         'OrderCustom',
-        verbose_name='заказ',
-        help_text='Номер заказа',
+        verbose_name=_('заказ'),
+        help_text=_('Номер заказа'),
         on_delete=models.CASCADE,
     )
 
@@ -114,15 +114,15 @@ class OrderCustomEvaluation(market.models.Evaluation):
         on_delete=models.SET_NULL,
         null=True,
         related_name='custom_evaluations',
-        verbose_name='пользователь',
-        help_text='пользователь, оставивший отзыв',
+        verbose_name=_('пользователь'),
+        help_text=_('пользователь, оставивший отзыв'),
     )
 
     order = models.ForeignKey(
         to=OrderCustom,
         on_delete=models.CASCADE,
-        verbose_name='заказ',
-        help_text='заказ, к которому оставили отзыв',
+        verbose_name=_('заказ'),
+        help_text=_('заказ, к которому оставили отзыв'),
         related_name='evaluations',
     )
 

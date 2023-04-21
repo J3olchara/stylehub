@@ -28,7 +28,7 @@ class OrderClothes(market.models.Order):
     objects = clothes.managers.OrderClothesManager()
 
     user = models.ForeignKey(
-        verbose_name='заказчик',
+        verbose_name=_('заказчик'),
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
@@ -36,7 +36,7 @@ class OrderClothes(market.models.Order):
     )
 
     designer = models.ForeignKey(
-        verbose_name='исполнитель',
+        verbose_name=_('исполнитель'),
         to='user_auth.User',
         on_delete=models.SET_NULL,
         null=True,
@@ -44,12 +44,12 @@ class OrderClothes(market.models.Order):
     )
 
     sum = models.IntegerField(
-        verbose_name='общая стоимость заказа',
+        verbose_name=_('общая стоимость заказа'),
         null=False,
         blank=False,
     )
     item = models.ForeignKey(
-        to='Item', on_delete=models.PROTECT, verbose_name='Заказанная вещь'
+        to='Item', on_delete=models.PROTECT, verbose_name=_('заказанная вещь')
     )
 
     class Meta:
@@ -78,22 +78,22 @@ class Collection(core.models.MainImageMixin, core.models.CreatedEdited):
 
     styles = models.ManyToManyField(
         market.models.Style,
-        verbose_name='стиль коллекции',
+        verbose_name=_('стиль коллекции'),
         related_name='item_styles',
     )
 
     name = models.CharField(
-        verbose_name='Название коллекции',
+        verbose_name=_('название коллекции'),
         max_length=100,
     )
 
-    text = models.TextField(verbose_name='описание коллекции')
+    text = models.TextField(verbose_name=_('описание коллекции'))
 
     designer = models.ForeignKey(
         to='user_auth.User',
         on_delete=models.CASCADE,
-        verbose_name='дизайнер коллекции',
-        help_text='Укажите кто создал эту коллекцию',
+        verbose_name=_('дизайнер коллекции'),
+        help_text=_('Укажите кто создал эту коллекцию'),
     )
 
     def save(self, *args: Any, **kwargs: Any) -> None:
@@ -149,7 +149,7 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
     )
 
     designer = models.ForeignKey(
-        verbose_name=_('Дизайнер вещи'),
+        verbose_name=_('дизайнер вещи'),
         related_name='item_designer',
         to='user_auth.User',
         on_delete=models.CASCADE,
@@ -195,8 +195,8 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
     collection = models.ForeignKey(
         to=Collection,
         on_delete=models.CASCADE,
-        verbose_name='коллекция, в которой есть этот товар',
-        help_text='показывает участвует ли товар в каких-либо коллекциях',
+        verbose_name=_('коллекция, в которой есть этот товар'),
+        help_text=_('показывает участвует ли товар в каких-либо коллекциях'),
         related_name='items',
     )
 
@@ -251,8 +251,8 @@ class ItemPicture(core.models.MainImageMixin):
     item = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,
-        verbose_name='галерея изображений товара',
-        help_text='добавьте как можно болеее информативные фотографии',
+        verbose_name=_('галерея изображений товара'),
+        help_text=_('добавьте как можно болеее информативные фотографии'),
         related_name='images',
     )
 
@@ -281,8 +281,8 @@ class Evaluation(market.models.Evaluation):
     item = models.ForeignKey(
         to=Item,
         on_delete=models.CASCADE,
-        verbose_name='товар',
-        help_text='товар, к которому оставили отзыв',
+        verbose_name=_('товар'),
+        help_text=_('товар, к которому оставили отзыв'),
         related_name='evaluations',
     )
 
