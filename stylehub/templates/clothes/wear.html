@@ -53,7 +53,9 @@
         <span class="me-3 cost">{{ item.cost }}₽</span>
       </span>
     </div>
-    <div class="item-description">{{ item.text|replace_newline|safe }}</div>
+    {% if item.text %}
+        <div class="item-description">{{ item.text|replace_newline|safe }}</div>
+    {% endif %}
     {#  <div class="evoluation-form container ms-2">#}
     {#    {% if user.is_authenticated %}#}
     {#      <form method="post">#}
