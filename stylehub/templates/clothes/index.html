@@ -4,18 +4,24 @@
 {% block content %}
   {% if designers %}
     <div class="head-view">
-	  <h1 class="head-view-category"><span>{% trans 'Популярные дизайнеры' %}</span><a href="{% url 'clothes:designers' %}" class="to-paginator">Более...</a></h1>
+      <h1 class="head-view-category"><span>{% trans 'Популярные дизайнеры' %}</span><a
+              href="{% url 'clothes:designers' %}" class="to-paginator">Более...</a></h1>
     </div>
-    {% for designer in designers %}
-      <a href="{% url 'clothes:designer' pk=designer.id %}">{{ designer.name }}</a>
-      <p class="head-view-category-detail">
-        {% trans 'Они нравятся большей части нашей аудитории, посмотрите, может вам понравится что то из их работ' %}
-      </p>
-    {% endfor %}
+    <p class="head-view-category-detail">
+      {% trans 'Они нравятся большей части нашей аудитории, посмотрите, может вам понравится что то из их работ' %}
+    </p>
+    <section class="container my-3 d-flex gap-4 row justify-content-start">
+      {% for designer in designers %}
+        {% include 'includes/designer_card.html' %}
+      {% empty %}
+        <h4 class="text-center">На данный момент нет ни одного дизайнера</h4>
+      {% endfor %}
+    </section>
   {% endif %}
   {% if collections %}
     <div class="head-view">
-	  <h1 class="head-view-category"><span>{% trans 'Популярные коллекции' %}</span><a href="{% url 'clothes:collections' %}" class="to-paginator">Более...</a></h1>
+      <h1 class="head-view-category"><span>{% trans 'Популярные коллекции' %}</span><a
+              href="{% url 'clothes:collections' %}" class="to-paginator">Более...</a></h1>
       <p class="head-view-category-detail">
         {% trans 'Эти коллекции больше всего понравились нашим пользователям, попробуйте эти вещи на себе!' %}
       </p>
@@ -24,10 +30,13 @@
       {% if collection.items.count %}
         {% include 'includes/collection_card.html' %}
       {% endif %}
+    {% empty %}
+      <h4 class="text-center">На данный момент нет ни одной коллекции</h4>
     {% endfor %}
   {% endif %}
   <div class="head-view">
-	  <h1 class="head-view-category"><span>{% trans 'Недооценённые работы' %}</span><a href="{% url 'clothes:unpopular' %}" class="to-paginator">Более...</a></h1>
+    <h1 class="head-view-category"><span>{% trans 'Недооценённые работы' %}</span><a
+            href="{% url 'clothes:unpopular' %}" class="to-paginator">Более...</a></h1>
     <p class="head-view-category-detail">
       {% trans 'Мы стараемся помочь каждому дизайнеру стать популярным, поэтому публикуем их работы здесь.' %}
     </p>
@@ -35,6 +44,8 @@
   <div class="item-table d-flex flex-row flex-wrap justify-content-center">
     {% for item in unpopular %}
       {% include 'includes/card.html' %}
+    {% empty %}
+      <h4 class="text-center">Все работы на данный момент популярны)</h4>
     {% endfor %}
   </div>
 {% endblock %}

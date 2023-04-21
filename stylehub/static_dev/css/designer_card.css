@@ -1,0 +1,22 @@
+.designer_card {
+    height: 375px;
+    width: 300px;
+}
+.buyers, .rating {
+    bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.buyers {
+    left: 10px
+}
+
+.rating {
+    right: 10px;
+}
+
+.designer_name {
+    width: 100%;
+    text-align: center;
+    top: 10px;
+}

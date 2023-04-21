@@ -1,0 +1,25 @@
+{% load static i18n %}
+
+<link rel="stylesheet" href="{% static 'css/designer_card.css' %}">
+<div class="card designer_card rounded-1 position-relative col col-12 col-md-6 col-lg-4 col-xl-3">
+  <img src="{% if designer.main_image %}
+              {{ designer.main_image.get_url }}
+            {% else %}
+              https://www.pngarts.com/files/10/Default-Profile-Picture-Transparent-Images.png
+            {% endif %}" alt="Аватарка дизайнера">
+  <h3 class="designer_name position-absolute">
+    {% if designer.first_name %}
+      {{ designer.first_name }}
+      {{ designer.last_name }}
+    {% else %}
+      {{ designer.username }}
+    {% endif %}
+  </h3>
+
+  <div class="buyers position-absolute">
+    <span class="buyers">Покупателей<br>{{ designer.buys }}</span>
+  </div>
+  <div class="rating position-absolute">
+    <span class="buyers">Рейтинг<br>{{ designer.rating }}</span>
+  </div>
+</div>

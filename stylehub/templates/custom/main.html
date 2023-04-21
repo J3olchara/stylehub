@@ -1,15 +1,22 @@
 {% extends 'core/base.html' %}
+{% load static i18n %}
 {% block content %}
-{% if not user.is_designer %}
-	<p>20 лучших дизайнеров</p>
-	{% for item in queryset %}
-		{{ item.username }}
-		{{ item.average_evaluation }}
-	{% endfor %}
-	{% else %}
-	{% for item in queryset %}
-	 {{ item.header }}
-	{% endfor %}
-	<button> Создать </button>	
-	{% endif %}
+  {% if not user.is_designer %}
+    <h1 class="text-center mb-4">20 лучших дизайнеров CustomHub</h1>
+    <p class="head-view-category-detail">
+      {% trans 'Они нравятся большей части нашей аудитории, посмотрите, может вам понравится что то из их работ' %}
+    </p>
+    {% for item in queryset %}
+      {% with item as designer %}
+        {% include 'includes/designer_card.html' %}
+      {% endwith %}
+    {% empty %}
+      <p>На сайте пока нет кастомеров</p>
+    {% endfor %}
+  {% else %}
+    {% for item in queryset %}
+      {{ item.header }}
+    {% endfor %}
+    <button> Создать</button>
+  {% endif %}
 {% endblock %}

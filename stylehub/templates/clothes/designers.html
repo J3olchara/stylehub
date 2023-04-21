@@ -3,7 +3,7 @@
 {% block content %}
   <div class="item-table d-flex flex-row flex-wrap justify-content-center">
     {% for designer in page_obj %}
-{#      {% include 'includes/collection_card.html' %}#}
+      {% include 'includes/designer_card.html' %}
     {% endfor %}
   </div>
   {% include 'includes/paginator.html' %}

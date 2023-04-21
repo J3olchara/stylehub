@@ -191,9 +191,22 @@ class DesignerManager(ActiveUsersManager):
             ),
         )
 
+    def with_buys_and_rating(self) -> QuerySet[AbstractUser]:
+        """returns new queryset of designer users with buys and rating"""
+        evaluation: Any = apps.get_model('clothes', 'Evaluation')
+        return self.with_buys().annotate(
+            rating=Coalesce(
+                aggregates.Avg(
+                    f'item_designer__evaluations'
+                    f'__{evaluation.rating.field.name}'
+                ),
+                0.0,
+            ),
+        )
+
     def top(self) -> QuerySet[Any]:
         """returns new queryset of top designer users"""
-        return self.with_buys().order_by('-buys')
+        return self.with_buys_and_rating().order_by('-rating')
 
     def unpopular(self) -> QuerySet[AbstractUser]:
         """returns new queryset of unpopular designer users"""
