@@ -207,7 +207,7 @@ class Item(core.models.MainImageMixin, core.models.CreatedEdited):
     )
 
     is_published = models.BooleanField(
-        verbose_name='Опубликован?',
+        verbose_name='опубликован?',
         default=True,
     )
 

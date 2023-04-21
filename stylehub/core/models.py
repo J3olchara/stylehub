@@ -32,7 +32,7 @@ class CreatedEdited(models.Model):
     )
 
     class Meta:
-        """settings for creatededited model"""
+        """settings for created-edited model"""
 
         abstract = True
 

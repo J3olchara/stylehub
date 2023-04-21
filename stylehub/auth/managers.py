@@ -10,6 +10,7 @@ from django.db.models import Avg, Prefetch, QuerySet, aggregates
 from django.db.models.functions import Coalesce
 
 
+
 class UserManager(UserManagerOld[AbstractUser]):
     """
     User manager
@@ -205,14 +206,18 @@ class DesignerManager(ActiveUsersManager):
 
     def get_designer_with_collections(self, pk: int) -> AbstractUser:
         """returns designer(user), model prefetching collections"""
+        # print(clothes.models.Item.objects.prefetch_related('designer')[1].__dict__)
+        item: Any = apps.get_model('clothes', 'Item')
         return (
             super()
             .get_queryset()
-            .prefetch_related(
-                Prefetch(
-                    'item_designer__collection',
-                    queryset=super().get_queryset().filter(pk=pk),
-                )
+            .select_related('designer_profile'
+            # .select_related(
+            # .prefetch_related(
+            #     Prefetch(
+            #         f'item_designer__{item.collection.field.name}',
+                #     queryset=clothes.models.Item.objects.filter(designer__designer_profile__id=pk),
+                # )
             )[0]
         )
 

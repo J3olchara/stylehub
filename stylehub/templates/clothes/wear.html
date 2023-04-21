@@ -44,7 +44,7 @@
       <span class="item-category mb-4">{{ item.category.name.capitalize }}</span>
       <span class="item-tags pt-0 my-4"><span class="text-dark">Стиль: </span>{% comma_separated_styles item.styles.all %}</span>
       <span class="item-tags pt-0 my-4"><span class="text-dark">Коллекция: </span>{{ item.collection }}</span>
-      <p class="my-4"><span class="sz-20">Дизайнер: </span><a href="{% url 'clothes:designer' pk=item.designer.id %}">{{ item.designer }}</a></p>
+      <p class="my-4"><span class="sz-20">Дизайнер: </span><a href="{% url 'clothes:designer' pk=item.designer.designer_profile.id %}">{{ item.designer }}</a></p>
       <p class="my-4"><span class="sz-20">Пол: </span>{{ item.get_gender_display }}</p>
       <span class="align-items-baseline d-flex">
         <span class="me-3 cost">{{ item.cost }}₽</span>

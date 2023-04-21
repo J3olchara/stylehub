@@ -121,6 +121,7 @@ class Designer(generic.ListView[clothes.models.Collection]):
         designer = auth.models.User.designers.get_designer_with_collections(
             designer_id
         )
+        print('\t', (designer.item_designer.select_related('collection')))
         return (
             clothes.models.Collection.objects.with_items()
             .filter(designer=designer)
