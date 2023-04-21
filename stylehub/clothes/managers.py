@@ -15,6 +15,10 @@ import auth.models
 class ItemManager(models.Manager[Any]):
     """Item manager for Item model"""
 
+    def get_queryset(self) -> models.QuerySet[Any]:
+        """returns only published items"""
+        return super().get_queryset().filter(is_published=True)
+
     def get_details(self) -> models.QuerySet[Any]:
         """item with evaluations :return"""
         evaluations: Any = apps.get_model('clothes', 'Evaluation')

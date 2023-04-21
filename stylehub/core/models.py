@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.html import mark_safe
 from django.utils.safestring import SafeString
+from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import get_thumbnail
 
 import core.utils
@@ -21,13 +22,13 @@ class CreatedEdited(models.Model):
     """
 
     created: Union[datetime, Any] = models.DateTimeField(
-        verbose_name='дата и время создания',
-        help_text='Когда объект был создан',
+        verbose_name=_('дата и время создания'),
+        help_text=_('Когда объект был создан'),
         auto_now_add=True,
     )
     edited: Union[datetime, Any] = models.DateTimeField(
-        verbose_name='дата и время редактирования',
-        help_text='Когда объект в последний раз редактировали',
+        verbose_name=_('дата и время редактирования'),
+        help_text=_('Когда объект в последний раз редактировали'),
         auto_now=True,
     )
 
@@ -48,15 +49,15 @@ class BaseCreature(CreatedEdited):
     """
 
     name: Union[str, 'models.CharField[Any, Any]'] = models.CharField(
-        verbose_name='название',
-        help_text='Придумайте название',
+        verbose_name=_('название'),
+        help_text=_('Придумайте название'),
         max_length=50,
         blank=False,
         null=False,
     )
     slug: Union[str, 'models.SlugField[Any, Any]'] = models.SlugField(
-        verbose_name='слаг',
-        help_text='Нормализованное имя',
+        verbose_name=_('слаг'),
+        help_text=_('Нормализованное имя'),
         unique=True,
     )
 
@@ -92,8 +93,8 @@ class MainImageMixin(models.Model):
     """
 
     image: 'models.ImageField' = models.ImageField(
-        verbose_name='обложка',
-        help_text='Загрузите фото',
+        verbose_name=_('обложка'),
+        help_text=_('Загрузите фото'),
         upload_to=utils.functions.get_image_upload_location,
         max_length=255,
         null=True,

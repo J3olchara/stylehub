@@ -13,19 +13,29 @@
       <h5><a href="{% url 'home:home' %}" class="link-dark text-decoration-none">StyleHub</a></h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Дизайнеры' %}</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Каталог' %}</a></li>
+        <li class="nav-item mb-2"><a href="{% url 'clothes:home' %}"
+                                     class="nav-link p-0 text-body-secondary">{% trans 'Каталог' %}</a></li>
+        {% if user.is_designer %}
+          <li class="nav-item mb-2">
+            <a href="{% url 'clothes:create' form='collection' %}"
+               class="nav-link p-0 text-body-secondary">{% trans 'Создать коллекцию' %}</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
 
     <div class="col mb-3">
-      <h5>CustomHub</h5>
+      <h5><a href="{% url 'custom:home' %}" class="link-dark text-decoration-none">CustomHub</a></h5>
       <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="{% url 'clothes:home' %}" class="nav-link p-0 text-body-secondary">{% trans 'Кастомеры' %}</a>
+        </li>
+        {% if user.is_designer %}
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Кастомеры' %}</a>
+            <a href="{% url 'clothes:create' form='item' %}"
+               class="nav-link p-0 text-body-secondary">{% trans 'Создать вещь' %}</a>
           </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Создать заказ' %}</a>
-          </li>
+        {% endif %}
       </ul>
     </div>
 
@@ -33,14 +43,18 @@
       <h5>Общее</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Профиль' %}</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'Обратная связь' %}</a></li>
         <li class="nav-item mb-2">
           <a href="{% url 'clothes:liked_items' %}" class="nav-link p-0 text-body-secondary">{% trans 'Избранное' %}</a>
         </li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">{% trans 'FAQs' %}</a></li>
         <li class="nav-item mb-2">
           <a href="{% url 'about:home' %}" class="nav-link p-0 text-body-secondary">{% trans 'О нас' %}</a>
         </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item mb-2">
+            <a href="{% url 'auth:logout' %}"
+               class="nav-link p-0 text-body-secondary">{% trans 'Выйти' %}</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>

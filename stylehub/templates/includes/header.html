@@ -10,7 +10,7 @@
       </a>
     </div>
     <div class="d-md-flex col-5 justify-content-start d-none">
-      <ul class="nav col-md-auto mb-2 justify-content-start gap-lg-4 gap-xl-5 mb-md-0 mx-lg-4">
+      <ul class="nav col-md-auto mb-2 justify-content-start gap-1 gap-lg-4 gap-xl-5 mb-md-0 mx-lg-4">
         {% with request.resolver_match.view_name as view_name %}
           <li class="dropdown show">
             <a href="#"
@@ -24,17 +24,11 @@
           </li>
           <li class="mx-lg-4">
             <a href="{% url 'clothes:recommend' %}"
-               class="nav-link link-dark px-2{% if view_name == 'home:home' %} active-link{% endif %}">{% trans 'Рекомендуем' %}</a>
+               class="nav-link link-dark px-2{% if view_name == 'clothes:recommend' %} active-link{% endif %}">{% trans 'Рекомендуем' %}</a>
           </li>
-          {% if user.is_registered %}
-            <li class="mx-lg-4">
-              <a href="{% url 'auth:logout' %}"
-                 class="nav-link link-dark px-2{% if view_name == 'auth:logout' %} active-link{% endif %}">{% trans 'выйти' %}</a>
-            </li>
-          {% endif %}
           <li class="mx-lg-4">
             <a href="{% url 'about:home' %}"
-               class="nav-link link-dark px-2{% if view_name == 'about:about' %} active-link{% endif %}">{% trans 'О нас' %}</a>
+               class="nav-link link-dark px-2{% if view_name == 'about:home' %} active-link{% endif %}">{% trans 'О нас' %}</a>
           </li>
           {% if user.is_designer %}
           <li class="mx-lg-4">
