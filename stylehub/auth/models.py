@@ -94,19 +94,19 @@ class User(AbstractUser):
     )
 
     saved = models.ManyToManyField(
-        verbose_name=_('Сохранённые пользователем вещи'),
+        verbose_name=_('сохранённые пользователем вещи'),
         to=clothes.models.Item,
         related_name='saved_items',
     )
 
     lovely = models.ManyToManyField(
-        verbose_name=_('Любимые дизайнеры'),
+        verbose_name=_('любимые дизайнеры'),
         to='User',
         related_name='lovely_designers',
     )
 
     failed_attemps = models.IntegerField(
-        verbose_name=_('Неудачных попыток входа'), default=0
+        verbose_name=_('неудачных попыток входа'), default=0
     )
 
     def clean(self) -> None:
@@ -202,20 +202,20 @@ class ActivationToken(models.Model):
     user: Union[User, Any] = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        verbose_name=_('Пользователь'),
+        verbose_name=_('пользователь'),
     )
 
     token: Union[uuid.UUID, Any] = models.UUIDField(
-        verbose_name=_('Ключ активации'), default=uuid.uuid4
+        verbose_name=_('ключ активации'), default=uuid.uuid4
     )
 
     created: Union[datetime, Any] = models.DateTimeField(
-        verbose_name=_('Дата и время создания'),
+        verbose_name=_('дата и время создания'),
         auto_now_add=True,
     )
 
     expire: Union[datetime, Any] = models.DateTimeField(
-        verbose_name=_('Дата и время истечения'),
+        verbose_name=_('дата и время истечения'),
         default=auth.utils.get_token_expire,
     )
 
