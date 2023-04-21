@@ -1,15 +1,17 @@
 {% extends 'core/base.html' %}
 {% block content %}
-{% if not user.is_designer %}
-	<p>20 лучших дизайнеров</p>
-	{% for item in queryset %}
-		{{ item.username }}
-		{{ item.average_evaluation }}
-	{% endfor %}
-	{% else %}
-	{% for item in queryset %}
-	 {{ item.header }}
-	{% endfor %}
-	<button> Создать </button>	
-	{% endif %}
+  {% if not user.is_designer %}
+    <h1 class="text-center mb-4">20 лучших дизайнеров</h1>
+    {% for item in queryset %}
+      {{ item.username }}
+      {{ item.average_evaluation }}
+    {% empty %}
+      <p>На сайте пока нет кастомеров</p>
+    {% endfor %}
+  {% else %}
+    {% for item in queryset %}
+      {{ item.header }}
+    {% endfor %}
+    <button> Создать</button>
+  {% endif %}
 {% endblock %}

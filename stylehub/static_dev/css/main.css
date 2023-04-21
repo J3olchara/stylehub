@@ -107,7 +107,7 @@ li {
     margin-left: 30px;
 }
 .collection-container {
-    width: 1300px;
+    max-width: 1300px;
     height: 575px;
     border-radius: 20px;
     padding: 20px;
