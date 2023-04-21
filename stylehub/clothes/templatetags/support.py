@@ -46,6 +46,12 @@ def get_words_slice(value: str, words_count: str) -> str:
     return ' '.join(words[:-1])
 
 
+@register.filter()
+def replace_newline(value: str) -> str:
+    """replaces \n to <hr>"""
+    return value.replace('\n', '<br>')
+
+
 @register.simple_tag()
 def get_image_px_by_url(
     image: str, px: str, crop: str, quality: int

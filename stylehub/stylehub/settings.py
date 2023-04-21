@@ -39,7 +39,6 @@ AUTH_USER_MODEL = 'user_auth.User'
 
 SITE_EMAIL = 'help@stylehub.com'
 
-
 # --------------------------------------------------------------------
 # ----------------------------Apps Section----------------------------
 # --------------------------------------------------------------------
@@ -113,7 +112,6 @@ TEMPLATES: List[Dict[str, Any]] = [
 
 WSGI_APPLICATION: str = 'stylehub.wsgi.application'
 
-
 # -----------------------------------------------------------------------
 # ----------------------------Database Section---------------------------
 # -----------------------------------------------------------------------
@@ -124,7 +122,6 @@ DATABASES: Dict[str, Dict[str, Union[str, Path]]] = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # -----------------------------------------------------------------------
 # --------------------------USER AUTH Section----------------------------
@@ -196,7 +193,6 @@ STATICFILES_DIRS = [
     STATICFILES_DIR_DEV,
 ]
 
-
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
@@ -224,7 +220,6 @@ LANGUAGES = (
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
 EMAIL_FILE_PATH = BASE_DIR / 'send_email'
-
 
 # -----------------------------------------------------------------------
 # --------------------------Project variables----------------------------

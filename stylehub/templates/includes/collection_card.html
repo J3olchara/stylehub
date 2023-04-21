@@ -1,5 +1,6 @@
+
 <div class="collection-container shadow-lg my-4 my-lg-5"
-     style="{% if collection.image %} background-image: {{ collection.image.get_url }};{% endif %}">
+     style="background-image: {% if collection.image.get_url %}url({{ collection.image.get_url }}){% else %}url(https://ilyakhasanov.ru/images/background/83.png){% endif %};">
   <h2>{{ collection.name }}</h2>
   <span class="collection-block">
   {% for item in collection.items.all %}

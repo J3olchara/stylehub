@@ -1,20 +1,39 @@
 {% extends 'core/base.html' %}
+{% load i18n %}
 
 {% block content %}
-	<h1 class="text-center mb-3">designers</h1>
-  <section class="container my-3 d-flex gap-4 row justify-content-start">
+  {% if designers %}
+    <div class="head-view">
+      <h1 class="head-view-category">{% trans 'Популярные дизайнеры' %}</h1>
+      <p class="head-view-category-detail">
+        {% trans 'Они нравятся большей части нашей аудитории, посмотрите, может вам понравится что то из их работ' %}
+      </p>
+    </div>
+    <section class="container my-3 d-flex gap-4 row justify-content-start">
     {% for designer in designers %}
-      <a href="{% url 'clothes:designer' pk=designer.id %}">{{ designer.first_name }}</a>
       {% include 'includes/designer_card.html' %}
     {% endfor %}
-  </section>
-	<h1 class="text-center mb-3">collections</h1>
-	{% for collection in collections %}
-    {% if collection.items.count %}
-		  {% include 'includes/collection_card.html' %}
-    {% endif %}
-	{% endfor %}
-	<h1>unpopular</h1>
+    </section>
+  {% endif %}
+  {% if collections %}
+    <div class="head-view">
+      <h1 class="head-view-category">{% trans 'Популярные коллекции' %}</h1>
+      <p class="head-view-category-detail">
+        {% trans 'Эти коллекции больше всего понравились нашим пользователям, попробуйте эти вещи на себе!' %}
+      </p>
+    </div>
+    {% for collection in collections %}
+      {% if collection.items.count %}
+        {% include 'includes/collection_card.html' %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <div class="head-view">
+    <h1 class="head-view-category">{% trans 'Недооценённые работы' %}</h1>
+    <p class="head-view-category-detail">
+      {% trans 'Мы стараемся помочь каждому дизайнеру стать популярным, поэтому публикуем их работы здесь.' %}
+    </p>
+  </div>
   <div class="item-table d-flex flex-row flex-wrap justify-content-center">
     {% for item in unpopular %}
       {% include 'includes/card.html' %}
