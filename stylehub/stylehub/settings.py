@@ -171,7 +171,7 @@ ACTIVATION_URL_EXPIRE_TIME = os.getenv(
 # -------------------------Client settings Section-----------------------
 # -----------------------------------------------------------------------
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
 

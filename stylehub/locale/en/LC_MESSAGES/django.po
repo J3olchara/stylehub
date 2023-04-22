@@ -1,0 +1,728 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-22 11:50+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\auth\forms.py:99
+msgid "Запомнить меня"
+msgstr ""
+
+#: .\auth\forms.py:113
+msgid "Username"
+msgstr "Remember me"
+
+#: .\auth\forms.py:119
+msgid "Password"
+msgstr ""
+
+#: .\auth\forms.py:191
+msgid "Ваш email"
+msgstr "Your email"
+
+#: .\auth\models.py:40
+msgid "Не указан"
+msgstr "Not specified"
+
+#: .\auth\models.py:41 .\clothes\models.py:137
+msgid "Мужской"
+msgstr "Male"
+
+#: .\auth\models.py:42 .\clothes\models.py:138
+msgid "Женский"
+msgstr "Female"
+
+#: .\auth\models.py:48 .\clothes\models.py:159
+msgid "пол"
+msgstr "gender"
+
+#: .\auth\models.py:49
+msgid "Укажите ваш пол"
+msgstr "Specify your gender"
+
+#: .\auth\models.py:59
+msgid "email address"
+msgstr ""
+
+#: .\auth\models.py:69
+msgid "последняя посещённая категория"
+msgstr "last visited category"
+
+#: .\auth\models.py:80
+msgid "последние пять посещённых стилей"
+msgstr "the last five visited styles"
+
+#: .\auth\models.py:89
+msgid "пользователь дизайнер?"
+msgstr "is user designer?"
+
+#: .\auth\models.py:91
+msgid "Отвечает на вопрос, пользователь является дизайнером или нет?"
+msgstr ""
+
+#: .\auth\models.py:97
+msgid "сохранённые пользователем вещи"
+msgstr "saved items"
+
+#: .\auth\models.py:103
+msgid "любимые дизайнеры"
+msgstr "lovely designers"
+
+#: .\auth\models.py:109
+msgid "неудачных попыток входа"
+msgstr "failed login attempts"
+
+#: .\auth\models.py:162
+msgid "аватарка дизайнера"
+msgstr "неудачные попытки входа в систему"
+
+#: .\auth\models.py:169
+msgid "картинка на заднем фоне в профиле дизайнера"
+msgstr "a picture in the background in the designer's profile"
+
+#: .\auth\models.py:176
+msgid "информация о дизайнере"
+msgstr "information about the designer"
+
+#: .\auth\models.py:177
+msgid "введите информацию о себе"
+msgstr ""
+
+#: .\auth\models.py:183
+msgid "баланс дизайнера"
+msgstr ""
+
+#: .\auth\models.py:189
+msgid "дизайнер"
+msgstr ""
+
+#: .\auth\models.py:190
+msgid "дизайнеры"
+msgstr ""
+
+#: .\auth\models.py:205 .\custom\models.py:117
+msgid "пользователь"
+msgstr ""
+
+#: .\auth\models.py:209
+msgid "ключ активации"
+msgstr ""
+
+#: .\auth\models.py:213 .\chat\models.py:63 .\core\models.py:25
+msgid "дата и время создания"
+msgstr ""
+
+#: .\auth\models.py:218
+msgid "дата и время истечения"
+msgstr ""
+
+#: .\auth\views.py:51 .\auth\views.py:95
+msgid "Пароль успешно изменён"
+msgstr ""
+
+#: .\auth\views.py:66
+msgid "Письмо с инструкциями по восстановлению пароля отправлено"
+msgstr "An email with instructions for password recovery has been sent"
+
+#: .\auth\views.py:68
+msgid ""
+"Мы отправили вам инструкцию по установке нового пароля на указанный адрес "
+"электронной почты(если в нашей базе данных есть такой адрес). Вы должны "
+"получить ее в ближайшее время."
+msgstr ""
+"We have sent you instructions on how to set a new password to the specified "
+"email address (if there is such an address in our database). You should  get "
+"it soon."
+
+#: .\auth\views.py:74
+msgid ""
+"Если вы не получили письмо, пожалуйста, убедитесь, что вы ввели адрес с "
+"которым Вы зарегистрировались, и проверьте папку со спамом."
+msgstr ""
+
+#: .\auth\views.py:117
+#, fuzzy
+#| msgid "Благодарим за регистрацию на нашем сайте!"
+msgid ""
+"Благодарим за регистрацию на нашем сайте!\n"
+"\n"
+msgstr "Thank you for registering on our website!"
+
+#: .\auth\views.py:124
+msgid "Активация аккаунта"
+msgstr "Account activation"
+
+#: .\auth\views.py:143
+msgid "На вашу электронную отправлена ссылка на активацию аккаунта."
+msgstr "A link to activate your account has been sent to your email."
+
+#: .\auth\views.py:175
+msgid "Ваш аккаунт успешно активирован!"
+msgstr "Your account has been successfully activated!"
+
+#: .\auth\views.py:183
+msgid "Ссылка на активацию аккаунта истекла. Обратитесь к администрации"
+msgstr "The account activation link has expired. Contact the administration"
+
+#: .\chat\models.py:31
+msgid "пользователь отправивший сообщение"
+msgstr ""
+
+#: .\chat\models.py:32
+msgid "какому пользователю принадлежит сообщение"
+msgstr ""
+
+#: .\chat\models.py:42
+msgid "дизайнер отправивший сообщение"
+msgstr ""
+
+#: .\chat\models.py:43
+msgid "какому дизайнеру принадлежит сообщение"
+msgstr ""
+
+#: .\chat\models.py:48
+msgid "приложение к сообщению"
+msgstr ""
+
+#: .\chat\models.py:49
+msgid "Приложите свое вложение к сообщению"
+msgstr ""
+
+#: .\chat\models.py:56
+msgid "текст сообщения"
+msgstr ""
+
+#: .\chat\models.py:57
+msgid "введите текст сообщения"
+msgstr ""
+
+#: .\chat\models.py:64
+msgid "Автоматически выставляется при создании"
+msgstr ""
+
+#: .\clothes\forms.py:97
+msgid "Галерея"
+msgstr "Gallery"
+
+#: .\clothes\forms.py:98
+msgid "Приложите допольнительные фото"
+msgstr "Attach additional photos"
+
+#: .\clothes\models.py:31 .\custom\models.py:28
+msgid "заказчик"
+msgstr "buyer"
+
+#: .\clothes\models.py:39 .\custom\models.py:36
+msgid "исполнитель"
+msgstr "executor"
+
+#: .\clothes\models.py:47
+msgid "общая стоимость заказа"
+msgstr ""
+
+#: .\clothes\models.py:52
+msgid "заказанная вещь"
+msgstr ""
+
+#: .\clothes\models.py:58 .\market\models.py:167
+msgid "заказ одежды"
+msgstr ""
+
+#: .\clothes\models.py:59 .\market\models.py:168
+msgid "заказы одежды"
+msgstr ""
+
+#: .\clothes\models.py:81
+msgid "стиль коллекции"
+msgstr ""
+
+#: .\clothes\models.py:86
+msgid "название коллекции"
+msgstr ""
+
+#: .\clothes\models.py:90
+msgid "описание коллекции"
+msgstr ""
+
+#: .\clothes\models.py:95
+msgid "дизайнер коллекции"
+msgstr ""
+
+#: .\clothes\models.py:96
+msgid "Укажите кто создал эту коллекцию"
+msgstr ""
+
+#: .\clothes\models.py:112
+msgid "коллекция"
+msgstr ""
+
+#: .\clothes\models.py:113
+msgid "коллекции"
+msgstr ""
+
+#: .\clothes\models.py:139
+msgid "Унисекс"
+msgstr "Unisex"
+
+#: .\clothes\models.py:140
+msgid "Детский"
+msgstr ""
+
+#: .\clothes\models.py:144
+msgid "Название товара"
+msgstr ""
+
+#: .\clothes\models.py:146
+msgid "Придумайте не длинное название, передающее основные черты товара"
+msgstr ""
+
+#: .\clothes\models.py:152
+msgid "дизайнер вещи"
+msgstr ""
+
+#: .\clothes\models.py:160
+msgid "Кто будет носить эту вещь?"
+msgstr ""
+
+#: .\clothes\models.py:169
+msgid "стоимость товара"
+msgstr ""
+
+#: .\clothes\models.py:170
+msgid "добавьте стоимость вашего товара"
+msgstr ""
+
+#: .\clothes\models.py:174
+msgid "описание товара"
+msgstr ""
+
+#: .\clothes\models.py:175
+msgid "опишите ваш товар"
+msgstr ""
+
+#: .\clothes\models.py:184
+msgid "категория товара"
+msgstr ""
+
+#: .\clothes\models.py:185
+msgid "указывает на категорию, к которой относится товар"
+msgstr ""
+
+#: .\clothes\models.py:191
+msgid "стиль товара"
+msgstr ""
+
+#: .\clothes\models.py:192
+msgid "указывает к какому стилю принадлежит товар"
+msgstr ""
+
+#: .\clothes\models.py:198
+msgid "коллекция, в которой есть этот товар"
+msgstr ""
+
+#: .\clothes\models.py:199
+msgid "показывает участвует ли товар в каких-либо коллекциях"
+msgstr ""
+
+#: .\clothes\models.py:204
+msgid "куплено раз"
+msgstr ""
+
+#: .\clothes\models.py:205
+msgid "сколько раз купили этот товар"
+msgstr ""
+
+#: .\clothes\models.py:235
+msgid "вещь"
+msgstr ""
+
+#: .\clothes\models.py:236
+msgid "вещи"
+msgstr ""
+
+#: .\clothes\models.py:254
+msgid "галерея изображений товара"
+msgstr ""
+
+#: .\clothes\models.py:255
+msgid "добавьте как можно болеее информативные фотографии"
+msgstr ""
+
+#: .\clothes\models.py:262
+msgid "фотография вещи"
+msgstr ""
+
+#: .\clothes\models.py:263
+msgid "фотографии вещей"
+msgstr ""
+
+#: .\clothes\models.py:284
+msgid "товар"
+msgstr ""
+
+#: .\clothes\models.py:285
+msgid "товар, к которому оставили отзыв"
+msgstr ""
+
+#: .\clothes\models.py:292 .\custom\models.py:132 .\market\models.py:272
+msgid "отзыв"
+msgstr ""
+
+#: .\clothes\models.py:293 .\custom\models.py:133 .\market\models.py:273
+msgid "отзывы"
+msgstr ""
+
+#: .\core\models.py:26
+msgid "Когда объект был создан"
+msgstr ""
+
+#: .\core\models.py:30
+msgid "дата и время редактирования"
+msgstr ""
+
+#: .\core\models.py:31
+msgid "Когда объект в последний раз редактировали"
+msgstr ""
+
+#: .\core\models.py:52
+msgid "название"
+msgstr ""
+
+#: .\core\models.py:53
+msgid "Придумайте название"
+msgstr ""
+
+#: .\core\models.py:59
+msgid "слаг"
+msgstr ""
+
+#: .\core\models.py:60
+msgid "Нормализованное имя"
+msgstr ""
+
+#: .\core\models.py:96
+msgid "обложка"
+msgstr ""
+
+#: .\core\models.py:97
+msgid "Загрузите фото"
+msgstr ""
+
+#: .\custom\forms.py:21
+msgid "Выбранные фото с пинтереста"
+msgstr ""
+
+#: .\custom\models.py:44
+msgid "максимальная сумма заказа"
+msgstr ""
+
+#: .\custom\models.py:45
+msgid "Бюджет пользователя"
+msgstr ""
+
+#: .\custom\models.py:49
+msgid "заголовок"
+msgstr ""
+
+#: .\custom\models.py:50
+msgid "Заголовок заказа"
+msgstr ""
+
+#: .\custom\models.py:57
+msgid "описание желаемого дизайна"
+msgstr ""
+
+#: .\custom\models.py:59
+msgid "Опишите дизайн, добавьте какие-то идеи к выбранному изображению"
+msgstr ""
+
+#: .\custom\models.py:69
+msgid "заказ кастома"
+msgstr ""
+
+#: .\custom\models.py:70
+msgid "заказы кастомов"
+msgstr ""
+
+#: .\custom\models.py:85 .\custom\models.py:124
+msgid "заказ"
+msgstr ""
+
+#: .\custom\models.py:86
+msgid "Номер заказа"
+msgstr ""
+
+#: .\custom\models.py:93
+msgid "фотография заказа кастома"
+msgstr ""
+
+#: .\custom\models.py:94
+msgid "фотографии заказов кастомов"
+msgstr ""
+
+#: .\custom\models.py:118
+msgid "пользователь, оставивший отзыв"
+msgstr ""
+
+#: .\custom\models.py:125
+msgid "заказ, к которому оставили отзыв"
+msgstr ""
+
+#: .\market\models.py:36
+msgid "стиль"
+msgstr ""
+
+#: .\market\models.py:37
+msgid "стили"
+msgstr ""
+
+#: .\market\models.py:71
+msgid "категория одежды"
+msgstr ""
+
+#: .\market\models.py:72
+msgid "категории одежды"
+msgstr ""
+
+#: .\market\models.py:95
+msgid "тип одежды"
+msgstr ""
+
+#: .\market\models.py:96
+msgid "типы одежды"
+msgstr ""
+
+#: .\market\models.py:195
+msgid "корзина"
+msgstr ""
+
+#: .\market\models.py:196
+msgid "корзины"
+msgstr ""
+
+#: .\stylehub\backends.py:55
+msgid "Дорогой "
+msgstr ""
+
+#: .\stylehub\backends.py:60
+msgid ""
+"На вашем аккаунте обнаружена подозрительная активность и нам пришлось его "
+"заморозить.\n"
+"Чтобы снова получить доступ к своему аккаунту перейдите по ссылке:\n"
+msgstr ""
+
+#: .\stylehub\settings.py:212
+msgid "Russian"
+msgstr ""
+
+#: .\stylehub\settings.py:213
+msgid "English"
+msgstr ""
+
+#: .\templates\about\index.html:4 .\templates\includes\footer.html:50
+#: .\templates\includes\header.html:31
+msgid "О нас"
+msgstr "About us"
+
+#: .\templates\about\index.html:6
+msgid ""
+"Мы молодая и великолепная команда программистов, любящих джангу и плов. Наша "
+"компания основана 25 марта 2023 года великолепной командой Яндекса."
+msgstr "We are a young and great team of programmers who love Django and pilaf. Our "
+" company was founded on March 25, 2023 by a great Yandex team."
+
+#: .\templates\auth\login.html:5
+msgid "Sign into your account"
+msgstr ""
+
+#: .\templates\auth\login.html:31
+msgid "Forgot password?"
+msgstr ""
+
+#: .\templates\auth\login.html:36
+msgid "Вы еще не зарегистрировались?"
+msgstr "Have you not registered yet?"
+
+#: .\templates\auth\login.html:37
+msgid "Вход"
+msgstr "Log in"
+
+#: .\templates\auth\password_change.html:5
+msgid "Password change"
+msgstr ""
+
+#: .\templates\auth\password_change.html:18
+#: .\templates\auth\password_reset.html:18
+msgid "Sign in"
+msgstr ""
+
+#: .\templates\auth\password_reset.html:5
+msgid "Password reset"
+msgstr ""
+
+#: .\templates\auth\signup.html:18
+msgid "Sign up"
+msgstr ""
+
+#: .\templates\auth\signup.html:37
+msgid "Register"
+msgstr ""
+
+#: .\templates\clothes\index.html:7
+msgid "Популярные дизайнеры"
+msgstr "Popular designers"
+
+#: .\templates\clothes\index.html:11 .\templates\custom\main.html:7
+msgid ""
+"Они нравятся большей части нашей аудитории, посмотрите, может вам понравится "
+"что то из их работ"
+msgstr ""
+"Most of our audience likes them, look, maybe you will like something from "
+"their works"
+
+#: .\templates\clothes\index.html:23
+msgid "Популярные коллекции"
+msgstr "Popular collections"
+
+#: .\templates\clothes\index.html:26
+msgid ""
+"Эти коллекции больше всего понравились нашим пользователям, попробуйте эти "
+"вещи на себе!"
+msgstr ""
+"Popular collections Our users liked these collections the most, try these  "
+"things for yourself!"
+
+#: .\templates\clothes\index.html:38
+msgid "Недооценённые работы"
+msgstr "Undervalued works"
+
+#: .\templates\clothes\index.html:41
+msgid ""
+"Мы стараемся помочь каждому дизайнеру стать популярным, поэтому публикуем их "
+"работы здесь."
+msgstr ""
+"We try to help every designer become popular, so we publish their works here."
+
+#: .\templates\clothes\liked.html:4
+msgid "Понравившиеся товары"
+msgstr "Products you like"
+
+#: .\templates\clothes\liked.html:9
+msgid "Вы пока не добавили ни одного товара"
+msgstr "You haven't added any products yet"
+
+#: .\templates\clothes\wear.html:54
+msgid "Купить"
+msgstr "Buy"
+
+#: .\templates\core\formpage.html:23
+msgid "Отправить"
+msgstr "Send"
+
+#: .\templates\home\index.html:4
+msgid "Главная"
+msgstr "Main"
+
+#: .\templates\home\index.html:13
+msgid "Наши преимущества"
+msgstr "Our advantages"
+
+
+#: .\templates\home\index.html:16
+msgid "Более двух дней на рынке"
+msgstr "More than two days on the market"
+
+#: .\templates\home\index.html:19
+msgid "Продуманная логистика"
+msgstr "Thoughtful logistics"
+
+#: .\templates\home\index.html:22
+msgid "Доставка до двери в течение трёх дней"
+msgstr "Delivery to the door within three days"
+
+#: .\templates\home\index.html:23
+msgid "Бесплатно доставляем по всему миру"
+msgstr "We deliver all over the world for free"
+
+#: .\templates\home\index.html:24
+msgid "Оплата после примерки"
+msgstr "Payment after fitting"
+
+#: .\templates\home\index.html:29
+msgid "Безопасная оплата"
+msgstr "Secure payment"
+
+#: .\templates\includes\footer.html:15
+msgid "Дизайнеры"
+msgstr "Designers"
+
+#: .\templates\includes\footer.html:17 .\templates\includes\header.html:19
+msgid "Каталог"
+msgstr "Catalog"
+
+#: .\templates\includes\footer.html:21 .\templates\includes\header.html:36
+msgid "Создать коллекцию"
+msgstr "Create a collection"
+
+#: .\templates\includes\footer.html:31
+msgid "Кастомеры"
+msgstr "Customers"
+
+#: .\templates\includes\footer.html:36 .\templates\includes\header.html:40
+msgid "Создать вещь"
+msgstr "Create a thing"
+
+#: .\templates\includes\footer.html:45
+msgid "Профиль"
+msgstr "Profile"
+
+#: .\templates\includes\footer.html:47
+msgid "Избранное"
+msgstr "Liked"
+
+#: .\templates\includes\footer.html:55
+msgid "Выйти"
+msgstr "Log out"
+
+#: .\templates\includes\header.html:21
+msgid "StyleHub"
+msgstr ""
+
+#: .\templates\includes\header.html:22
+msgid "CustomHub"
+msgstr ""
+
+#: .\templates\includes\header.html:27
+msgid "Рекомендуем"
+msgstr "Recommendations"
+
+#: .\templates\includes\header.html:62
+msgid "Войти"
+msgstr "Log in"
+
+#: .\templates\includes\header.html:63
+msgid "Зарегистрироваться"
+msgstr "Sign in"
+
+msgid "Худи"
+msgstr "Hoodie"
+
+msgid "Все работы на данный момент популярны)"
+msgstr "All works are currently popular)"
+
+msgid "Более..."
+msgstr "More..."

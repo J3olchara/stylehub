@@ -5,7 +5,7 @@
   {% if designers %}
     <div class="head-view">
       <h1 class="head-view-category"><span>{% trans 'Популярные дизайнеры' %}</span><a
-              href="{% url 'clothes:designers' %}" class="to-paginator">Более...</a></h1>
+              href="{% url 'clothes:designers' %}" class="to-paginator">{% trans 'Более...' %}</a></h1>
     </div>
     <p class="head-view-category-detail">
       {% trans 'Они нравятся большей части нашей аудитории, посмотрите, может вам понравится что то из их работ' %}
@@ -21,7 +21,7 @@
   {% if collections %}
     <div class="head-view">
       <h1 class="head-view-category"><span>{% trans 'Популярные коллекции' %}</span><a
-              href="{% url 'clothes:collections' %}" class="to-paginator">Более...</a></h1>
+              href="{% url 'clothes:collections' %}" class="to-paginator">{% trans 'Более...' %}</a></h1>
       <p class="head-view-category-detail">
         {% trans 'Эти коллекции больше всего понравились нашим пользователям, попробуйте эти вещи на себе!' %}
       </p>
@@ -36,7 +36,7 @@
   {% endif %}
   <div class="head-view">
     <h1 class="head-view-category"><span>{% trans 'Недооценённые работы' %}</span><a
-            href="{% url 'clothes:unpopular' %}" class="to-paginator">Более...</a></h1>
+            href="{% url 'clothes:unpopular' %}" class="to-paginator">{% trans 'Более...' %}</a></h1>
     <p class="head-view-category-detail">
       {% trans 'Мы стараемся помочь каждому дизайнеру стать популярным, поэтому публикуем их работы здесь.' %}
     </p>

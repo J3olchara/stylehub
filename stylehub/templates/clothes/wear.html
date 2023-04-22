@@ -46,10 +46,10 @@
       <h2 class="designed-by">Designed by: <a class="text-decoration-none designer-url"
                                               href="{% url 'clothes:designer' pk=item.designer.designer_profile.id %}">{{ item.designer }}</a>
       </h2>
-      <span class="item-category mb-4">{{ item.category.name.capitalize }}</span>
+      <span class="item-category mb-4">{% trans item.category.name.capitalize %}</span>
       <span class="item-tags pt-0 my-4">{% comma_separated_styles item.styles.all %}</span>
       <span class="item-tags pt-0 my-4">{{ item.collection }} Colection</span>
-      <p class="my-4"><span class="sz-20">Пол: </span>{{ item.get_gender_display }}</p>
+      <p class="my-4"><span class="sz-20">Пол: </span>{% trans item.get_gender_display %}</p>
       <span class="align-items-baseline d-flex gap-5">
         <a href="{% url 'clothes:wear_buy' pk=item.id %}" class="btn btn-dark btn-buy">{% trans 'Купить' %}</a>
         <span class="me-3 cost">{{ item.cost }}₽</span>
