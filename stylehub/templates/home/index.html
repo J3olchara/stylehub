@@ -2,10 +2,31 @@
 {% load static i18n %}
 {% block content %}
   <h1 class="text-center mb-4">{% trans 'Главная' %}</h1>
-  <div class="d-flex gap-4 row justify-content-center">
+  <section class="d-flex gap-4 row justify-content-center">
     {% for item in items %}
       {% include 'includes/card.html' %}
     {% endfor %}
-  </div>
+  </section>
+{% endblock %}
+{% block wide %}
+  <section class="bg-secondary opportunity">
+    <h1 class="text-white text-center my-4">Наши преимущества</h1>
+  </section>
+  <section class="parallax big-exp">
+    <h2 class="text-white text-center">Более двух дней на рынке</h2>
+  </section>
+  <section class="bg-light opportunity">
+    <h2 class="text-secondary text-center mb-4">Продуманная логистика</h2>
+    <div class="logistics">
+      <ul class="ms-5">
+        <li class="text-secondary my-3 text-start"><span>Доставка до двери в течение трёх дней</span></li>
+        <li class="text-secondary my-3 text-start"><span>Бесплатно доставляем по всему миру</span></li>
+        <li class="text-secondary my-3 text-start"><span>Оплата после примерки</span></li>
+      </ul>
+    </div>
+  </section>
+  <section class="parallax payment">
+    <h2 class="text-white text-center">Безопасная оплата</h2>
+  </section>
 
 {% endblock %}

@@ -157,3 +157,25 @@ li {
 .h-nav {
     margin-left: -300px;
 }
+
+.parallax {
+    padding: 160px;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.big-exp{
+    background-image: url(https://www.dev.meharossii.ru/statics/thumbnails/20/203c16099c7a86b14929271be2c33397.jpg);
+}
+
+.payment {
+    background-image: url(https://finabank.ru/wp-content/uploads/2023/03/POS-Terminal-scaled.jpg);
+}
+
+.opportunity {
+    padding: 7rem 6rem;
+}
+
+.logistics {
+    padding: 0 14rem;
+}
